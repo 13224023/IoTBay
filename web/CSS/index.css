@@ -1,0 +1,84 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 
+    Author     : 
+*/
+h1 {
+    padding: 0px 15px;
+    float: left;
+}
+
+nav {
+    float: right;
+    
+}
+
+nav ul {
+    margin: 0;
+    padding: 15px;
+    list-style: none;
+}
+
+nav li {
+    display: inline-block;
+}
+header {
+    background-image: url('https://miro.medium.com/max/4800/0*Ujfq0bFIEYEoMiEG');
+    
+    
+}
+
+header::after {
+    content: '';
+    display: table;
+    clear: both;
+    
+}
+
+.button {
+        padding: 15px 25px;
+        font-size: 12px;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        /*border-radius: 15px;*/
+        /*box-shadow: 0 9px #999;*/
+        transition-duration: 0.2s;
+        width: 150px;
+}
+
+.button:hover {
+        background-color: #a2a2a2;
+        font-size: 13px;
+}
+
+.button:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+}
+    
+.back {
+        padding: 15px 25px;
+        font-size: 24px;
+        text-align: center;
+        color: #fff;
+        background-color: #4CAF50;
+        background-image: url('https://miro.medium.com/max/4800/0*Ujfq0bFIEYEoMiEG');
+        
+}
+
+
+.container {
+        
+        width: 100%;
+        margin: 0 auto;
+    
+}
