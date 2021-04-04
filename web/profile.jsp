@@ -57,12 +57,12 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><%=customer.getUserFirstName()%></td>
-                                <td><%=customer.getUserLastName()%></td>
-                                <td><%=customer.getPassword()%></td>
-                                <td><%=customer.getEmail()%></td>
-                                <td><%=customer.getBirthday()%></td>
-                                <td><%=customer.getPhone()%></td>
+                                <td data-label="First Name"><%=customer.getUserFirstName()%></td>
+                                <td data-label="Last Name"><%=customer.getUserLastName()%></td>
+                                <td data-label="Password"><%=customer.getPassword()%></td>
+                                <td data-label="Email"><%=customer.getEmail()%></td>
+                                <td data-label="Birthday"><%=customer.getBirthday()%></td>
+                                <td data-label="Phone"><%=customer.getPhone()%></td>
                             </tr>
                             
                         </tbody>

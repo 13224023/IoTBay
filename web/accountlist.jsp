@@ -20,6 +20,10 @@
             int customerListSize = customerList.getCustomerAccountNumber();
         %>
         <nav>
+            <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+                <i class="fas fa-bars"></i>
+            </label>
             <label class="logo">Customer List</label>
             <ul>
                 <li><a href="index.jsp">Back</a></li>
@@ -44,14 +48,14 @@
                     <tbody>
                         <%for (int i = 0; i < customerListSize; i++) {%>
                         <tr>
-                            <td><%=i + 1%></td>
-                            <td><%=customerList.getCustomerByNumber(i).getUsername()%></td>
-                            <td><%=customerList.getCustomerByNumber(i).getPassword()%></td>
-                            <td><%=customerList.getCustomerByNumber(i).getUserFirstName()%></td>
-                            <td><%=customerList.getCustomerByNumber(i).getUserLastName()%></td>
-                            <td><%=customerList.getCustomerByNumber(i).getEmail()%></td>
-                            <td><%=customerList.getCustomerByNumber(i).getBirthday()%></td>
-                            <td><%=customerList.getCustomerByNumber(i).getPhone()%></td>
+                            <td data-label="No."><%=i + 1%></td>
+                            <td data-label="Username"><%=customerList.getCustomerByNumber(i).getUsername()%></td>
+                            <td data-label="Password"><%=customerList.getCustomerByNumber(i).getPassword()%></td>
+                            <td data-label="First Name"><%=customerList.getCustomerByNumber(i).getUserFirstName()%></td>
+                            <td data-label="Last Name"><%=customerList.getCustomerByNumber(i).getUserLastName()%></td>
+                            <td data-label="Email"><%=customerList.getCustomerByNumber(i).getEmail()%></td>
+                            <td data-label="Birthday"><%=customerList.getCustomerByNumber(i).getBirthday()%></td>
+                            <td data-label="Phone"><%=customerList.getCustomerByNumber(i).getPhone()%></td>
                         </tr>
                         <%}%>
                     </tbody>

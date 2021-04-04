@@ -161,9 +161,7 @@ a:hover {
 }
 
 @media (max-width: 858px) {
-    .checkbtn {
-        display: block;
-    }
+    
     ul {
         position: fixed;
         width: 100%;
@@ -190,6 +188,10 @@ a:hover {
     #check:checked ~ ul {
         left: 0;
     }
+    .checkbtn {
+        display: block;
+    }
+    
 }
 
 
