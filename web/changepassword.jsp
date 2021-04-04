@@ -49,7 +49,7 @@
     
     <%if(isCustomerEmpty) {%>
         <h1>Unauthorized action</h1>
-        <button onclick="location.href='http://localhost:8080/assignment1/index.jsp'" class="button">Back to index page</button>
+        <button onclick="location.href='http://localhost:8080/IoTBay/index.jsp'" class="button">Back to index page</button>
     <%}else {%>
         <form class="box" action="changepassword.jsp" method="post" id="change">
             <h1>Password</h1>
@@ -57,7 +57,7 @@
             <input type="password" id="npassword" name="npassword" autocomplete="off" placeholder="New Password" required>
             <input type="password" id="cpassword" name="cpassword" autocomplete="off" placeholder="Confirm New Password" required>
             <input type="submit" form="change" name="change" value="Confirm">
-            <input type="button" value="Back" onclick="location.href='http://localhost:8080/assignment1/profile.jsp'">
+            <input type="button" value="Back" onclick="location.href='http://localhost:8080/IoTBay/profile.jsp'">
             <%if(isChangeButtonClicked) {
                     if (isPasswordUpdated) {%>
                         <p class="successinfo">Your password is updated</p>

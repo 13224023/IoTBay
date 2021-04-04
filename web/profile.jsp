@@ -27,7 +27,7 @@
         
         <%if(isCustomerEmpty) {%>
             <h1>Unauthorized action</h1>
-            <button onclick="location.href='http://localhost:8080/assignment1/index.jsp'" class="button">Back to index page</button>
+            <button onclick="location.href='http://localhost:8080/IoTBay/index.jsp'" class="button">Back to index page</button>
         <%}else{%>
             <nav>
                 <input type="checkbox" id="check">

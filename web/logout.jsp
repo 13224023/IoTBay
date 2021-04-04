@@ -29,11 +29,11 @@
         
         <%if(isCustomerEmpty) {%>
             <h1>Unauthorized action</h1>
-            <button onclick="location.href='http://localhost:8080/assignment1/index.jsp'" class="button">Back to index page</button>
+            <button onclick="location.href='http://localhost:8080/IoTBay/index.jsp'" class="button">Back to index page</button>
         <%}else {%>
             <h1>Logout Page</h1>
             <h2>Your account has been logged out. </h2>
-            <button onclick="location.href='http://localhost:8080/assignment1/index.jsp'" class="button">Back to homepage</button>
+            <button onclick="location.href='http://localhost:8080/IoTBay/index.jsp'" class="button">Back to homepage</button>
         <%}%>
         
         

@@ -66,7 +66,7 @@
         %>
         <%if(isCustomerEmpty) {%>
             <h1>Unauthorized action</h1>
-            <button onclick="location.href='http://localhost:8080/assignment1/index.jsp'" class="button">Back to index page</button>
+            <button onclick="location.href='http://localhost:8080/IoTBay/index.jsp'" class="button">Back to index page</button>
         <%}else {%>
             <form class="box" action="edit.jsp" method="post" id="update">
                 <h1>Edit Profile</h1>
@@ -76,7 +76,7 @@
                 <input type="date" id="birthday" name="birthday" autocomplete="off" placeholder="DD/MM/YYYY">
                 <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="1234567890">
                 <input type="submit" form="update" name="updated" value="Update">
-                <input type="button" value="Back" onclick="location.href='http://localhost:8080/assignment1/profile.jsp'">
+                <input type="button" value="Back" onclick="location.href='http://localhost:8080/IoTBay/profile.jsp'">
                 <%
                 if(isUpdateOn) {
                     if(isUpdateSuccessful) {%>

@@ -22,7 +22,7 @@
             Customer customer = customerList.getLoggedCustomer();
             
             String register = request.getParameter("register");
-            String redirectURL = "http://localhost:8080/assignment1/welcome.jsp";
+            String redirectURL = "http://localhost:8080/IoTBay/welcome.jsp";
             
             boolean isRegisterButtonClicked = register != null ? true : false;
             
@@ -84,7 +84,7 @@
             <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="1234567890" required>
             -->
             <input type="submit" form="register" name="register" value="Register">
-            <input type="button" value="Back" onclick="location.href='http://localhost:8080/assignment1/'">
+            <input type="button" value="Back" onclick="location.href='http://localhost:8080/IoTBay/'">
             <p> Already a Customer? <a href="login.jsp">Login</a></p>
             <%
             if(isRegisterButtonClicked) {
