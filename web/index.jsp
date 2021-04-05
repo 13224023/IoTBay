@@ -29,7 +29,7 @@
             <label for="check" class="checkbtn">
                 <i class="fas fa-bars"></i>
             </label>
-            <label class="logo">IOT Shop</label>
+            <label class="logo">IoTBay Shop</label>
             <ul>
                 <li><a href="login.jsp">Sign in</a></li>
                 <li><a href="register.jsp">Sign up</a></li>
