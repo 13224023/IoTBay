@@ -2,7 +2,6 @@
  * The customer class is to store all customer profile from user input
  */
 package uts.isd.model;
-
 import java.io.Serializable;
 
 
@@ -11,11 +10,12 @@ import java.io.Serializable;
  *
  * @author Administrator
  */
-public class Customer {
+public class Customer implements Serializable {
     private String username;
+    private String userFirstName;
+    private String userLastName;
     private String password;
     private String email;
-    private String gender;
     private String birthday;
     private String phone;
     private boolean isLogged;
@@ -24,7 +24,6 @@ public class Customer {
         username = "";
         password = "";
         email = "";
-        gender = "";
         birthday = "";
         phone = "";
         isLogged = false;
@@ -32,17 +31,33 @@ public class Customer {
     }
     
     //customer constructor is to initialise all fields
-    public Customer(String username, String password, String email, String gender, String birthday, String phone) {
+    public Customer(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.phone = phone;
+        this.userFirstName = "";
+        this.userLastName = "";
+        this.birthday = "";
+        this.phone = "";
         this.isLogged = false;
     }
     
+    public String getUserFirstName() {
+        return userFirstName;
+    }
+
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    public String getUserLastName() {
+        return userLastName;
+    }
+
     //getter and setter in class
+    public void setUserLastName(String userLastName) {
+        this.userLastName = userLastName;
+    }
 
     public String getUsername() {
         return username;
@@ -66,14 +81,6 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getBirthday() {
@@ -100,8 +107,17 @@ public class Customer {
         return this.isLogged;
     }
     
+    public void setProfile(String firstName, String lastName, String mail, String birth, String phone) {
+        this.setUserFirstName(firstName);
+        this.setUserLastName(lastName);
+        this.setEmail(mail);
+        this.setBirthday(birth);
+        this.setPhone(phone);
+    }
+    
+    
     @Override
     public String toString() {
-        return username + " " + password + " " + email + " " + gender + " " + birthday + " " + phone;
+        return username + " " + password + " " + userFirstName + " " + userLastName + " " + email + " " + " " + birthday + " " + phone;
     }
 }

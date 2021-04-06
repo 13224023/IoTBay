@@ -4,72 +4,8 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 
-    Author     : 
-*/
-
-/*
-h1 {
-    padding: 0px 15px;
-    float: left;
-}
-
-nav {
-    float: right;
-    
-}
-
-nav ul {
-    margin: 0;
-    padding: 15px;
-    list-style: none;
-}
-
-nav li {
-    display: inline-block;
-}
-header {
-    background-image: url('https://miro.medium.com/max/4800/0*Ujfq0bFIEYEoMiEG');
-    
-    
-}
-
-header::after {
-    content: '';
-    display: table;
-    clear: both;
-    
-}
-
-.button {
-        padding: 15px 25px;
-        font-size: 12px;
-        text-align: center;
-        cursor: pointer;
-        outline: none;
-        color: #fff;
-        background-color: #4CAF50;
-        border: none;
-        transition-duration: 0.2s;
-        width: 150px;
-}
-
-.button:hover {
-        background-color: #a2a2a2;
-}
-
-.button:active {
-        background-color: #3e8e41;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-}
-
-.container {
-        
-        width: 100%;
-        margin: 0 auto;
-    
-}
+    Created on : 03/04/2021, 3:03:35 PM
+    Author     : Administrator
 */
 
 * {
@@ -84,7 +20,12 @@ header::after {
 
 body {
     font-family: Arial, Helvetica, sans-serif;
+    /*
+    background-color: grey;
     background-image: url('https://miro.medium.com/max/4800/0*Ujfq0bFIEYEoMiEG');
+    */
+    background:linear-gradient(rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 0.5)100%), url('https://miro.medium.com/max/4800/0*Ujfq0bFIEYEoMiEG');
+   
 }
 
 nav {
@@ -124,18 +65,16 @@ nav ul li a {
     text-transform: uppercase;
     
 }
-
 a.active {
-    background: #1b9bff;
-    transition: .5s;
+    
+    
 }
 
 a:hover {
-    /*background: #1b9bff;*/
+    /*background: #17202A;*/
     transition: .5s;
     font-size: 20px;
     text-decoration: underline;
-    
 }
 
 
@@ -165,8 +104,9 @@ a:hover {
 }
 
 @media (max-width: 858px) {
-    .checkbtn {
-        display: block;
+    
+    table {
+        width: 50%;
     }
     ul {
         position: fixed;
@@ -191,11 +131,15 @@ a:hover {
         background: none;
         color: #0082e6;
     }
-    
     #check:checked ~ ul {
         left: 0;
     }
+    .checkbtn {
+        display: block;
+    }
 }
+
+
 
 section {
     /*
@@ -203,4 +147,53 @@ section {
     background-size: cover;
     height: calc(100vh -80px);
     */
+}
+
+.table-style {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.table-style thead tr {
+    background-color: #3CB371;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+    
+}
+
+.table-style th,
+.table-style td {
+    padding: 12px 15px;
+    
+    
+}
+
+.table-style tbody tr {
+    border-bottom: 1px solid #dddddd;
+    
+    
+}
+
+
+.table-style tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+    
+    
+}
+.table-style tbody tr:nth-of-type(odd) {
+    background-color: white;
+    
+    
+}
+
+
+.table-style tbody tr:last-of-type {
+    border-bottom: 2px solid #3CB371;
+    
 }

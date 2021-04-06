@@ -11,6 +11,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Change Password Page</title>
+        <link rel="stylesheet" href="CSS/changepassword.css">
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     </head>
     <body>
         
@@ -47,57 +49,27 @@
     
     <%if(isCustomerEmpty) {%>
         <h1>Unauthorized action</h1>
-        <button onclick="location.href='http://localhost:8080/assignment/index.jsp'" class="button">Back to index page</button>
+        <button onclick="location.href='http://localhost:8080/IOTBay/'" class="button">Back to index page</button>
     <%}else {%>
-        <center>
-            <h1>Change Password</h1>
-            <form action="changepassword.jsp" method="post" id="change">
-                <table>
-                    <tr>
-                        <td>
-                            <label for="ppassword">Current Password</label>
-                        </td>
-                        <td>
-                            <input type="password" id="ppassword" name="ppassword" pattern=".{5,}" title="Five or more characters">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="npassword">New Password</label>
-                        </td>
-                        <td>
-                            <input type="password" id="npassword" name="npassword" pattern=".{5,}" title="Five or more characters">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label for="cpassword">Confirm Password</label>
-                        </td>
-                        <td>
-                            <input type="password" id="cpassword" name="cpassword" pattern=".{5,}" title="Five or more characters">
-                        </td>
-                    </tr>
-                </table>
-                <input type="hidden" name="change" value="change">
-            </form>
-            <div>
-                    <button type="submit" form="change" class="button" name="change" value="change">Confirm</button>
-                    <button onclick="location.href='http://localhost:8080/assignment/profile.jsp'" class="button1">Cancel</button>
-            </div>
-            <div>
-                <%if(isChangeButtonClicked) {
-                    if(isCurrentPasswordWrong) {%>
-                        <p>Sorry, Your current password is wrong</p>
+        <form class="box" action="changepassword.jsp" method="post" id="change">
+            <h1>Password</h1>
+            <input type="password" id="ppassword" name="ppassword" autocomplete="off" placeholder="Current Password" required>
+            <input type="password" id="npassword" name="npassword" autocomplete="off" placeholder="New Password" required>
+            <input type="password" id="cpassword" name="cpassword" autocomplete="off" placeholder="Confirm New Password" required>
+            <input type="submit" form="change" name="change" value="Confirm">
+            <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/profile.jsp'">
+            <%if(isChangeButtonClicked) {
+                    if (isPasswordUpdated) {%>
+                        <p class="successinfo">Your password is updated</p>
+                    <%}else if(isCurrentPasswordWrong) {%>
+                        <p class="errorinfo">Sorry, Your current password is wrong</p>
                     <%}else if(isPasswordsDifference) {%>
-                        <p>Sorry, Your new and confirm passwords are not the same</p>
-                    <%}else if (isPasswordUpdated) {%>
-                        <p>Your password is updated</p>
+                        <p class="errorinfo">Sorry, Your new and confirm passwords are not the same</p>
                     <%}else {%>
-                        <p>Unknown error. Need to check code</p>
+                        <p class="errorinfo">Error. Check code</p>
                     <%}
-                }%>
-            </div>
-        </center>
+            }%>
+        </form>
     <%}%>
     
     </body>

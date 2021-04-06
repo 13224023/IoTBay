@@ -11,10 +11,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="CSS/welcome.css">
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
         <title>Welcome Page</title>
     </head>
     <body>
-        <center>
+        
             <%  
                 //Get customer linked from session
                 CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
@@ -26,14 +27,24 @@
                 boolean isCustomerEmpty = customer == null? true : false;
             %>
                    
-        </center>
+        
         <%if(isCustomerEmpty) {%>
             <h1>Unauthorized action</h1>
-            <button onclick="location.href='http://localhost:8080/assignment/index.jsp'" class="button">Back to index page</button>
+            <button onclick="location.href='http://localhost:8080/IOTBay/'" class="button">Back to index page</button>
         <%}else {%>
-            <h2>Welcome, <%out.println(customer.getUsername());%></h2>
-            <button onclick="location.href='http://localhost:8080/assignment/profile.jsp'" class="button">My profile</button>
-            <button onclick="location.href='http://localhost:8080/assignment/logout.jsp'" class="button">Logout</button>
+        
+            
+            <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <label class="logo">Hi, <%=customer.getUsername()%></label>
+                <ul>
+                    <li><a href="profile.jsp">My Profile</a></li>
+                    <li><a href="logout.jsp">Logout</a></li>
+                </ul>
+            </nav>
         <%}%>
         
         

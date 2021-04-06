@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author Jung
  */
-public class CustomerAccount {
+public class CustomerAccount implements Serializable {
     private LinkedList<Customer> customerList;
 
     //Constructor
@@ -128,7 +128,6 @@ public class CustomerAccount {
                 each.setIsLogged(true);
                 return true;
             }
-        
         }
         return false;
     }

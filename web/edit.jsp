@@ -10,7 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Edit Page</title>
+        <title>Edit Profile Page</title>
+        <link rel="stylesheet" href="CSS/edit.css">
     </head>
     <body>
         <%
@@ -26,6 +27,7 @@
             String pBirthday = customer.getBirthday();
             String pPhone = customer.getPhone();
             
+            
             //The variable is to check user presses update button or not 
             String updated = request.getParameter("updated");
             
@@ -35,21 +37,24 @@
             boolean isUpdateOn = updated != null? true : false;
             
             //The variables is store the inforamtion of success or failure update
-            String successInfo = "Update success.";
-            String failureInfo = "Update Failure! Username already exists";
+            String successInfo = "Successfully update";
+            String failureInfo = "Update Failure! Check the code";
             
             if(isUpdateOn) {
-                    String name = request.getParameter("uname");
+                    String firstName = request.getParameter("fname");
+                    String lastName = request.getParameter("lname");
                     String email = request.getParameter("email");
-                    String gender = request.getParameter("gender");
                     String birthday = request.getParameter("birthday");
                     String phone = request.getParameter("phone");
                     
                     //create an object to initialise customer fields
-                    Customer updatedCustomer = new Customer(name, customer.getPassword(), email, gender, birthday, phone);
+                    Customer updatedCustomer = new Customer(customer.getUsername(), customer.getPassword(), customer.getEmail());
                     
                     //enable the customer logging condition
                     updatedCustomer.setIsLogged(true);
+                    
+                    //update customer profile
+                    updatedCustomer.setProfile(firstName, lastName , email, birthday, phone);
                     
                     //update customer to list and check the functionality is successful or not
                     isUpdateSuccessful = customerList.updateCustomer(customer, updatedCustomer);
@@ -61,68 +66,26 @@
         %>
         <%if(isCustomerEmpty) {%>
             <h1>Unauthorized action</h1>
-            <button onclick="location.href='http://localhost:8080/assignment/index.jsp'" class="button">Back to index page</button>
+            <button onclick="location.href='http://localhost:8080/IOTBay/'" class="button">Back to index page</button>
         <%}else {%>
-            <center>
-                <h1>Edit page </h1>
-                <form action="edit.jsp" method="post" id="update">
-                    <table>
-                        <tr>
-                            <td>
-                                <label for="uname">Username</label>
-                            </td>
-                            <td>
-                                    <input type="text" id="uname" name="uname" placeholder="Your username" pattern="[A-Za-z]{5}" title="Five or more [A-Z,a-z]" value="${pName}">
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                <label for="email">Email</label>
-                            </td>
-                            <td>
-                                <input type="mail" id="email" name="email" placeholder="Your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="characters@characters.domain" value="${pEmail}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Gender
-                            </td>
-                            <td>
-                                <input type="radio" id="male" name="gender" value="male" checked="checked">
-                                <label for="male">Male</label>
-                                <input type="radio" id="female" name="gender" value="female">
-                                <label for="female">Female</label>
-                                <input type="radio" id="other" name="gender" value="other">
-                                <label for="other">Other</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="birthday">Date of birth:</label>
-                            </td>
-                            <td>
-                                <input type="date" id="birthday" name="birthday" value="${pBirthday}">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="phone">Phone Number:</label>
-                            </td>
-                            <td>
-                                <input type="tel" id="phone" placeholder="1234567890" name="phone" pattern="[0-9]{10}" title="Ten numbers" value="${pPhone}">
-                            </td>
-                        </tr>
-                    </table>
-                </form>
-                <div>
-                    <button type="submit" form="update" class="button" name="updated" value="updated">Update</button>
-                    <button onclick="location.href='http://localhost:8080/assignment/profile.jsp'" class="button1">Cancel</button>
-                </div>
-                <div>
-                    <p><span><%=isUpdateOn? isUpdateSuccessful? successInfo: failureInfo : ""%></span></p>
-                </div>
-            </center>
+            <form class="box" action="edit.jsp" method="post" id="update">
+                <h1>Edit Profile</h1>
+                <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First Name">
+                <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last Name">
+                <input type="mail" id="email" name="email" autocomplete="off" placeholder="xxx@xxx.xxx" required>
+                <input type="date" id="birthday" name="birthday" autocomplete="off" placeholder="DD/MM/YYYY">
+                <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="1234567890">
+                <input type="submit" form="update" name="updated" value="Update">
+                <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/profile.jsp'">
+                <%
+                if(isUpdateOn) {
+                    if(isUpdateSuccessful) {%>
+                        <p><%=successInfo%></p>
+                    <%}else {%>
+                        <p class="errorinfo"><%=failureInfo%></p>
+                    <%}%>
+                <%}%>
+            </form>
         <%}%>
             
     </body>

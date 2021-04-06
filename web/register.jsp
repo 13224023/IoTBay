@@ -22,17 +22,17 @@
             Customer customer = customerList.getLoggedCustomer();
             
             String register = request.getParameter("register");
-            String redirectURL = "http://localhost:8080/assignment/welcome.jsp";
+            String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
             
             boolean isRegisterButtonClicked = register != null ? true : false;
             
             boolean registerSuccessful = false;
             
             boolean isCustomerNameExist = false;
-            String customerNameExistInfo = "Sorry, customer name already exists.";
+            String customerNameExistInfo = "Sorry, user name already exists";
             
             boolean passwordsDifferent = false;
-            String passwordDiffInfo = "Error, passwords are different";
+            String passwordDiffInfo = "Sorry, passwords are different";
             
             if(customer != null) {
                 response.sendRedirect(redirectURL);
@@ -42,14 +42,14 @@
                     String uPassword = request.getParameter("upassword");
                     String cPassword = request.getParameter("cupassword");
                     String email = request.getParameter("email");
-                    String gender = request.getParameter("gender");
+                    /*
                     String birthday = request.getParameter("birthday");
                     String phone = request.getParameter("phone");
-                    
+                    */
                     if(uPassword.equals(cPassword)) {
                         if(!customerList.isCustomerNameExist(name)) {
                             //Create a new customer
-                            Customer newCustomer = new Customer(name, uPassword, email, gender, birthday, phone);
+                            Customer newCustomer = new Customer(name, uPassword, email);
                             
                             //Set the customer is logged.
                             newCustomer.setIsLogged(true);
@@ -73,96 +73,34 @@
             }
             
         %>
-        <center> 
-            <div>
-                <h1>IoTBay Registration Page</h1> 
-                <form action="register.jsp" method="post" id="register">
-                    <table>
-                        <tr>
-                            <td>
-                                <label for="uname">Username</label>
-                            </td>
-                            <td>
-                                <input type="text" id="uname" name="uname" pattern="[A-Za-z]{5,}" title="Five or more [A-Z,a-z]">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="upassword">Password</label>
-                            </td>
-                            <td>
-                                <input type="password" id="upassword" name="upassword" pattern=".{5,}" title="Five or more characters">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="cupassword">Confirm Password</label>
-                            </td>
-                            <td>
-                                <input type="password" id="cupassword" name="cupassword" pattern=".{5,}" title="Five or more characters">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="email">Email</label>
-                            </td>
-                            <td>
-                                <input type="mail" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="characters@characters.domain">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Gender
-                            </td>
-                            <td>
-                                <input type="radio" id="male" name="gender" value="male">
-                                <label for="male">Male</label>
-                                <input type="radio" id="female" name="gender" value="female">
-                                <label for="female">Female</label>
-                                <input type="radio" id="other" name="gender" value="other">
-                                <label for="other">Other</label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="birthday">Date of birth:</label>
-                            </td>
-                            <td>
-                                <input type="date" id="birthday" name="birthday">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label for="phone">Phone Number:</label>
-                            </td>
-                            <td>
-                                <input type="tel" id="phone" placeholder="1234567890" name="phone" pattern="[0-9]{10}" title="Ten numbers">
-                            </td>
-                        </tr>
-                    </table> 
-                </form>
-                <button type="submit" form="register" class="button" name="register" value="register">Submit</button>
-                <button onclick="location.href='http://localhost:8080/assignment/'" class="button1">Cancel</button>
-                <div><p>Already a customer? <a href="login.jsp">Login</a></p></div>
-            </div>
-            
-            <!--the information of result of registration -->
+        <form class="box" action="register.jsp" method="post" id="register">
+            <h1>Register</h1>
+            <input type="text" id="uname" name="uname" autocomplete="off" placeholder="Username" required>
+            <input type="password" id="upassword" name="upassword" autocomplete="off" placeholder="Password" required>
+            <input type="password" id="cupassword" name="cupassword" autocomplete="off" placeholder="Confirm Password" required>
+            <input type="mail" id="email" name="email" autocomplete="off" placeholder="xxx@xxx.xxx" required>
+            <!--
+            <input type="date" id="birthday" name="birthday" autocomplete="off" placeholder="DD/MM/YYYY" required>
+            <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="1234567890" required>
+            -->
+            <input type="submit" form="register" name="register" value="Register">
+            <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/'">
+            <p> Already a Customer? <a href="login.jsp">Login</a></p>
             <%
             if(isRegisterButtonClicked) {
                 if(!registerSuccessful) {
                     if(isCustomerNameExist) {%>
-                        <p><%= customerNameExistInfo%></p>
+                        <p class="errorinfo"><%= customerNameExistInfo%></p>
                     <%}else if(passwordsDifferent) {%>
-                        <p><%= passwordDiffInfo%></p>
+                        <p class="errorinfo"><%= passwordDiffInfo%></p>
                     <%}else {%>
-                        <p>Should check the code logic</p>
+                        <p class="errorinfo">Should check the code logic</p>
                     <%}
                 }
             }
             %>
-                                   
-        </center>
-
+        </form>
+        
     </body>
 </html>
 
