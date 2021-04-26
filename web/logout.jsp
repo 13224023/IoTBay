@@ -15,15 +15,13 @@
     </head>
     <body>
         <%
-            CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
-            Customer customer = customerList.getLoggedCustomer();
+            Customer customer = (Customer)session.getAttribute("customer");
             boolean isCustomerEmpty = false;
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
             if(customer == null) {
                 isCustomerEmpty = true;
             }else {
-                customerList.allCustomerLoggedOut();
-                session.setAttribute("customerList", customerList);
+                session.invalidate();
             }
         %>
         
@@ -35,10 +33,5 @@
             <h2>Your account has been logged out. </h2>
             <button onclick="location.href='http://localhost:8080/IOTBay/'" class="button">Back to homepage</button>
         <%}%>
-        
-        
-        
-        
-        
     </body>
 </html>

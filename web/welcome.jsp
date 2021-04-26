@@ -18,10 +18,10 @@
         
             <%  
                 //Get customer linked from session
-                CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
+                //CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
                 
                 //Get the logged customer from the list
-                Customer customer = customerList.getLoggedCustomer();
+                Customer customer = (Customer)session.getAttribute("customer");
                 
                 //Check a logged customer is received or not
                 boolean isCustomerEmpty = customer == null? true : false;

@@ -16,10 +16,10 @@
     <body>
         <%
             //Get data from session
-            CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
+            //CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
             
             //Get data from the object
-            Customer customer = customerList.getLoggedCustomer();
+            Customer customer = (Customer)session.getAttribute("customer");
             
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
             
@@ -69,13 +69,13 @@
                     updatedCustomer.setIsLogged(true);
                     
                     //update customer profile
-                    updatedCustomer.setProfile(firstName, lastName , email, birthday, phone);
+                    isUpdateSuccessful = updatedCustomer.setProfile(firstName, lastName , email, birthday, phone);
                     
                     //update customer to list and check the functionality is successful or not
-                    isUpdateSuccessful = customerList.updateCustomer(customer, updatedCustomer);
+                    //isUpdateSuccessful = customerList.updateCustomer(customer, updatedCustomer);
                     
                     //update session
-                    session.setAttribute("customerList", customerList);
+                    session.setAttribute("customer", updatedCustomer);
                     
             }
         

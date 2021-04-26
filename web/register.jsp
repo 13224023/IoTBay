@@ -21,12 +21,13 @@
     <body class="back">
         <%
             
+            //CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
+            //Customer customer = customerList.getLoggedCustomer();
             
-            
-            CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
-            Customer customer = customerList.getLoggedCustomer();
+            Customer customer = (Customer) session.getAttribute("customer");
             
             String register = request.getParameter("register");
+            
             String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
             
             boolean isRegisterButtonClicked = register != null ? true : false;
@@ -43,99 +44,91 @@
                 response.sendRedirect(redirectURL);
             }else {
                 if(register != null) {
+                    
                     String name = request.getParameter("uname");
                     String uPassword = request.getParameter("upassword");
                     String cPassword = request.getParameter("cupassword");
                     String email = request.getParameter("email");
-                    /*
-                    String birthday = request.getParameter("birthday");
-                    String phone = request.getParameter("phone");
-                    */
+                    
                     if(uPassword.equals(cPassword)) {
-                        if(!customerList.isCustomerNameExist(name)) {
-                            //Create a new customer
-                            Customer newCustomer = new Customer(name, uPassword, email);
+                        PreparedStatement preparedStmt = null;
+                        Connection connection = null;
+                        try {
+                            //STEP 2: Register JDBC driver
+                            Class.forName("org.apache.derby.jdbc.ClientDriver");
+                                
+                            //STEP 3: Open a connection
+                            //Declare variables to store database url, username, and password
+                            String url = "jdbc:derby://localhost:1527/ISD";
+                            String user = "root";
+                            String password = "root";
+                            //Create a connection to access the database
+                            connection = DriverManager.getConnection(url, user, password);
+                                
+                            //STEP 4: Execute a query
+                            //Declare a string to store database query
+                            String query = "INSERT INTO USERS (USERNAME, PASSWORD, USERTYPE, FIRSTNAME, LASTNAME, PHONE, EMAIL, DOB) " +
+                                " VALUES(?,?,?,?,?,?,?,?)";
+                                //Store values into each column
+                            preparedStmt = connection.prepareStatement(query);
+                            preparedStmt.setString(1, name);
+                            preparedStmt.setString(2, uPassword);
+                            preparedStmt.setString(3, "2");
+                            preparedStmt.setString(4, "");
+                            preparedStmt.setString(5, "");
+                            preparedStmt.setString(6, "");
+                            preparedStmt.setString(7, email);
+                            preparedStmt.setString(8, "");
+                                
+                            //Execute the query, then return a value for storing successfully
+                            int row = preparedStmt.executeUpdate();
+                                
                             
-                            //Set the customer is logged.
-                            newCustomer.setIsLogged(true);
+                            //Store the result of registration
+                            registerSuccessful = row == 1? true: false;
                             
-                            //store the result of the registration into variable
-                            registerSuccessful = customerList.setAnCustomer(newCustomer);
                             
-                            Statement statement = null;
-                            Connection connection = null;
-                            try {
-                                //STEP 2: Register JDBC driver
-                                Class.forName("org.apache.derby.jdbc.ClientDriver");
-
-                                String url = "jdbc:derby://localhost:1527/ISD";
-                                String user = "root";
-                                String password = "root";
-                                
-
-                                //STEP 3: Open a connection
-                                connection = DriverManager.getConnection(url, user, password);
-                                
-                                
-
-                                //STEP 4: Execute a query
-                                String query = "INSERT INTO USERS (USERNAME, PASSWORD, USERTYPE, FIRSTNAME, LASTNAME, PHONE, EMAIL, DOB) " +
-                                    " VALUES(?,?,?,?,?,?,?,?)";
-                                
-                                PreparedStatement preparedStmt = connection.prepareStatement(query);
-                                preparedStmt.setString(1, name);
-                                preparedStmt.setString(2, uPassword);
-                                preparedStmt.setString(3, "2");
-                                preparedStmt.setString(4, "");
-                                preparedStmt.setString(5, "");
-                                preparedStmt.setString(6, "");
-                                preparedStmt.setString(7, email);
-                                preparedStmt.setString(8, "");
-                                
-                                int row = preparedStmt.executeUpdate();
-                                
-                                
-                                System.out.println(row);
-                                
-                                connection.close();
-                
-                            }
-                            //handle errors
-                            catch(SQLException se){
-                                //Handle errors for JDBC
-                                se.printStackTrace();
-                            }
-                            catch(Exception e){
-                                //Handle errors for Class.forName
-                                e.printStackTrace();
-                            }
-                            finally{
-                                //finally block used to close resources
-                                try{
-                                   if(statement != null)
-                                      statement.close();
-                                }
-                                catch(SQLException se2){
-                                }// nothing we can do
-                                try{
-                                   if(connection != null)
-                                      connection.close();
-                                }catch(SQLException se){
-                                   se.printStackTrace();
-                                }//end finally try
-                            }//end try
-                            
+                            //Close the connection
+                            connection.close();
                         }
-                        else {
+                        //handle errors
+                        catch(SQLException se){
+                            //Handle errors for JDBC
                             isCustomerNameExist = true;
+                            se.printStackTrace();
                         }
+                        catch(Exception e){
+                            //Handle errors for Class.forName
+                            isCustomerNameExist = true;
+                            e.printStackTrace();
+                        }
+                        finally{
+                            //finally block used to close resources
+                            try{
+                                if(preparedStmt != null)
+                                    preparedStmt.close();
+                            }
+                            catch(SQLException se2){
+                            }// nothing we can do
+                            try{
+                                if(connection != null)
+                                    connection.close();
+                            }
+                            catch(SQLException se){
+                                isCustomerNameExist = true;
+                                se.printStackTrace();
+                            }//end finally try
+                        }//end try
                     }
                     else {
                         passwordsDifferent = true;
                     }
                     
                     if(registerSuccessful) {
-                        session.setAttribute("customerList", customerList);
+                        //session.setAttribute("customerList", customerList);
+                        Customer newCustomer = new Customer(name, uPassword, email);
+                        newCustomer.setIsLogged(true);
+                        session.setAttribute("customer", newCustomer);
                         response.sendRedirect(redirectURL);
                     }
                 }

@@ -16,10 +16,10 @@
     <body>
         <%
             //Get a customer list from the customer list
-            CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
+            //CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
             
             //Get a logged customer
-            Customer customer = customerList.getLoggedCustomer();
+            Customer customer = (Customer)session.getAttribute("customer");
             
             //Check a logged customer is received or not
             boolean isCustomerEmpty = customer == null? true : false;

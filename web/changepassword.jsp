@@ -17,12 +17,16 @@
     <body>
         
     <%
-        CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
-        Customer customer = customerList.getLoggedCustomer();
+        //CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
+        //Customer customer = customerList.getLoggedCustomer();
+        
+        //Get data from the object
+        Customer customer = (Customer)session.getAttribute("customer");
+        
         String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
         
         String change = request.getParameter("change");
-        String username = customer.getUsername();
+        //String username = customer.getUsername();
         
         boolean isCustomerEmpty = customer != null? false : true;
         boolean isChangeButtonClicked = change != null? true : false;
@@ -35,10 +39,10 @@
             String cPassword = request.getParameter("cpassword");
             if(customer.getPassword().equals(pPassword)) {
                 if(nPassword.equals(cPassword)) {
-                    Customer updateCustomer = customer;
-                    updateCustomer.setPassword(nPassword);
-                    isPasswordUpdated = customerList.updateCustomer(customer, updateCustomer);
-                    session.setAttribute("customerList", customerList);
+                    //Customer updateCustomer = customer;
+                    isPasswordUpdated = customer.setPassword(nPassword);
+                    //isPasswordUpdated = customerList.updateCustomer(customer, updateCustomer);
+                    session.setAttribute("customer", customer);
                 }else {
                     isPasswordsDifference = true;
                 }
