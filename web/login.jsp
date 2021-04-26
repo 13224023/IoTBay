@@ -22,7 +22,6 @@
             
             boolean isCustomerEmpty = customer == null? true : false;
             boolean isLoginButtonClicked = login != null? true : false;
-            
             boolean loginSuccessful = false;
             
             if(!isCustomerEmpty) {

@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
+<%--//STEP 1. Import required packages --%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     
@@ -18,6 +20,9 @@
     </head>
     <body class="back">
         <%
+            
+            
+            
             CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
             Customer customer = customerList.getLoggedCustomer();
             
@@ -56,6 +61,70 @@
                             
                             //store the result of the registration into variable
                             registerSuccessful = customerList.setAnCustomer(newCustomer);
+                            
+                            Statement statement = null;
+                            Connection connection = null;
+                            try {
+                                //STEP 2: Register JDBC driver
+                                Class.forName("org.apache.derby.jdbc.ClientDriver");
+
+                                String url = "jdbc:derby://localhost:1527/ISD";
+                                String user = "root";
+                                String password = "root";
+                                
+
+                                //STEP 3: Open a connection
+                                connection = DriverManager.getConnection(url, user, password);
+                                
+                                
+
+                                //STEP 4: Execute a query
+                                String query = "INSERT INTO USERS (USERNAME, PASSWORD, USERTYPE, FIRSTNAME, LASTNAME, PHONE, EMAIL, DOB) " +
+                                    " VALUES(?,?,?,?,?,?,?,?)";
+                                
+                                PreparedStatement preparedStmt = connection.prepareStatement(query);
+                                preparedStmt.setString(1, name);
+                                preparedStmt.setString(2, uPassword);
+                                preparedStmt.setString(3, "2");
+                                preparedStmt.setString(4, "");
+                                preparedStmt.setString(5, "");
+                                preparedStmt.setString(6, "");
+                                preparedStmt.setString(7, email);
+                                preparedStmt.setString(8, "");
+                                
+                                int row = preparedStmt.executeUpdate();
+                                
+                                
+                                System.out.println(row);
+                                
+                                connection.close();
+                
+                            }
+                            //handle errors
+                            catch(SQLException se){
+                                //Handle errors for JDBC
+                                se.printStackTrace();
+                            }
+                            catch(Exception e){
+                                //Handle errors for Class.forName
+                                e.printStackTrace();
+                            }
+                            finally{
+                                //finally block used to close resources
+                                try{
+                                   if(statement != null)
+                                      statement.close();
+                                }
+                                catch(SQLException se2){
+                                }// nothing we can do
+                                try{
+                                   if(connection != null)
+                                      connection.close();
+                                }catch(SQLException se){
+                                   se.printStackTrace();
+                                }//end finally try
+                            }//end try
+                            
                         }
                         else {
                             isCustomerNameExist = true;

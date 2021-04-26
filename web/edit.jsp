@@ -21,11 +21,17 @@
             //Get data from the object
             Customer customer = customerList.getLoggedCustomer();
             
+            String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
+            
             //Store user info into variables
-            String pName = customer.getUsername();
+            //String pName = customer.getUsername();
+            String pFirstName = customer.getUserFirstName();
+            String pLastName = customer.getUserLastName();
             String pEmail = customer.getEmail();
             String pBirthday = customer.getBirthday();
             String pPhone = customer.getPhone();
+            
+            
             
             
             //The variable is to check user presses update button or not 
@@ -41,11 +47,20 @@
             String failureInfo = "Update Failure! Check the code";
             
             if(isUpdateOn) {
+                    //get data from html form
                     String firstName = request.getParameter("fname");
                     String lastName = request.getParameter("lname");
                     String email = request.getParameter("email");
                     String birthday = request.getParameter("birthday");
                     String phone = request.getParameter("phone");
+                    
+                    //update variables
+                    pFirstName = firstName;
+                    pLastName = lastName;
+                    pEmail = email;
+                    pBirthday = birthday;
+                    pPhone = phone;
+                    
                     
                     //create an object to initialise customer fields
                     Customer updatedCustomer = new Customer(customer.getUsername(), customer.getPassword(), customer.getEmail());
@@ -63,18 +78,18 @@
                     session.setAttribute("customerList", customerList);
                     
             }
-        %>
-        <%if(isCustomerEmpty) {%>
-            <h1>Unauthorized action</h1>
-            <button onclick="location.href='http://localhost:8080/IOTBay/'" class="button">Back to index page</button>
-        <%}else {%>
+        
+            if(isCustomerEmpty) {
+                response.sendRedirect(redirectURL);
+        
+            }else {%>
             <form class="box" action="edit.jsp" method="post" id="update">
                 <h1>Edit Profile</h1>
-                <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First Name">
-                <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last Name">
-                <input type="mail" id="email" name="email" autocomplete="off" placeholder="xxx@xxx.xxx" required>
-                <input type="date" id="birthday" name="birthday" autocomplete="off" placeholder="DD/MM/YYYY">
-                <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="1234567890">
+                <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First Name" value="<%=pFirstName%>">
+                <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last Name" value="<%=pLastName%>">
+                <input type="mail" id="email" name="email" autocomplete="off" placeholder="Email" value="<%=pEmail%>" required>
+                <input type="date" id="birthday" name="birthday" autocomplete="off" value="<%=pBirthday%>" required>
+                <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="Phone Number" value="<%=pPhone%>">
                 <input type="submit" form="update" name="updated" value="Update">
                 <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/profile.jsp'">
                 <%
