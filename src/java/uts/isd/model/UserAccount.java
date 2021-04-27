@@ -10,74 +10,74 @@ import java.util.*;
  *
  * @author Jung
  */
-public class CustomerAccount implements Serializable {
-    private LinkedList<Customer> customerList;
+public class UserAccount implements Serializable {
+    private LinkedList<User> userList;
 
     //Constructor
-    public CustomerAccount() {
-        customerList = new LinkedList<Customer>();
+    public UserAccount() {
+        userList = new LinkedList<User>();
     }
     
     //Setters
-    public boolean setAnCustomer(Customer newCustomer) {
+    public boolean setAnUser(User newCustomer) {
         if (!isCustomerExist(newCustomer)) {
-            customerList.add(newCustomer);
+            userList.add(newCustomer);
             return true;
         }
         return false;
             
     }
     
-    public boolean deleteCustomer(Customer customer) {
-        for(Customer each: customerList) 
+    public boolean deleteAnUser(User customer) {
+        for(User each: userList) 
             if(isMatchedCustomer(each, customer)) {
-                customerList.remove(customer);
+                userList.remove(customer);
                 return true;
             }
         return false; 
     }
     
-    public boolean updateCustomer(Customer oldProfile, Customer newProfile) {
+    public boolean updateUser(User oldProfile, User newProfile) {
         
         //remove old customer profile from the customer account list
-        customerList.remove(oldProfile);
+        userList.remove(oldProfile);
         
         //check updated customer username is existed in list or not
         //if not, add updated customer into list
         if(!isCustomerExist(newProfile)) {
-            customerList.add(newProfile);
+            userList.add(newProfile);
             return true;
         }
         //otherwise, add old profile back into list
-        customerList.add(oldProfile);
+        userList.add(oldProfile);
         return false;
     }
     
         
     
     //Getters
-    public Customer getAnCustomer(Customer customer) {
-        for(Customer each: customerList) 
+    public User getAnUser(User customer) {
+        for(User each: userList) 
             if(each.getUsername().equals(customer.getUsername()) && each.getPassword().equals(customer.getPassword())) 
                 return each;
         return null;
     }
     
-    public Customer getLoggedCustomer() {
-        for(Customer each: customerList)
+    public User getLoggedUser() {
+        for(User each: userList)
             if(each.getIsLogged() == true)
                 return each;
         return null;
     }
     
-    public int getCustomerAccountNumber() {
-        return customerList.size();
+    public int getUserAccountNumber() {
+        return userList.size();
     }
     
     //Comparison
     //the method is to check the customer username already exists in the customer list
-    public boolean isCustomerExist(Customer customer) {
-        for(Customer each: customerList) {
+    public boolean isCustomerExist(User customer) {
+        for(User each: userList) {
             if(each.getUsername().equals(customer.getUsername())) {
                 return true;
             } 
@@ -86,15 +86,15 @@ public class CustomerAccount implements Serializable {
     }
     
     //the method is to check username and pssword is matched the current input from user.
-    public boolean isMatchedCustomer(Customer customer, Customer match) {
+    public boolean isMatchedCustomer(User customer, User match) {
         if(!customer.getUsername().equals(match.getUsername()))
             return false;
         if(!customer.getPassword().equals(match.getUsername()))
             return false;
         return true;
     }
-    public Customer getMatchedUsernamePassword(String username, String password) {
-        for(Customer each: customerList) {
+    public User getMatchedUsernamePassword(String username, String password) {
+        for(User each: userList) {
             if(each.getUsername().equals(username) && each.getPassword().equals(password)){
                 each.setIsLogged(true);
                 return each;
@@ -104,26 +104,26 @@ public class CustomerAccount implements Serializable {
         return null;
     }
     
-    public Customer findCustomerLoggedOn() {
-        for (Customer each: customerList) {
+    public User findCustomerLoggedOn() {
+        for (User each: userList) {
             if(each.getIsLogged())
                return each;
         }
         return null;
     }
     public void allCustomerLoggedOut() {
-        for (Customer each: customerList) {
+        for (User each: userList) {
             each.setIsLogged(false);
         }
     }
     
-    public Customer getCustomerByNumber(int index) {
-        return customerList.get(index);
+    public User getCustomerByNumber(int index) {
+        return userList.get(index);
     
     }
     
     public boolean setCustomerLogged(String username, String password) {
-        for(Customer each: customerList) {
+        for(User each: userList) {
             if(each.getUsername().equals(username) && each.getPassword().equals(password)) {
                 each.setIsLogged(true);
                 return true;
@@ -134,7 +134,7 @@ public class CustomerAccount implements Serializable {
     
     public boolean isCustomerNameExist(String name) {
     
-        for(Customer each: customerList) {
+        for(User each: userList) {
             if(each.getUsername().equals(name)) {
                 return true;
             }

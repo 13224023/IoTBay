@@ -15,17 +15,15 @@
     </head>
     <body>
         <%
-            Customer customer = (Customer)session.getAttribute("customer");
-            boolean isCustomerEmpty = false;
+            User user = (User)session.getAttribute("user");
+            boolean isUserNull = user == null? true: false;
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-            if(customer == null) {
-                isCustomerEmpty = true;
-            }else {
+            if(!isUserNull) {
                 session.invalidate();
             }
         %>
         
-        <%if(isCustomerEmpty) {
+        <%if(isUserNull) {
             response.sendRedirect(redirectURL);
         %>
         <%}else {%>

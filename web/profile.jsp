@@ -19,16 +19,16 @@
             //CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
             
             //Get a logged customer
-            Customer customer = (Customer)session.getAttribute("customer");
+            User user = (User) session.getAttribute("user");
             
             //Check a logged customer is received or not
-            boolean isCustomerEmpty = customer == null? true : false;
+            boolean isUserNull = user == null? true : false;
             
             //declare URL for being used by redirect
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
         %>
         
-        <%if(isCustomerEmpty) {
+        <%if(isUserNull) {
             response.sendRedirect(redirectURL);
         %>
             <!--
@@ -67,27 +67,27 @@
                         <tbody>
                             <tr>
                                 <td class="table-header">First Name</td>
-                                <td data-label="First Name"><%=customer.getUserFirstName()%></td>
+                                <td data-label="First Name"><%=user.getUserFirstName()%></td>
                             </tr>
                             <tr>
                                 <td class="table-header">Last Name</td>
-                                <td data-label="Last Name"><%=customer.getUserLastName()%></td>
+                                <td data-label="Last Name"><%=user.getUserLastName()%></td>
                             </tr>
                             <tr>
                                 <td class="table-header">Password</td>
-                                <td data-label="Password"><%=customer.getPassword()%></td>
+                                <td data-label="Password"><%=user.getPassword()%></td>
                             </tr>
                             <tr>
                                 <td class="table-header">Email</td>
-                                <td data-label="Email"><%=customer.getEmail()%></td>
+                                <td data-label="Email"><%=user.getEmail()%></td>
                             </tr>
                             <tr>
                                 <td class="table-header">Birthday</td>
-                                <td data-label="Birthday"><%=customer.getBirthday()%></td>
+                                <td data-label="Birthday"><%=user.getBirthday()%></td>
                             </tr>   
                             <tr>   
                                 <td class="table-header">Phone</td>
-                                <td data-label="Phone"><%=customer.getPhone()%></td>
+                                <td data-label="Phone"><%=user.getPhone()%></td>
                             </tr>
                         </tbody>
                     </table>
@@ -95,7 +95,7 @@
             </center>
             <!--
             <header>
-                <h1>Welcome, <%= customer%></h1>
+                <h1>Welcome, <%= user%></h1>
                 <div class="container">
                     <nav>
                         <ul>

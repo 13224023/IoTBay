@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
+<%--//STEP 1. Import required packages --%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,8 +18,81 @@
     </head>
     <body>
         <%
-            CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
-            int customerListSize = customerList.getCustomerAccountNumber();
+            //CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
+            //int customerListSize = customerList.getCustomerAccountNumber();
+            
+            
+            
+            PreparedStatement preparedStmt = null;
+            Connection connection = null;
+            ResultSet resultSet = null;
+                try {
+                    //STEP 2: Register JDBC driver
+                    Class.forName("org.apache.derby.jdbc.ClientDriver");
+                                
+                    //STEP 3: Open a connection
+                    //Declare variables to store database url, username, and password
+                    String url = "jdbc:derby://localhost:1527/ISD";
+                    String databaseUser = "root";
+                    String databasePassword = "root";
+                    //Create a connection to access the database
+                    connection = DriverManager.getConnection(url, databaseUser, databasePassword);
+                                
+                    //STEP 4: Execute a query
+                    //Declare a string to store database query
+                    String query = "SELECT * FROM USERS";
+                    //Store values into each column
+                    preparedStmt = connection.prepareStatement(query);
+                                                                                    
+                    //Execute the query and get a reponse from database
+                    resultSet = preparedStmt.executeQuery();
+                    
+                    System.out.println("Get account data.");
+                    while(resultSet.next()) {
+                        Customer getCustomer = new Customer(
+                                    resultSet.getString(1),
+                                    resultSet.getString(2), 
+                                    resultSet.getString(3), 
+                                    resultSet.getString(4), 
+                                    resultSet.getString(5), 
+                                    resultSet.getString(6), 
+                                    resultSet.getString(7), 
+                                    resultSet.getString(8));
+                    }
+                                
+                                
+                                
+                                
+                    //Close the connection
+                    connection.close();
+                    resultSet.close();
+                        
+                    }
+                    //handle errors
+                    catch(SQLException se){
+                        //Handle errors for JDBC
+                        se.printStackTrace();
+                    }
+                    catch(Exception e){
+                        //Handle errors for Class.forName
+                        e.printStackTrace();
+                    }
+                    finally{
+                        //finally block used to close resources
+                        try{
+                            if(preparedStmt != null)
+                                preparedStmt.close();
+                            }
+                        catch(SQLException se2){
+                        }// nothing we can do
+                        try{
+                            if(connection != null)
+                                connection.close();
+                            }catch(SQLException se){
+                                se.printStackTrace();
+                            }//end finally try
+                        }//end try
+                    }
         %>
         <nav>
             <input type="checkbox" id="check">
@@ -39,15 +114,8 @@
                                 <th>No</th>
                                 <th>Username</th>
                                 <th>Password</th>
-                                <!--
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                -->
                                 <th>Email</th>
-                                <!--
-                                <th>Birthday</th>
-                                <th>Phone</th>
-                                -->
+                                
                             </tr>
                         </thead>
                         <tbody>

@@ -17,16 +17,18 @@
     </head>
     <body>
         <%
-            CustomerAccount customerList = (CustomerAccount) session.getAttribute("customerList");
-            Customer customer = customerList.getLoggedCustomer();
+            //User customerList = (User) session.getAttribute("customerList");
+            //Customer customer = customerList.getLoggedCustomer();
+            
+            User user = (User) session.getAttribute("user");
             String login = request.getParameter("login");
             String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
             
-            boolean isCustomerEmpty = customer == null? true : false;
+            boolean isUserNull = user == null? true : false;
             boolean isLoginButtonClicked = login != null? true : false;
             boolean loginSuccessful = false;
             
-            if(!isCustomerEmpty) {
+            if(!isUserNull) {
                 response.sendRedirect(redirectURL);
             }else {
                 if(login != null) {
@@ -68,7 +70,7 @@
                                 
                         if(resultSet.next()) {
                             System.out.println("Get account data.");
-                            Customer getCustomer = new Customer(
+                            User getUser = new User(
                                     resultSet.getString(1),
                                     resultSet.getString(2), 
                                     resultSet.getString(3), 
@@ -77,18 +79,8 @@
                                     resultSet.getString(6), 
                                     resultSet.getString(7), 
                                     resultSet.getString(8));
-                            /*
-                            System.out.println(resultSet.getString(1));
-                            System.out.println(resultSet.getString(2));
-                            System.out.println(resultSet.getString(3));
-                            System.out.println(resultSet.getString(4));
-                            System.out.println(resultSet.getString(5));
-                            System.out.println(resultSet.getString(6));
-                            System.out.println(resultSet.getString(7));
-                            System.out.println(resultSet.getString(8));
-                            */
                             loginSuccessful = true;
-                            session.setAttribute("customer", getCustomer);
+                            session.setAttribute("user", getUser);
                             response.sendRedirect(redirectURL);
                         }
                                 

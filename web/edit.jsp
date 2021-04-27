@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
+<%--//STEP 1. Import required packages --%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,34 +21,44 @@
             //CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
             
             //Get data from the object
-            Customer customer = (Customer)session.getAttribute("customer");
-            
-            String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-            
-            //Store user info into variables
-            //String pName = customer.getUsername();
-            String pFirstName = customer.getUserFirstName();
-            String pLastName = customer.getUserLastName();
-            String pEmail = customer.getEmail();
-            String pBirthday = customer.getBirthday();
-            String pPhone = customer.getPhone();
-            
-            
-            
+            User user = (User) session.getAttribute("user");
             
             //The variable is to check user presses update button or not 
             String updated = request.getParameter("updated");
             
             //The variables is to check to disply the update result
-            boolean isCustomerEmpty = customer == null? true: false;
+            boolean isUserNull = user == null? true: false;
             boolean isUpdateSuccessful = false;
             boolean isUpdateOn = updated != null? true : false;
+            
+            String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
+            
+            
+            
+            
+            //String pName = customer.getUsername();
+            String userName = user.getUsername();
+            String pFirstName;
+            String pLastName;
+            String pEmail;
+            String pBirthday;
+            String pPhone;
+            
+            
+            //Store user info into variables
+            pFirstName = user.getUserFirstName();
+            pLastName = user.getUserLastName();
+            pEmail = user.getEmail();
+            pBirthday = user.getBirthday();
+            pPhone = user.getPhone();
+            
+              
             
             //The variables is store the inforamtion of success or failure update
             String successInfo = "Successfully update";
             String failureInfo = "Update Failure! Check the code";
             
-            if(isUpdateOn) {
+            if(isUpdateOn && !isUserNull) {
                     //get data from html form
                     String firstName = request.getParameter("fname");
                     String lastName = request.getParameter("lname");
@@ -54,6 +66,7 @@
                     String birthday = request.getParameter("birthday");
                     String phone = request.getParameter("phone");
                     
+                                        
                     //update variables
                     pFirstName = firstName;
                     pLastName = lastName;
@@ -62,24 +75,86 @@
                     pPhone = phone;
                     
                     
-                    //create an object to initialise customer fields
-                    Customer updatedCustomer = new Customer(customer.getUsername(), customer.getPassword(), customer.getEmail());
                     
-                    //enable the customer logging condition
-                    updatedCustomer.setIsLogged(true);
                     
-                    //update customer profile
-                    isUpdateSuccessful = updatedCustomer.setProfile(firstName, lastName , email, birthday, phone);
+                    PreparedStatement preparedStmt = null;
+                    Connection connection = null;
                     
-                    //update customer to list and check the functionality is successful or not
-                    //isUpdateSuccessful = customerList.updateCustomer(customer, updatedCustomer);
+                    try {
+                        //STEP 2: Register JDBC driver
+                        Class.forName("org.apache.derby.jdbc.ClientDriver");
+                                
+                        //STEP 3: Open a connection
+                        //Declare variables to store database url, username, and password
+                        String url = "jdbc:derby://localhost:1527/ISD";
+                        String databaseUser = "root";
+                        String databasePassword = "root";
+                        //Create a connection to access the database
+                        connection = DriverManager.getConnection(url, databaseUser, databasePassword);
+                                
+                        //STEP 4: Execute a query
+                        //Declare a string to store database query
+                        String query = "UPDATE USERS SET FIRSTNAME = ?, LASTNAME = ?, EMAIL = ?, DOB = ?, PHONE = ? WHERE USERNAME = ?";
+                        //Store values into each column
+                        preparedStmt = connection.prepareStatement(query);
+                        preparedStmt.setString(1, firstName);
+                        preparedStmt.setString(2, lastName);
+                        preparedStmt.setString(3, email);
+                        preparedStmt.setString(4, birthday);
+                        preparedStmt.setString(5, phone);
+                        preparedStmt.setString(6, userName);
+                                                                
+                        //Execute the query and get a reponse from database
+                        preparedStmt.executeUpdate();
+                        
+                        //Close the connection
+                        preparedStmt.close();
+                        connection.close();
+                        
+                        
+                        //update customer profile
+                        isUpdateSuccessful = user.setProfile(firstName, lastName , email, birthday, phone);
                     
-                    //update session
-                    session.setAttribute("customer", updatedCustomer);
+                        //update session
+                        session.setAttribute("user", user);
+                                                      
+                                
+                                
+                       
+                        
+                                               
+                    }
+                    //handle errors
+                    catch(SQLException se){
+                        //Handle errors for JDBC
+                        se.printStackTrace();
+                    }
+                    catch(Exception e){
+                        //Handle errors for Class.forName
+                        e.printStackTrace();
+                    }
+                    finally{
+                        //finally block used to close resources
+                        try{
+                            if(preparedStmt != null)
+                                preparedStmt.close();
+                        }
+                        catch(SQLException se2){
+                        }// nothing we can do
+                        try{
+                            if(connection != null)
+                                connection.close();
+                        }
+                        catch(SQLException se){
+                            se.printStackTrace();
+                        }//end finally try
+                    }//end try
+                    
+                    
                     
             }
         
-            if(isCustomerEmpty) {
+            if(isUserNull) {
                 response.sendRedirect(redirectURL);
         
             }else {%>

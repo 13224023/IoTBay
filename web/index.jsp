@@ -17,13 +17,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <%
-            CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
-            if(customerList == null) {
-                customerList = new CustomerAccount();
-                session.setAttribute("customerList", customerList);
-            }
-        %>
+        
         <nav>
             <input type="checkbox" id="check">
             <label for="check" class="checkbtn">

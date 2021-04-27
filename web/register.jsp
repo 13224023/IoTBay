@@ -24,11 +24,13 @@
             //CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
             //Customer customer = customerList.getLoggedCustomer();
             
-            Customer customer = (Customer) session.getAttribute("customer");
+            User getUser = (User) session.getAttribute("user");
             
             String register = request.getParameter("register");
             
             String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
+            
+            boolean isUserNull = getUser == null? true: false;
             
             boolean isRegisterButtonClicked = register != null ? true : false;
             
@@ -40,7 +42,7 @@
             boolean passwordsDifferent = false;
             String passwordDiffInfo = "Sorry, passwords are different";
             
-            if(customer != null) {
+            if(!isUserNull) {
                 response.sendRedirect(redirectURL);
             }else {
                 if(register != null) {
@@ -126,9 +128,9 @@
                     
                     if(registerSuccessful) {
                         //session.setAttribute("customerList", customerList);
-                        Customer newCustomer = new Customer(name, uPassword, email);
-                        newCustomer.setIsLogged(true);
-                        session.setAttribute("customer", newCustomer);
+                        User newUser = new User(name, uPassword, email);
+                        newUser.setIsLogged(true);
+                        session.setAttribute("user", newUser);
                         response.sendRedirect(redirectURL);
                     }
                 }

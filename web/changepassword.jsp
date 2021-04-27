@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
+<%@page import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,32 +18,100 @@
     <body>
         
     <%
-        //CustomerAccount customerList= (CustomerAccount) session.getAttribute("customerList");
-        //Customer customer = customerList.getLoggedCustomer();
-        
+                
         //Get data from the object
-        Customer customer = (Customer)session.getAttribute("customer");
+        User user = (User) session.getAttribute("user");
         
         String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
         
         String change = request.getParameter("change");
-        //String username = customer.getUsername();
+        String userName = user.getUsername();
         
-        boolean isCustomerEmpty = customer != null? false : true;
+        boolean isUserNull = user == null? true : false;
         boolean isChangeButtonClicked = change != null? true : false;
+        
         boolean isPasswordsDifference = false;
         boolean isCurrentPasswordWrong = false;
         boolean isPasswordUpdated = false;
+        
         if(isChangeButtonClicked) {
             String pPassword = request.getParameter("ppassword");
             String nPassword = request.getParameter("npassword"); 
             String cPassword = request.getParameter("cpassword");
-            if(customer.getPassword().equals(pPassword)) {
+            if(user.getPassword().equals(pPassword)) {
                 if(nPassword.equals(cPassword)) {
-                    //Customer updateCustomer = customer;
-                    isPasswordUpdated = customer.setPassword(nPassword);
-                    //isPasswordUpdated = customerList.updateCustomer(customer, updateCustomer);
-                    session.setAttribute("customer", customer);
+                    PreparedStatement preparedStmt = null;
+                    Connection connection = null;
+                    
+                    try {
+                        //STEP 2: Register JDBC driver
+                        Class.forName("org.apache.derby.jdbc.ClientDriver");
+                                
+                        //STEP 3: Open a connection
+                        //Declare variables to store database url, username, and password
+                        String url = "jdbc:derby://localhost:1527/ISD";
+                        String databaseUser = "root";
+                        String databasePassword = "root";
+                        //Create a connection to access the database
+                        connection = DriverManager.getConnection(url, databaseUser, databasePassword);
+                                
+                        //STEP 4: Execute a query
+                        //Declare a string to store database query
+                        String query = "UPDATE USERS SET PASSWORD = ? WHERE USERNAME = ?";
+                        //Store values into each column
+                        preparedStmt = connection.prepareStatement(query);
+                        preparedStmt.setString(1, nPassword);
+                        preparedStmt.setString(2, userName);
+                       
+                                                                
+                        //Execute the query and get a reponse from database
+                        preparedStmt.executeUpdate();
+                        
+                        //Close the connection
+                        preparedStmt.close();
+                        connection.close();
+                        
+                        
+                        //Update customer's current password
+                        isPasswordUpdated = user.setPassword(nPassword);
+                        
+                        //Update session
+                        session.setAttribute("user", user);
+                                
+                                
+                       
+                        
+                                               
+                    }
+                    //handle errors
+                    catch(SQLException se){
+                        //Handle errors for JDBC
+                        se.printStackTrace();
+                    }
+                    catch(Exception e){
+                        //Handle errors for Class.forName
+                        e.printStackTrace();
+                    }
+                    finally{
+                        //finally block used to close resources
+                        try{
+                            if(preparedStmt != null)
+                                preparedStmt.close();
+                        }
+                        catch(SQLException se2){
+                        }// nothing we can do
+                        try{
+                            if(connection != null)
+                                connection.close();
+                        }
+                        catch(SQLException se){
+                            se.printStackTrace();
+                        }//end finally try
+                    }//end try
+                    
+                    
+                    
+                    
                 }else {
                     isPasswordsDifference = true;
                 }
@@ -52,7 +121,7 @@
         }
     %>
     
-    <%if(isCustomerEmpty) {
+    <%if(isUserNull) {
             response.sendRedirect(redirectURL);
     %>
     <%}else {%>

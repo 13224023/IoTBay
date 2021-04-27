@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author Administrator
  */
-public class Customer implements Serializable {
+public class User implements Serializable {
     private String username;
     private String userFirstName;
     private String userLastName;
@@ -21,7 +21,7 @@ public class Customer implements Serializable {
     private String usertype;
     private boolean isLogged;
 
-    public Customer() {
+    public User() {
         username = "";
         password = "";
         email = "";
@@ -32,7 +32,7 @@ public class Customer implements Serializable {
     }
     
     //customer constructor is to initialise all fields
-    public Customer(String username, String password, String email) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -44,7 +44,7 @@ public class Customer implements Serializable {
         this.isLogged = false;
     }
     
-    public Customer(String username, String password, String usertype, String firstname,  String lastname, 
+    public User(String username, String password, String usertype, String firstname,  String lastname, 
             String phone, String email, String birthday) {
         this.username = username;
         this.password = password;
