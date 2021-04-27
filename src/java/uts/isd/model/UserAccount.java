@@ -20,7 +20,7 @@ public class UserAccount implements Serializable {
     
     //Setters
     public boolean setAnUser(User newCustomer) {
-        if (!isCustomerExist(newCustomer)) {
+        if (!isUserExist(newCustomer)) {
             userList.add(newCustomer);
             return true;
         }
@@ -44,7 +44,7 @@ public class UserAccount implements Serializable {
         
         //check updated customer username is existed in list or not
         //if not, add updated customer into list
-        if(!isCustomerExist(newProfile)) {
+        if(!isUserExist(newProfile)) {
             userList.add(newProfile);
             return true;
         }
@@ -76,7 +76,7 @@ public class UserAccount implements Serializable {
     
     //Comparison
     //the method is to check the customer username already exists in the customer list
-    public boolean isCustomerExist(User customer) {
+    public boolean isUserExist(User customer) {
         for(User each: userList) {
             if(each.getUsername().equals(customer.getUsername())) {
                 return true;
@@ -117,12 +117,12 @@ public class UserAccount implements Serializable {
         }
     }
     
-    public User getCustomerByNumber(int index) {
+    public User getUserByNumber(int index) {
         return userList.get(index);
     
     }
     
-    public boolean setCustomerLogged(String username, String password) {
+    public boolean setUserLogged(String username, String password) {
         for(User each: userList) {
             if(each.getUsername().equals(username) && each.getPassword().equals(password)) {
                 each.setIsLogged(true);

@@ -33,8 +33,35 @@
         <%if(isUserEmpty) {
             response.sendRedirect(redirectURL);
         %>
-        <%}else if(user.getUsertype().equals("2")) {%>
+        <%}else if(user.getUsertype().equals("0")) {%>
             <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
+                <ul>
+                    <li><a href="profile.jsp">My Profile</a></li>
+                    <li><a href="accountlist.jsp">AccountList</a></li>
+                    <li><a href="logout.jsp">Logout</a></li>
+                </ul>
+            </nav>
+        <%}else if(user.getUsertype().equals("1")) {%>
+             <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
+                <ul>
+                    <li><a href="profile.jsp">My Profile</a></li>
+                    <li><a>Product</a></li>
+                    <li><a>Order</a></li>
+                    <li><a href="logout.jsp">Logout</a></li>
+                </ul>
+            </nav>
+        <%}else {%>
+             <nav>
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
                     <i class="fas fa-bars"></i>

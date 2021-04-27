@@ -27,7 +27,6 @@
             <ul>
                 <li><a href="login.jsp">Sign in</a></li>
                 <li><a href="register.jsp">Sign up</a></li>
-                <li><a href="accountlist.jsp">Account list</a></li>
             </ul>
         </nav>
         <section></section>
