@@ -19,13 +19,8 @@ public class UserAccount implements Serializable {
     }
     
     //Setters
-    public boolean setAnUser(User newCustomer) {
-        if (!isUserExist(newCustomer)) {
-            userList.add(newCustomer);
-            return true;
-        }
-        return false;
-            
+    public void setAnUser(User newCustomer) {
+        userList.add(newCustomer);
     }
     
     public boolean deleteAnUser(User customer) {
@@ -134,12 +129,20 @@ public class UserAccount implements Serializable {
     
     public boolean isCustomerNameExist(String name) {
     
+        
         for(User each: userList) {
             if(each.getUsername().equals(name)) {
                 return true;
             }
         }
-    
+        
         return false;
+    }
+    
+    public void showAllUsers() {
+        System.out.println("User table:");
+        userList.forEach((each) -> {
+            System.out.println(each);
+        });
     }
 }

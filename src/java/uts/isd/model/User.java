@@ -23,10 +23,13 @@ public class User implements Serializable {
 
     public User() {
         username = "";
+        userFirstName = "";
+        userLastName = "";
         password = "";
         email = "";
         birthday = "";
         phone = "";
+        usertype = "0";
         isLogged = false;
     
     }
@@ -43,6 +46,19 @@ public class User implements Serializable {
         this.usertype = "0";
         this.isLogged = false;
     }
+    
+    public User(String username, String password, String email, String usertype) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.usertype = usertype;
+        this.userFirstName = "";
+        this.userLastName = "";
+        this.birthday = "";
+        this.phone = "";
+        this.isLogged = false;
+    }
+    
     
     public User(String username, String password, String usertype, String firstname,  String lastname, 
             String phone, String email, String birthday) {
@@ -156,6 +172,6 @@ public class User implements Serializable {
         
     @Override
     public String toString() {
-        return username + " " + password + " " + userFirstName + " " + userLastName + " " + email + " " + " " + birthday + " " + phone;
+        return username + " " + password + " " + userFirstName + " " + userLastName + " " + email + " " + " " + birthday + " " + phone + "\n";
     }
 }
