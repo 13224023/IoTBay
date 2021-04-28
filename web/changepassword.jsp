@@ -25,9 +25,6 @@
         
         String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
         
-        //String change = request.getParameter("change");
-        //String userName = user.getUsername();
-        
         boolean isUserNull = user == null? true : false;
         boolean isChangeButtonClicked = request.getParameter("change") != null? true : false;
         

@@ -19,7 +19,11 @@
             User getUser = (User)session.getAttribute("user");
             boolean isUserNull = getUser == null? true: false;
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-            String username = getUser.getUsername();
+            String username = "";
+            if(!isUserNull) {
+                username = getUser.getUsername();
+            }
+            
             boolean isUserDeleted = false;
             
             //start to access database

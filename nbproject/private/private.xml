@@ -4,23 +4,30 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/logout.jsp</file>
-            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/accountlist.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/dao/DB.java</file>
-            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/edit.jsp</file>
-            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/logout.css</file>
-            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/welcome.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/cart.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/accountlist.css</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/welcome.css</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/register.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/dao/DBManager.java</file>
-            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/TestDB.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/profile.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/UserAccount.java</file>
-            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/changepassword.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/profile.css</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/delete.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/login.jsp</file>
-            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/unauthorised.jsp</file>
-            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/User.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/dao/DBConnector.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/index.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/index.css</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/accountlist.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/addstaff.css</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/edit.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/register.css</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/welcome.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/TestDB.java</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/addstaff.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/changepassword.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/unauthorised.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/User.java</file>
         </group>
     </open-files>
 </project-private>

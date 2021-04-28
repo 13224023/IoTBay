@@ -81,25 +81,21 @@
             <input type="password" id="upassword" name="upassword" autocomplete="off" placeholder="Password" required>
             <input type="password" id="cupassword" name="cupassword" autocomplete="off" placeholder="Confirm Password" required>
             <input type="mail" id="email" name="email" autocomplete="off" placeholder="xxx@xxx.xxx" required>
-            <!--
-            <input type="date" id="birthday" name="birthday" autocomplete="off" placeholder="DD/MM/YYYY" required>
-            <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="1234567890" required>
-            -->
             <input type="submit" form="register" name="register" value="Register">
             <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/'">
             <p> Already a Customer? <a href="login.jsp">Login</a></p>
             <%
-            if(isRegisterButtonClicked) {
-                if(!registerSuccessful) {
-                    if(isCustomerNameExist) {%>
-                        <p class="errorinfo"><%= customerNameExistInfo%></p>
-                    <%}else if(passwordsDifferent) {%>
-                        <p class="errorinfo"><%= passwordDiffInfo%></p>
-                    <%}else {%>
-                        <p class="errorinfo">Should check the code logic</p>
-                    <%}
+                if(isRegisterButtonClicked) {
+                    if(!registerSuccessful) {
+                        if(isCustomerNameExist) {%>
+                            <p class="errorinfo"><%= customerNameExistInfo%></p>
+                        <%}else if(passwordsDifferent) {%>
+                            <p class="errorinfo"><%= passwordDiffInfo%></p>
+                        <%}else {%>
+                            <p class="errorinfo">Should check the code logic</p>
+                        <%}
+                    }
                 }
-            }
             %>
         </form>
         

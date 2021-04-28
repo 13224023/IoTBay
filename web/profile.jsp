@@ -54,6 +54,7 @@
                 <label class="logo">My Profile</label>
                 <ul>
                     <li><a href="edit.jsp">Edit Profile</a></li>
+                    
                     <li><a href="changepassword.jsp">Change Password</a></li>
                     <%if(user.getUsertype().equals("2")) {%>
                         <li><a href="delete.jsp">Delete Account</a></li>
@@ -65,18 +66,6 @@
             <center>
                 <section>
                     <table class="table-style">
-                        <!--
-                        <thead>
-                            <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Password</th>
-                                <th>Email</th>
-                                <th>Birthday</th>
-                                <th>Phone</th>
-                            </tr>
-                        </thead>
-                        -->
                         <tbody>
                             <tr>
                                 <td class="table-header">First Name</td>
