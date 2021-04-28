@@ -45,6 +45,9 @@
                 <ul>
                     <li><a href="edit.jsp">Edit Profile</a></li>
                     <li><a href="changepassword.jsp">Change Password</a></li>
+                    <%if(user.getUsertype().equals("2")) {%>
+                        <li><a href="delete.jsp">Delete Account</a></li>
+                    <%}%>
                     <li><a href="welcome.jsp">Back</a></li>
                 </ul>
             </nav>

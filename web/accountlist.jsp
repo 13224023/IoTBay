@@ -103,6 +103,8 @@
             </label>
             <label class="logo">Customer List</label>
             <ul>
+                <li><a href="addstaff.jsp">ADD STAFF</a></li>
+                <li><a>DELETE STAFF</a></li>
                 <li><a href="index.jsp">Back</a></li>
             </ul>
         </nav>
