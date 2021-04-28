@@ -22,7 +22,7 @@
             
             String register = request.getParameter("register");
             
-            String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
+            //String redirectURL = "http://localhost:8080/IOTBay/accountlist.jsp";
             
             boolean isUserNull = getUser == null? true: false;
             
@@ -44,6 +44,7 @@
                     String email = request.getParameter("email");
                     
                     if(uPassword.equals(cPassword)) {
+                        
                         PreparedStatement preparedStmt = null;
                         Connection connection = null;
                         try {
@@ -112,6 +113,7 @@
                                 se.printStackTrace();
                             }//end finally try
                         }//end try
+                        
                     }
                     else {
                         passwordsDifferent = true;
@@ -129,7 +131,7 @@
             <input type="password" id="cupassword" name="cupassword" autocomplete="off" placeholder="Confirm Password" required>
             <input type="mail" id="email" name="email" autocomplete="off" placeholder="xxx@xxx.xxx" required>
             <input type="submit" form="register" name="register" value="Register">
-            <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/'">
+            <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">
             
             <%
             if(isRegisterButtonClicked) {
