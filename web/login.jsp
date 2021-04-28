@@ -18,21 +18,17 @@
     </head>
     <body>
         <%
-            //User customerList = (User) session.getAttribute("customerList");
-            //Customer customer = customerList.getLoggedCustomer();
-            
             User user = (User) session.getAttribute("user");
-            String login = request.getParameter("login");
             String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
             
             boolean isUserNull = user == null? true : false;
-            boolean isLoginButtonClicked = login != null? true : false;
+            boolean isLoginButtonClicked = request.getParameter("login") != null? true : false;
             boolean loginSuccessful = false;
             
             if(!isUserNull) {
                 response.sendRedirect(redirectURL);
             }else {
-                if(login != null) {
+                if(isLoginButtonClicked) {
                     String username = request.getParameter("uname");
                     String password = request.getParameter("upassword");
                     

@@ -21,8 +21,23 @@
             //Get a logged customer
             User user = (User) session.getAttribute("user");
             
+            String className = "";
+            
+            
             //Check a logged customer is received or not
             boolean isUserNull = user == null? true : false;
+            
+            if(!isUserNull) {
+                String type = user.getUsertype();
+                if(type.equals("0")) {
+                    className = "root";
+                }else if(type.equals("1")) {
+                    className = "staff";
+                }
+                else {
+                    className = "customer";
+                }
+            }
             
             //declare URL for being used by redirect
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
@@ -31,7 +46,7 @@
         <%if(isUserNull) {
             response.sendRedirect(redirectURL);
         }else{%>
-            <nav>
+            <nav class="<%=className%>">
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
                     <i class="fas fa-bars"></i>

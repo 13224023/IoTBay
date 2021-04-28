@@ -123,6 +123,12 @@ public class User implements Serializable {
         return email;
     }
 
+    public String getAccountType() {
+        if(this.usertype.equals("0")) return "Admin";
+        if(this.usertype.equals("1")) return "Staff";
+        return "Customer";
+    }
+    
     public boolean setEmail(String email) {
         this.email = email;
         return this.email.equals(email);

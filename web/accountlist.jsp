@@ -8,6 +8,7 @@
 <%@page import="uts.isd.model.*"%>
 <%--//STEP 1. Import required packages --%>
 <%@page import="java.sql.*"%>
+<%@page import="uts.isd.model.dao.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,12 +19,31 @@
     </head>
     <body>
         <%
-            //CustomerAccount customerList = (UserAccount)session.getAttribute("customerList");
-            //int customerListSize = customerList.getCustomerAccountNumber();
-            
+            User user = (User)session.getAttribute("user");
             UserAccount userList = new UserAccount();
-            
+            String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
             int userListSize = 0;
+            boolean isUserNull = user == null? true: false;
+            
+            boolean isUserAdmin = false;
+            if(!isUserNull) {
+                if(user.getUsertype().equals("0")) {
+                    isUserAdmin = true;
+                }
+            }
+            
+            if(isUserAdmin) {
+                DBConnector connector = new DBConnector();
+                DBManager dbManager = new DBManager(connector.getConnection());
+                userList = dbManager.getAllUsers();
+                userListSize = userList.getUserAccountNumber();
+                connector.closeConnection();
+            
+            }
+            
+            //UserAccount userList = new UserAccount();
+            //int userListSize = 0;
+            /*
             PreparedStatement preparedStmt = null;
             Connection connection = null;
             ResultSet resultSet = null;
@@ -94,57 +114,59 @@
                             se.printStackTrace();
                         }//end finally try
                 }//end try
-                    
+                */
         %>
-        <nav>
-            <input type="checkbox" id="check">
-            <label for="check" class="checkbtn">
-                <i class="fas fa-bars"></i>
-            </label>
-            <label class="logo">Customer List</label>
-            <ul>
-                <li><a href="addstaff.jsp">ADD STAFF</a></li>
-                <li><a>DELETE STAFF</a></li>
-                <li><a href="welcome.jsp">Back</a></li>
-            </ul>
-        </nav>
-        
-        <section>
-            
-                    <center>
-                        <table class="table-style">
+        <%if(!isUserAdmin){
+            response.sendRedirect(redirectURL);
+        }else {%>
+            <nav>
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <i class="fas fa-bars"></i>
+                </label>
+                <label class="logo">Customer List</label>
+                <ul>
+                    <li><a href="addstaff.jsp">ADD STAFF</a></li>
+                    <li><a>DELETE STAFF</a></li>
+                    <li><a href="welcome.jsp">Back</a></li>
+                </ul>
+            </nav>
+
+            <section>
+                <center>
+                    <table class="table-style">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Username</th>
                                 <th>Password</th>
+                                <th>User type</th>
                                 <th>Email</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
                             <%for (int i = 0; i < userListSize; i++) {%>
-                                <tr>
-                                    <td><%=i + 1%></td>
-                                    <td><%=userList.getUserByNumber(i).getUsername()%></td>
-                                    <td><%=userList.getUserByNumber(i).getPassword()%></td>
-                                    <!--
-                                    <td><%=userList.getUserByNumber(i).getUserFirstName()%></td>
-                                    <td><%=userList.getUserByNumber(i).getUserLastName()%></td>
-                                    -->
-                                    <td><%=userList.getUserByNumber(i).getEmail()%></td>
-                                    <!--
-                                    <td><%=userList.getUserByNumber(i).getBirthday()%></td>
-                                    <td><%=userList.getUserByNumber(i).getPhone()%></td>
-                                    -->
-                                </tr>
+                            <tr>
+                                <td><%=i + 1%></td>
+                                <td><%=userList.getUserByNumber(i).getUsername()%></td>
+                                <td><%=userList.getUserByNumber(i).getPassword()%></td>
+
+                                <td><%=userList.getUserByNumber(i).getAccountType()%></td>
+                                        <!--
+                                        <td><%=userList.getUserByNumber(i).getUserLastName()%></td>
+                                        -->
+                                <td><%=userList.getUserByNumber(i).getEmail()%></td>
+                                        <!--
+                                        <td><%=userList.getUserByNumber(i).getBirthday()%></td>
+                                        <td><%=userList.getUserByNumber(i).getPhone()%></td>
+                                        -->
+                            </tr>
                             <%}%>
                         </tbody>
                     </table>
                 </center>
-                
-            
-        </section>
-        
+            </section>
+        <%}%>
     </body>
 </html>

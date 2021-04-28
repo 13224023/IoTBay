@@ -90,9 +90,23 @@ body {
 }
 
 nav {
-    background: #3CB371;
+    /*background: #3CB371;*/
     height: 80px;
     width: 100%;
+}
+
+.root {
+    background: #5A7670;
+    
+}
+
+.staff {
+    background: #B89F5D;
+    
+}
+
+.customer {
+    background: #3FB0AC;
 }
 
 label.logo {

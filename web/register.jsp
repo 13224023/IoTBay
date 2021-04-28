@@ -25,13 +25,11 @@
                         
             User getUser = (User) session.getAttribute("user");
             
-            String register = request.getParameter("register");
-            
             String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
             
             boolean isUserNull = getUser == null? true: false;
             
-            boolean isRegisterButtonClicked = register != null ? true : false;
+            boolean isRegisterButtonClicked = request.getParameter("register") != null ? true : false;
             
             boolean registerSuccessful = false;
             
@@ -44,7 +42,7 @@
             if(!isUserNull) {
                 response.sendRedirect(redirectURL);
             }else {
-                if(register != null) {
+                if(isRegisterButtonClicked) {
                     
                     String name = request.getParameter("uname");
                     String uPassword = request.getParameter("upassword");

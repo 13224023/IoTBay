@@ -36,7 +36,7 @@
             response.sendRedirect(redirectURL);
         %>
         <%}else if(usertype.equals("2")) {%>
-            <nav>
+            <nav class="customer">
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
                     <i class="fas fa-bars"></i>
@@ -49,7 +49,7 @@
                 </ul>
             </nav>
         <%}else if(usertype.equals("1")) {%>
-             <nav>
+             <nav class="staff">
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
                     <i class="fas fa-bars"></i>
@@ -63,7 +63,7 @@
                 </ul>
             </nav>
         <%}else {%>
-             <nav>
+             <nav class="root">
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
                     <i class="fas fa-bars"></i>

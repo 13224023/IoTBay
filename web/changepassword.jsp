@@ -25,11 +25,11 @@
         
         String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
         
-        String change = request.getParameter("change");
-        String userName = user.getUsername();
+        //String change = request.getParameter("change");
+        //String userName = user.getUsername();
         
         boolean isUserNull = user == null? true : false;
-        boolean isChangeButtonClicked = change != null? true : false;
+        boolean isChangeButtonClicked = request.getParameter("change") != null? true : false;
         
         boolean isPasswordsDifference = false;
         boolean isCurrentPasswordWrong = false;
@@ -49,81 +49,6 @@
                     isPasswordUpdated = user.setPassword(nPassword);
                     //Update session
                     session.setAttribute("user", user);
-                    
-                    //dbManager.updateUserProfile(username, password, firstname, lastname, email, birthday, phone);
-                    /*
-                    PreparedStatement preparedStmt = null;
-                    Connection connection = null;
-                    
-                    try {
-                        //STEP 2: Register JDBC driver
-                        Class.forName("org.apache.derby.jdbc.ClientDriver");
-                                
-                        //STEP 3: Open a connection
-                        //Declare variables to store database url, username, and password
-                        String url = "jdbc:derby://localhost:1527/ISD";
-                        String databaseUser = "root";
-                        String databasePassword = "root";
-                        //Create a connection to access the database
-                        connection = DriverManager.getConnection(url, databaseUser, databasePassword);
-                                
-                        //STEP 4: Execute a query
-                        //Declare a string to store database query
-                        String query = "UPDATE USERS SET PASSWORD = ? WHERE USERNAME = ?";
-                        //Store values into each column
-                        preparedStmt = connection.prepareStatement(query);
-                        preparedStmt.setString(1, nPassword);
-                        preparedStmt.setString(2, userName);
-                       
-                                                                
-                        //Execute the query and get a reponse from database
-                        preparedStmt.executeUpdate();
-                        
-                        //Close the connection
-                        preparedStmt.close();
-                        connection.close();
-                        
-                        
-                        //Update customer's current password
-                        isPasswordUpdated = user.setPassword(nPassword);
-                        
-                        //Update session
-                        session.setAttribute("user", user);
-                                
-                                
-                       
-                        
-                                               
-                    }
-                    //handle errors
-                    catch(SQLException se){
-                        //Handle errors for JDBC
-                        se.printStackTrace();
-                    }
-                    catch(Exception e){
-                        //Handle errors for Class.forName
-                        e.printStackTrace();
-                    }
-                    finally{
-                        //finally block used to close resources
-                        try{
-                            if(preparedStmt != null)
-                                preparedStmt.close();
-                        }
-                        catch(SQLException se2){
-                        }// nothing we can do
-                        try{
-                            if(connection != null)
-                                connection.close();
-                        }
-                        catch(SQLException se){
-                            se.printStackTrace();
-                        }//end finally try
-                    }//end try
-                    */
-                    
-                    
-                    
                 }else {
                     isPasswordsDifference = true;
                 }
