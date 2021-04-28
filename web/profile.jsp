@@ -30,12 +30,7 @@
         
         <%if(isUserNull) {
             response.sendRedirect(redirectURL);
-        %>
-            <!--
-            <h1>Unauthorized action</h1>
-            <button onclick="location.href='http://localhost:8080/IOTBay/'" class="button">Back to index page</button>
-            -->
-        <%}else{%>
+        }else{%>
             <nav>
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
@@ -96,20 +91,7 @@
                     </table>
                 </section>
             </center>
-            <!--
-            <header>
-                <h1>Welcome, <%= user%></h1>
-                <div class="container">
-                    <nav>
-                        <ul>
-                            <li><button onclick="location.href='http://localhost:8080/assignment1/edit.jsp'" class="button">Edit Profile</button></li>
-                            <li><button onclick="location.href='http://localhost:8080/assignment1/changepassword.jsp'" class="button">Change Password</button></li>
-                            <li><button onclick="location.href='http://localhost:8080/assignment1/welcome.jsp'" class="button">Back</button></li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-            -->
+            
         <%}%>
         
         

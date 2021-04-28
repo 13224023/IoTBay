@@ -17,23 +17,25 @@
     
         
             <%  
-                //Get customer linked from session
-                //CustomerAccount customerList = (CustomerAccount)session.getAttribute("customerList");
-                
                 //Get the logged customer from the list
                 User user = (User)session.getAttribute("user");
                 
                 //Check a logged customer is received or not
                 boolean isUserEmpty = user == null? true : false;
                 
+                
+                String usertype = !isUserEmpty? user.getUsertype(): "";
+                
                 String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
+                
+                System.out.println(usertype);
             %>
                    
         
         <%if(isUserEmpty) {
             response.sendRedirect(redirectURL);
         %>
-        <%}else if(user.getUsertype().equals("0")) {%>
+        <%}else if(usertype.equals("2")) {%>
             <nav>
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
@@ -42,11 +44,11 @@
                 <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
                 <ul>
                     <li><a href="profile.jsp">My Profile</a></li>
-                    <li><a href="accountlist.jsp">AccountList</a></li>
+                    <li><a href="cart.jsp">Cart</a></li>
                     <li><a href="logout.jsp">Logout</a></li>
                 </ul>
             </nav>
-        <%}else if(user.getUsertype().equals("1")) {%>
+        <%}else if(usertype.equals("1")) {%>
              <nav>
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
@@ -69,10 +71,11 @@
                 <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
                 <ul>
                     <li><a href="profile.jsp">My Profile</a></li>
-                    <li><a href="cart.jsp">Cart</a></li>
+                    <li><a href="accountlist.jsp">AccountList</a></li>
                     <li><a href="logout.jsp">Logout</a></li>
                 </ul>
             </nav>
+             
         <%}%>
         
         

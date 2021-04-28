@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
+<%@page import="uts.isd.model.dao.*"%>
 <%--//STEP 1. Import required packages --%>
 <%@page import="java.sql.*"%>
 <!DOCTYPE html>
@@ -51,81 +52,22 @@
                     String email = request.getParameter("email");
                     
                     if(uPassword.equals(cPassword)) {
-                        PreparedStatement preparedStmt = null;
-                        Connection connection = null;
-                        try {
-                            //STEP 2: Register JDBC driver
-                            Class.forName("org.apache.derby.jdbc.ClientDriver");
-                                
-                            //STEP 3: Open a connection
-                            //Declare variables to store database url, username, and password
-                            String url = "jdbc:derby://localhost:1527/ISD";
-                            String user = "root";
-                            String password = "root";
-                            //Create a connection to access the database
-                            connection = DriverManager.getConnection(url, user, password);
-                                
-                            //STEP 4: Execute a query
-                            //Declare a string to store database query
-                            String query = "INSERT INTO USERS (USERNAME, PASSWORD, USERTYPE, FIRSTNAME, LASTNAME, PHONE, EMAIL, DOB) " +
-                                " VALUES(?,?,?,?,?,?,?,?)";
-                                //Store values into each column
-                            preparedStmt = connection.prepareStatement(query);
-                            preparedStmt.setString(1, name);
-                            preparedStmt.setString(2, uPassword);
-                            preparedStmt.setString(3, "2");
-                            preparedStmt.setString(4, "");
-                            preparedStmt.setString(5, "");
-                            preparedStmt.setString(6, "");
-                            preparedStmt.setString(7, email);
-                            preparedStmt.setString(8, "");
-                                
-                            //Execute the query, then return a value for storing successfully
-                            int row = preparedStmt.executeUpdate();
-                                
-                            
-                            //Store the result of registration
-                            registerSuccessful = row == 1? true: false;
-                            
-                            
-                            //Close the connection
-                            connection.close();
-                        }
-                        //handle errors
-                        catch(SQLException se){
-                            //Handle errors for JDBC
+                        DBConnector connector = new DBConnector();
+                        DBManager dbManager = new DBManager(connector.getConnection());
+                        
+                        if(!dbManager.isUsernameExist(name)) {
+                            dbManager.addUser(name, uPassword, "2", email);
+                            registerSuccessful = true;
+                            connector.closeConnection();
+                        }else {
                             isCustomerNameExist = true;
-                            se.printStackTrace();
                         }
-                        catch(Exception e){
-                            //Handle errors for Class.forName
-                            isCustomerNameExist = true;
-                            e.printStackTrace();
-                        }
-                        finally{
-                            //finally block used to close resources
-                            try{
-                                if(preparedStmt != null)
-                                    preparedStmt.close();
-                            }
-                            catch(SQLException se2){
-                            }// nothing we can do
-                            try{
-                                if(connection != null)
-                                    connection.close();
-                            }
-                            catch(SQLException se){
-                                isCustomerNameExist = true;
-                                se.printStackTrace();
-                            }//end finally try
-                        }//end try
                     }
                     else {
                         passwordsDifferent = true;
                     }
                     
                     if(registerSuccessful) {
-                        //session.setAttribute("customerList", customerList);
                         User newUser = new User(name, uPassword, email);
                         newUser.setIsLogged(true);
                         session.setAttribute("user", newUser);

@@ -8,6 +8,7 @@
 <%@page import="uts.isd.model.*"%>
 <%--//STEP 1. Import required packages --%>
 <%@page import="java.sql.*"%>
+<%@page import="uts.isd.model.dao.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -33,11 +34,6 @@
             
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
             
-            
-            
-            
-            //String pName = customer.getUsername();
-            String userName = user.getUsername();
             String pFirstName;
             String pLastName;
             String pEmail;
@@ -60,23 +56,32 @@
             
             if(isUpdateOn && !isUserNull) {
                     //get data from html form
-                    String firstName = request.getParameter("fname");
-                    String lastName = request.getParameter("lname");
+                    String username = user.getUsername();
+                    String password = user.getPassword();
+                    String firstname = request.getParameter("fname");
+                    String lastname = request.getParameter("lname");
                     String email = request.getParameter("email");
                     String birthday = request.getParameter("birthday");
                     String phone = request.getParameter("phone");
                     
                                         
                     //update variables
-                    pFirstName = firstName;
-                    pLastName = lastName;
+                    pFirstName = firstname;
+                    pLastName = lastname;
                     pEmail = email;
                     pBirthday = birthday;
                     pPhone = phone;
                     
+                    DBConnector connector = new DBConnector();
+                    DBManager dbManager = new DBManager(connector.getConnection());
+                    dbManager.updateUserProfile(username, password, firstname, lastname, email, birthday, phone);
                     
+                    //update user profile
+                    isUpdateSuccessful = user.setProfile(firstname, lastname , email, birthday, phone);
                     
-                    
+                    //update session
+                    session.setAttribute("user", user);
+                    /*
                     PreparedStatement preparedStmt = null;
                     Connection connection = null;
                     
@@ -150,13 +155,12 @@
                         }//end finally try
                     }//end try
                     
-                    
+                    */
                     
             }
         
             if(isUserNull) {
                 response.sendRedirect(redirectURL);
-        
             }else {%>
             <form class="box" action="edit.jsp" method="post" id="update">
                 <h1>Edit Profile</h1>

@@ -71,6 +71,7 @@ public class DBManager {
     
     public UserAccount getAllUsersByUsertype(String usertype) throws SQLException {
         String fetch = "SELECT * FROM ROOT.USERS";
+        this.preparedStmt = connection.prepareStatement(fetch);
         resultSet = preparedStmt.executeQuery();
         UserAccount accountList = new UserAccount();
         
@@ -97,14 +98,17 @@ public class DBManager {
        
     
     public void addUser(String username, String password,
-            String usertype) throws SQLException {
+            String usertype, String email) throws SQLException {
+        
+        
         String query = "INSERT INTO USERS " + 
             "(USERNAME,PASSWORD,USERTYPE,FIRSTNAME,LASTNAME,PHONE,EMAIL,DOB) " +
-            " VALUES(?,?,?,'','','','','')";
+            " VALUES(?,?,?,'','','',?,'')";
         this.preparedStmt = connection.prepareStatement(query);
         this.preparedStmt.setString(1, username);
         this.preparedStmt.setString(2, password);
         this.preparedStmt.setString(3, usertype);
+        this.preparedStmt.setString(4, email);
         
         //Execute the query, then return a value for storing successfully
         int row = preparedStmt.executeUpdate();
@@ -140,10 +144,10 @@ public class DBManager {
         preparedStmt = connection.prepareStatement(query);
         preparedStmt.setString(1, newpassword);
         preparedStmt.setString(2, username);
-       
-        
+               
         //Execute the query and get a reponse from database
         preparedStmt.executeUpdate();
+        
     }
     
     public void deleteUser(String username) throws SQLException {
@@ -174,5 +178,11 @@ public class DBManager {
         resultSet.close();
         return false;
     }
-    
+    public boolean isUsernameExist(String username) throws SQLException {
+        String fetch = "SELECT * FROM ROOT.USERS WHERE USERNAME = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, username);
+        resultSet = preparedStmt.executeQuery();
+        return resultSet.next();
+    }
 }

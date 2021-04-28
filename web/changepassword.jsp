@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
 <%@page import="java.sql.*"%>
+<%@page import="uts.isd.model.dao.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -40,6 +41,17 @@
             String cPassword = request.getParameter("cpassword");
             if(user.getPassword().equals(pPassword)) {
                 if(nPassword.equals(cPassword)) {
+                    String username = user.getUsername();
+                    DBConnector connector = new DBConnector();
+                    DBManager dbManager = new DBManager(connector.getConnection());
+                    dbManager.updateUserPassword(username, nPassword);
+                    //Update customer's current password
+                    isPasswordUpdated = user.setPassword(nPassword);
+                    //Update session
+                    session.setAttribute("user", user);
+                    
+                    //dbManager.updateUserProfile(username, password, firstname, lastname, email, birthday, phone);
+                    /*
                     PreparedStatement preparedStmt = null;
                     Connection connection = null;
                     
@@ -108,7 +120,7 @@
                             se.printStackTrace();
                         }//end finally try
                     }//end try
-                    
+                    */
                     
                     
                     

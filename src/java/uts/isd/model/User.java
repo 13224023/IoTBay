@@ -43,7 +43,7 @@ public class User implements Serializable {
         this.userLastName = "";
         this.birthday = "";
         this.phone = "";
-        this.usertype = "0";
+        this.usertype = "2";
         this.isLogged = false;
     }
     

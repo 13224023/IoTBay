@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
+<%@page import="uts.isd.model.dao.*"%>
 <%--//STEP 1. Import required packages --%>
 <%@page import="java.sql.*"%>
 <!DOCTYPE html>
@@ -32,91 +33,18 @@
                 response.sendRedirect(redirectURL);
             }else {
                 if(login != null) {
-                    String name = request.getParameter("uname");
+                    String username = request.getParameter("uname");
                     String password = request.getParameter("upassword");
-                    /*
-                    loginSuccessful = customerList.setCustomerLogged(name, password);
                     
-                    if(loginSuccessful) {
-                        session.setAttribute("customerList", customerList);
+                    DBConnector connector = new DBConnector();
+                    DBManager dbManager = new DBManager(connector.getConnection());
+                    User matchedUser = dbManager.findUser(username, password);
+                    if(matchedUser != null) {
+                        loginSuccessful = true;
+                        session.setAttribute("user", matchedUser);
                         response.sendRedirect(redirectURL);
-                    }
-                    */
-                    PreparedStatement preparedStmt = null;
-                    Connection connection = null;
-                    ResultSet resultSet = null;
-                    try {
-                        //STEP 2: Register JDBC driver
-                        Class.forName("org.apache.derby.jdbc.ClientDriver");
-                                
-                        //STEP 3: Open a connection
-                        //Declare variables to store database url, username, and password
-                        String url = "jdbc:derby://localhost:1527/ISD";
-                        String databaseUser = "root";
-                        String databasePassword = "root";
-                        //Create a connection to access the database
-                        connection = DriverManager.getConnection(url, databaseUser, databasePassword);
-                                
-                        //STEP 4: Execute a query
-                        //Declare a string to store database query
-                        String query = "SELECT * FROM USERS WHERE USERNAME=? AND PASSWORD=?";
-                        //Store values into each column
-                        preparedStmt = connection.prepareStatement(query);
-                        preparedStmt.setString(1, name);
-                        preparedStmt.setString(2, password);
-                                                                
-                        //Execute the query and get a reponse from database
-                        resultSet = preparedStmt.executeQuery();
-                                
-                        if(resultSet.next()) {
-                            System.out.println("Get account data.");
-                            User getUser = new User(
-                                    resultSet.getString(1),
-                                    resultSet.getString(2), 
-                                    resultSet.getString(3), 
-                                    resultSet.getString(4), 
-                                    resultSet.getString(5), 
-                                    resultSet.getString(6), 
-                                    resultSet.getString(7), 
-                                    resultSet.getString(8));
-                            loginSuccessful = true;
-                            session.setAttribute("user", getUser);
-                            response.sendRedirect(redirectURL);
-                        }
-                                
-                                
-                                
-                                
-                        //Close the connection
-                        connection.close();
-                        resultSet.close();
-                        
-                    }
-                    //handle errors
-                    catch(SQLException se){
-                        //Handle errors for JDBC
-                        se.printStackTrace();
-                    }
-                    catch(Exception e){
-                        //Handle errors for Class.forName
-                        e.printStackTrace();
-                    }
-                    finally{
-                        //finally block used to close resources
-                        try{
-                            if(preparedStmt != null)
-                                preparedStmt.close();
-                            }
-                        catch(SQLException se2){
-                        }// nothing we can do
-                        try{
-                            if(connection != null)
-                                connection.close();
-                            }catch(SQLException se){
-                                se.printStackTrace();
-                            }//end finally try
-                        }//end try
-                    }
+                    } 
+                }
             }
             
         %>

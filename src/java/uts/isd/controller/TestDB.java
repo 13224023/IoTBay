@@ -41,7 +41,6 @@ public class TestDB {
     public void runQueries() throws SQLException {
         char c;
         
-        
         while((c = readChoice()) != '*') {
             switch(c) {
                 case 'C':
@@ -63,13 +62,10 @@ public class TestDB {
                     System.out.println("Unknown command");
                     break;
             }
-        
-        
-        
         }
     
     }
-    //test addUser(String username, String password,  String usertype)
+    //test DBManager.addUser()
     private void testAdd() {
         System.out.print("Username: ");
         String username = in.nextLine();
@@ -77,9 +73,11 @@ public class TestDB {
         String password = in.nextLine();
         System.out.print("Usertype: ");
         String usertype = in.nextLine();
+        System.out.print("User email: ");
+        String email = in.nextLine();
         
         try {
-            dbManager.addUser(username, password, usertype);
+            dbManager.addUser(username, password, usertype, email);
         }catch(SQLException ex) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,7 +85,7 @@ public class TestDB {
         
     }
     
-    //test findUser(String username, String password) 
+    //DBManager.findUser() 
     private void testRead() throws SQLException {
         System.out.print("Username: ");
         String username = in.nextLine();
@@ -102,12 +100,10 @@ public class TestDB {
         
     }
     
-    //check checkUser(), 
-    //updateUserProfile(String username, String password, 
-    //        String firstname, String lastname, String email, String birthday, 
-    //        String phone), 
-    //updatePassword(String username, 
-    //       String newpassword)
+    //test
+    //DBManager.checkUser(), 
+    //DBManager.updateUserProfile() 
+    //DBManager.updatePassword()
     private void testUpdate() {
         System.out.print("Username: ");
         String username = in.nextLine();
@@ -146,7 +142,7 @@ public class TestDB {
         }
     }
     
-    //deleteUser(String username)
+    //test DBManager.deleteUser()
     private void testDelete() {
         System.out.print("Username: ");
         String username = in.nextLine();
@@ -167,6 +163,7 @@ public class TestDB {
     
     }
     
+    //test DBManager.getAllUsers()
     private void showAll() {
         try {
             UserAccount accountList = dbManager.getAllUsers();
