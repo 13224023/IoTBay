@@ -128,8 +128,6 @@ public class UserAccount implements Serializable {
     }
     
     public boolean isCustomerNameExist(String name) {
-    
-        
         for(User each: userList) {
             if(each.getUsername().equals(name)) {
                 return true;

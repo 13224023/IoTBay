@@ -75,9 +75,11 @@ public class TestDB {
         String usertype = in.nextLine();
         System.out.print("User email: ");
         String email = in.nextLine();
+        System.out.print("User status: ");
+        String status = in.nextLine();
         
         try {
-            dbManager.addUser(username, password, usertype, email);
+            dbManager.addUser(username, password, usertype, email, status);
         }catch(SQLException ex) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);
         }

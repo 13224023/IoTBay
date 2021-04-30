@@ -15,6 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Account List Page</title>
         <link rel="stylesheet" href="CSS/accountlist.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     </head>
     <body>
@@ -24,6 +25,19 @@
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
             int userListSize = 0;
             boolean isUserNull = user == null? true: false;
+            
+            String username = request.getParameter("delete");
+            boolean isDeleteButtonClicked = username != null ? true : false;
+            
+            String status = request.getParameter("status");
+            boolean isStatusButtonClicked = status != null? true: false;
+                        
+            
+            String search = request.getParameter("filter1");
+            boolean isSearchButtonClicked = search != null? true: false;
+            
+            String usertype = request.getParameter("filter2");
+            boolean isUserTypeButtonClicked = usertype != null? true: false;
             
             boolean isUserAdmin = false;
             if(!isUserNull) {
@@ -35,138 +49,102 @@
             if(isUserAdmin) {
                 DBConnector connector = new DBConnector();
                 DBManager dbManager = new DBManager(connector.getConnection());
-                userList = dbManager.getAllUsers();
-                userListSize = userList.getUserAccountNumber();
+                if(isDeleteButtonClicked) {
+                     dbManager.deleteUser(username);
+                     userList = dbManager.getAllUsers();
+                     userListSize = userList.getUserAccountNumber();
+                }else if(isSearchButtonClicked) {
+                    String keyword = request.getParameter("keyword");
+                    userList = dbManager.getAllUsersByUsername(keyword);
+                    userListSize = userList.getUserAccountNumber();
+                }else if(isUserTypeButtonClicked) {
+                    userList = dbManager.getAllUsersByUsertype(usertype);
+                    userListSize = userList.getUserAccountNumber();
+                }else if(isStatusButtonClicked) {
+                    username = request.getParameter("username");
+                    dbManager.updateUserStatus(username, status);
+                    userList = dbManager.getAllUsers();
+                    userListSize = userList.getUserAccountNumber();
+                }else {
+                    userList = dbManager.getAllUsers();
+                    userListSize = userList.getUserAccountNumber();
+                }
                 connector.closeConnection();
             
             }
             
-            //UserAccount userList = new UserAccount();
-            //int userListSize = 0;
-            /*
-            PreparedStatement preparedStmt = null;
-            Connection connection = null;
-            ResultSet resultSet = null;
-            try {
-                //STEP 2: Register JDBC driver
-                Class.forName("org.apache.derby.jdbc.ClientDriver");
-                                
-                //STEP 3: Open a connection
-                //Declare variables to store database url, username, and password
-                String url = "jdbc:derby://localhost:1527/ISD";
-                String databaseUser = "root";
-                String databasePassword = "root";
-                //Create a connection to access the database
-                connection = DriverManager.getConnection(url, databaseUser, databasePassword);
-                                
-                //STEP 4: Execute a query
-                //Declare a string to store database query
-                String query = "SELECT * FROM USERS";
-                //Store values into each column
-                preparedStmt = connection.prepareStatement(query);
-                                                                                    
-                //Execute the query and get a reponse from database
-                resultSet = preparedStmt.executeQuery();
-                    
-                System.out.println("Get account data.");
-                while(resultSet.next()) {
-                    userList.setAnUser(new User(
-                            resultSet.getString(1),
-                            resultSet.getString(2), 
-                            resultSet.getString(3), 
-                            resultSet.getString(4), 
-                            resultSet.getString(5), 
-                            resultSet.getString(6), 
-                            resultSet.getString(7), 
-                            resultSet.getString(8)));
-                        
-                }
-                userListSize = userList.getUserAccountNumber();
-                                
-                                
-                                
-                //Close the connection
-                connection.close();
-                resultSet.close();
-                        
-                }
-                //handle errors
-                catch(SQLException se){
-                        //Handle errors for JDBC
-                    se.printStackTrace();
-                }
-                catch(Exception e){
-                    //Handle errors for Class.forName
-                    e.printStackTrace();
-                }
-                finally{
-                    //finally block used to close resources
-                    try{
-                        if(preparedStmt != null)
-                            preparedStmt.close();
-                        }
-                    catch(SQLException se2){
-                    }// nothing we can do
-                    try{
-                        if(connection != null)
-                            connection.close();
-                        }catch(SQLException se){
-                            se.printStackTrace();
-                        }//end finally try
-                }//end try
-                */
+            
         %>
         <%if(!isUserAdmin){
             response.sendRedirect(redirectURL);
         }else {%>
-            <nav>
+            <nav class="root">
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
                     <i class="fas fa-bars"></i>
                 </label>
-                <label class="logo">Customer List</label>
+                <label class="logo">User List</label>
                 <ul>
-                    <li><a href="addstaff.jsp">ADD STAFF</a></li>
-                    <li><a>DELETE STAFF</a></li>
-                    <li><a href="welcome.jsp">Back</a></li>
+                    <li><a href="adduser.jsp">ADD USER</a></li>
+                    <li><a href="welcome.jsp">BACK</a></li>
                 </ul>
             </nav>
-
             <section>
-                <center>
-                    <table class="table-style">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Username</th>
-                                <th>Password</th>
-                                <th>User type</th>
-                                <th>Email</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <%for (int i = 0; i < userListSize; i++) {%>
-                            <tr>
-                                <td><%=i + 1%></td>
-                                <td><%=userList.getUserByNumber(i).getUsername()%></td>
-                                <td><%=userList.getUserByNumber(i).getPassword()%></td>
-
-                                <td><%=userList.getUserByNumber(i).getAccountType()%></td>
-                                        <!--
-                                        <td><%=userList.getUserByNumber(i).getUserLastName()%></td>
-                                        -->
-                                <td><%=userList.getUserByNumber(i).getEmail()%></td>
-                                        <!--
-                                        <td><%=userList.getUserByNumber(i).getBirthday()%></td>
-                                        <td><%=userList.getUserByNumber(i).getPhone()%></td>
-                                        -->
-                            </tr>
-                            <%}%>
-                        </tbody>
-                    </table>
-                </center>
+                <div>
+                    <form class="inline" method="post" action="accountlist.jsp">
+                        <input type="text" id="keyword" name="keyword" autocomplete="off" placeholder="username">
+                        <button type="submit" name="filter1" value="search" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Search</button>
+                        <button type="submit" name="filter2" value="2" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Customer</button>
+                        <button type="submit" name="filter2" value="1" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Staff</button>
+                    </form>
+                </div>
+                            
+                
+                    <%for (int i = 0; i < userListSize; i++) {
+                        String eachUsername = userList.getUserByNumber(i).getUsername();
+                        String eachUsertype = userList.getUserByNumber(i).getUsertype();
+                        String eachUserstatus = userList.getUserByNumber(i).getStatus();
+                        String eachFirstname = userList.getUserByNumber(i).getUserFirstName();
+                        String eachLastname = userList.getUserByNumber(i).getUserLastName();
+                        String eachUserPassword = userList.getUserByNumber(i).getPassword();
+                        String eachUserphone = userList.getUserByNumber(i).getPhone();
+                        String eachUserbirth = userList.getUserByNumber(i).getBirthday();
+                        String eachUsermail = userList.getUserByNumber(i).getEmail();
+                        if(!eachUsertype.equals("0")) {%>
+                            <div>
+                                <div class="<%=eachUsertype.equals("1")? "staff": "customer"%>">
+                                    <h1><%=eachUsertype.equals("1")? "Staff": "Customer"%></h1>
+                                    <h2>Account status: <span class="<%=eachUserstatus.equals("1")? "actived": "lock"%>"><%=eachUserstatus.equals("1")? "Active": "Locked"%></span></h2>
+                                    <h2>User name: <%=eachUsername%> Password: <%=eachUserPassword%></h2>
+                                    <h3>Profile</h3>
+                                    <h4>First name: <%=eachFirstname%> Last name: <%=eachLastname%></h4>
+                                    <h4>Mail: <%=eachUsermail%></h4>
+                                    <h4>Phone: <%=eachUserphone%></h4>
+                                    <h4>Birth: <%=eachUserbirth%></h4>
+                                </div>
+                                <div class="<%=eachUsertype.equals("1")? "staff": "customer"%>">
+                                    <form class="inline" method="post" action="update.jsp">
+                                        <button type="submit" name="username" value="<%=eachUsername%>" onclick="location.href='http://localhost:8080/IOTBay/update.jsp'">Edit</button>
+                                    </form>
+                                    <form class="inline" method="post" action="accountlist.jsp">
+                                        <button type="submit" name="delete" value="<%=eachUsername%>" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Delete</button>
+                                    </form>
+                                    <form class="inline" method="post" action="accountlist.jsp">
+                                        <input type="hidden" name ="username" value="<%=eachUsername%>">
+                                        <button type="submit" name="status" value="<%=eachUserstatus%>" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'"><%=eachUserstatus.equals("1")? "Lock": "Active"%></button>
+                                    </form>
+                                </div>
+                            </div>
+                        <%}
+                    }%>
+                
             </section>
+            
+                
+                           
+             
+            
+            
         <%}%>
     </body>
 </html>

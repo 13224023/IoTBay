@@ -16,7 +16,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="CSS/register.css">
         <title>Register Page</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     
     </head>
     <body class="back">
@@ -54,7 +55,7 @@
                         DBManager dbManager = new DBManager(connector.getConnection());
                         
                         if(!dbManager.isUsernameExist(name)) {
-                            dbManager.addUser(name, uPassword, "2", email);
+                            dbManager.addUser(name, uPassword, "2", email, "1");
                             registerSuccessful = true;
                             connector.closeConnection();
                         }else {

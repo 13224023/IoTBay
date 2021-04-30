@@ -24,7 +24,7 @@
             boolean isUserNull = user == null? true : false;
             boolean isLoginButtonClicked = request.getParameter("login") != null? true : false;
             boolean loginSuccessful = false;
-            
+            boolean isAccountLocked = false;
             if(!isUserNull) {
                 response.sendRedirect(redirectURL);
             }else {
@@ -36,9 +36,14 @@
                     DBManager dbManager = new DBManager(connector.getConnection());
                     User matchedUser = dbManager.findUser(username, password);
                     if(matchedUser != null) {
-                        loginSuccessful = true;
-                        session.setAttribute("user", matchedUser);
-                        response.sendRedirect(redirectURL);
+                        if(matchedUser.getStatus().equals("1")) {
+                            loginSuccessful = true;
+                            session.setAttribute("user", matchedUser);
+                            response.sendRedirect(redirectURL);
+                        }else {
+                            isAccountLocked = true;
+                        }
+                        
                     } 
                 }
             }
@@ -53,7 +58,7 @@
             <input type="submit" form="login" name="login" value="Login">
             <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/'">
             <p> Not a Customer? <a href="register.jsp">Register</a></p>
-            <p class="errorinfo"><%= isLoginButtonClicked? loginSuccessful? "": "Invalid password. Please try again" :"" %></p>
+            <p class="errorinfo"><%= isLoginButtonClicked? loginSuccessful? "": isAccountLocked? "Your Account is Locked": "Invalid password. Please try again" :"" %></p>
         </form>
         
     </body>

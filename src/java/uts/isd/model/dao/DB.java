@@ -20,14 +20,16 @@ public abstract class DB {
     protected String dbUser = "root";
     protected String dbPassword = "root";
     protected String driver = "org.apache.derby.jdbc.ClientDriver";
-    protected Connection connection;
+    protected Connection connection = null;
     */
+    
     protected String url;
     protected String db;
     protected String dbUser;
     protected String dbPassword;
     protected String driver;
     protected Connection connection;
+    
     
     public DB() {
         this.url = "jdbc:derby://localhost:1527/";

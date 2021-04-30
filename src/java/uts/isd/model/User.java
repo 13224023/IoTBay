@@ -19,6 +19,7 @@ public class User implements Serializable {
     private String birthday;
     private String phone;
     private String usertype;
+    private String status;
     private boolean isLogged;
 
     public User() {
@@ -29,9 +30,9 @@ public class User implements Serializable {
         email = "";
         birthday = "";
         phone = "";
-        usertype = "0";
-        isLogged = false;
-    
+        usertype = "";
+        status = "1";
+        this.isLogged = false;
     }
     
     //customer constructor is to initialise all fields
@@ -44,6 +45,7 @@ public class User implements Serializable {
         this.birthday = "";
         this.phone = "";
         this.usertype = "2";
+        this.status = "1";
         this.isLogged = false;
     }
     
@@ -56,12 +58,13 @@ public class User implements Serializable {
         this.userLastName = "";
         this.birthday = "";
         this.phone = "";
+        this.status = "1";
         this.isLogged = false;
     }
     
     
     public User(String username, String password, String usertype, String firstname,  String lastname, 
-            String phone, String email, String birthday) {
+            String phone, String email, String birthday, String status) {
         this.username = username;
         this.password = password;
         this.usertype = usertype;
@@ -70,6 +73,7 @@ public class User implements Serializable {
         this.userLastName = lastname;
         this.birthday = birthday;
         this.phone = phone;
+        this.status = status;
         this.isLogged = false;
     }
        
@@ -152,6 +156,16 @@ public class User implements Serializable {
         return this.phone.equals(phone);
     }
     
+    
+    public boolean setStatus(String status) {
+        this.status = status;
+        return this.status.equals(status);
+    }
+    
+    public String getStatus() {
+        return this.status;
+    }
+    
     public boolean setIsLogged(boolean logCondition) {
         this.isLogged = logCondition;
         return !this.isLogged != logCondition;
@@ -171,9 +185,7 @@ public class User implements Serializable {
         
         if(!this.setBirthday(birth)) return false;
         
-        if(!this.setPhone(phone)) return false;
-        
-        return true;
+        return this.setPhone(phone);
     }
         
     @Override
