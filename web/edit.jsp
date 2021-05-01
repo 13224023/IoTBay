@@ -84,25 +84,25 @@
             if(isUserNull) {
                 response.sendRedirect(redirectURL);
             }else {%>
-            <form class="box" action="edit.jsp" method="post" id="update">
-                <h1>Edit Profile</h1>
-                <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First Name" value="<%=pFirstName%>">
-                <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last Name" value="<%=pLastName%>">
-                <input type="mail" id="email" name="email" autocomplete="off" placeholder="Email" value="<%=pEmail%>" required>
-                <input type="date" id="birthday" name="birthday" autocomplete="off" value="<%=pBirthday%>" required>
-                <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="Phone Number" value="<%=pPhone%>">
-                <input type="submit" form="update" name="updated" value="Update">
-                <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/profile.jsp'">
-                <%
-                if(isUpdateOn) {
-                    if(isUpdateSuccessful) {%>
-                        <p><%=successInfo%></p>
-                    <%}else {%>
-                        <p class="errorinfo"><%=failureInfo%></p>
+                <form class="box" action="edit.jsp" method="post" id="update">
+                    <h1>Edit Profile</h1>
+                    <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First Name" value="<%=pFirstName%>">
+                    <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last Name" value="<%=pLastName%>">
+                    <input type="mail" id="email" name="email" autocomplete="off" placeholder="Email" value="<%=pEmail%>" required>
+                    <input type="date" id="birthday" name="birthday" autocomplete="off" value="<%=pBirthday%>" required>
+                    <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="Phone Number" value="<%=pPhone%>">
+                    <input type="submit" form="update" name="updated" value="Update">
+                    <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/profile.jsp'">
+                    <%
+                    if(isUpdateOn) {
+                        if(isUpdateSuccessful) {%>
+                            <p><%=successInfo%></p>
+                        <%}else {%>
+                            <p class="errorinfo"><%=failureInfo%></p>
+                        <%}%>
                     <%}%>
-                <%}%>
-            </form>
-        <%}%>
+                </form>
+            <%}%>
             
     </body>
 </html>

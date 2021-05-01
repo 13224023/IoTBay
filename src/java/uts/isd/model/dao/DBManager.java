@@ -49,6 +49,32 @@ public class DBManager {
         return null;
     }
     
+    public User findUserByUserName(String username) throws SQLException {
+        String fetch = "SELECT * FROM ROOT.USERS " +
+            "WHERE USERNAME = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, username);
+        resultSet = preparedStmt.executeQuery();
+        
+        while(resultSet.next()) {
+            String userName = resultSet.getString(1);
+            if(userName.equals(username))
+                return new User(userName,
+                        resultSet.getString(2),
+                        resultSet.getString(3), 
+                        resultSet.getString(4),  
+                        resultSet.getString(5), 
+                        resultSet.getString(6), 
+                        resultSet.getString(7), 
+                        resultSet.getString(8),
+                        resultSet.getString(9)
+                        );
+        }
+        resultSet.close();
+        return null;
+    }
+    
+    
     public UserAccount getAllUsers() throws SQLException{
         String fetch = "SELECT * FROM ROOT.USERS";
         this.preparedStmt = connection.prepareStatement(fetch);
@@ -200,7 +226,7 @@ public class DBManager {
         //Execute the query and get a reponse from database
         preparedStmt.executeUpdate();
         preparedStmt.close();
-        System.out.println("Update Successfully");
+        
         
     }
     
