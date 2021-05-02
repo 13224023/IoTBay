@@ -22,13 +22,10 @@
                 
                 //Check a logged customer is received or not
                 boolean isUserEmpty = user == null? true : false;
-                
-                
+                                
                 String usertype = !isUserEmpty? user.getUsertype(): "";
-                
                 String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
                 
-                System.out.println(usertype);
             %>
                    
         

@@ -43,7 +43,7 @@ div {
     margin-left: auto;
     margin-right: auto;
     color: white;
-    padding: 10px 10px 10px 10px;
+    padding: 5px 5px 5px 5px;
 }
 
 .root {
@@ -105,8 +105,17 @@ a:hover {
 
 .inline {
     display: inline-block;
-    
+    width: 15%;
+    margin:auto;
+    background-color: red;
 }
+
+.inline button {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+}
+
 .checkbtn {
     
     font-size: 30px;
@@ -234,23 +243,138 @@ a:hover {
 }
 
 .staff {
-    display: inline-block;
     background: #B89F5D;
     
 }
 
 .customer {
-    display: inline-block;
     background: #3FB0AC;
 }
 
 
 .actived {
-    color:limegreen;
+    color:white;
+    background-color: limegreen;
+    border-style: none;
+}
+
+.actived:hover {
+    color:white;
+    background-color: grey;
+    border-style: none;
+}
+
+.edit {
+    color:white;
+    background-color:#0082e6;
+    border-style: none;
+}
+
+.edit:hover {
+    color:white;
+    background-color: grey;
+    border-style: none;
+}
+
+.delete {
+    color:white;
+    background-color:firebrick;
+    border-style: none;
+}
+
+.delete:hover {
+    color:white;
+    background-color: grey;
+    border-style: none;
+}
+
+
+
+
+.lock {
+    color:white;
+    background-color: crimson;
+    border-style: none;
+        
+}
+
+
+
+.lock:hover {
+    color:white;
+    background-color: grey;
+    border-style: none;
+        
+}
+
+.unlocked {
+    color: limegreen;
+}
+.locked {
+    color: crimson;
+}
+
+.keyword {
+    width: 100%;
+    margin: auto;
+}
+
+.keyword input[type = "text"]:focus {
+    width: 60%;
+    border-color: #3498db;
+    transition: 0.5s;
     
 }
 
-.lock {
-    color:crimson;
-    
+.search {
+    width: 40%;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 4px;
+    border-color: lightgrey;
+}
+
+
+
+.submit {
+    width: 10%;
+    padding: 12px;
+    font-size: 15px;
+    color: white;
+    background-color: #2ecc71;
+    border-style: none;
+}
+
+.submit:hover {
+    color: white;
+    background-color: grey;
+}
+
+
+.submit2 {
+    width: 10%;
+    padding: 12px;
+    font-size: 15px;
+    color: white;
+    background-color: #3FB0AC;
+    border-style: none;
+}
+.submit2:hover {
+    color: white;
+    background-color: grey;
+}
+
+
+.submit3 {
+    width: 10%;
+    padding: 12px;
+    font-size: 15px;
+    color: white;
+    background-color: #B89F5D;
+    border-style: none;
+}
+
+.submit3:hover {
+    color: white;
+    background-color: grey;
 }

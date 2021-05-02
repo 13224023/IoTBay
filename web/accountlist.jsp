@@ -91,11 +91,11 @@
             </nav>
             <section>
                 <div>
-                    <form class="inline" method="post" action="accountlist.jsp">
-                        <input type="text" id="keyword" name="keyword" autocomplete="off" placeholder="username">
-                        <button type="submit" name="filter1" value="search" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Search</button>
-                        <button type="submit" name="filter2" value="2" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Customer</button>
-                        <button type="submit" name="filter2" value="1" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Staff</button>
+                    <form class="keyword" method="post" action="accountlist.jsp">
+                        <input type="text" class="search" name="keyword" autocomplete="off" placeholder="username">
+                        <button type="submit" class="submit" name="filter1" value="search" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Search</button>
+                        <button type="submit" class="submit2" name="filter2" value="2" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Customer</button>
+                        <button type="submit" class="submit3" name="filter2" value="1" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Staff</button>
                     </form>
                 </div>
                             
@@ -114,24 +114,23 @@
                             <div>
                                 <div class="<%=eachUsertype.equals("1")? "staff": "customer"%>">
                                     <h1><%=eachUsertype.equals("1")? "Staff": "Customer"%></h1>
-                                    <h2>Account status: <span class="<%=eachUserstatus.equals("1")? "actived": "lock"%>"><%=eachUserstatus.equals("1")? "Active": "Locked"%></span></h2>
-                                    <h2>User name: <%=eachUsername%> Password: <%=eachUserPassword%></h2>
-                                    <h3>Profile</h3>
-                                    <h4>First name: <%=eachFirstname%> Last name: <%=eachLastname%></h4>
-                                    <h4>Mail: <%=eachUsermail%></h4>
-                                    <h4>Phone: <%=eachUserphone%></h4>
-                                    <h4>Birth: <%=eachUserbirth%></h4>
+                                    <h3>Account status: <span class="<%=eachUserstatus.equals("1")? "unlocked": "locked"%>"><%=eachUserstatus.equals("1")? "Active": "Locked"%></span></h3>
+                                    <h3>User name: <%=eachUsername%> Password: <%=eachUserPassword%></h3>
+                                    <h3>First name: <%=eachFirstname%> Last name: <%=eachLastname%></h3>
+                                    <h3>Mail: <%=eachUsermail%></h3>
+                                    <h3>Phone: <%=eachUserphone%></h3>
+                                    <h3>Birth: <%=eachUserbirth%></h3>
                                 </div>
                                 <div class="<%=eachUsertype.equals("1")? "staff": "customer"%>">
                                     <form class="inline" method="post" action="update.jsp">
-                                        <button type="submit" name="username" value="<%=eachUsername%>" onclick="location.href='http://localhost:8080/IOTBay/update.jsp'">Edit</button>
+                                        <button type="submit" class="edit" name="username" value="<%=eachUsername%>" onclick="location.href='http://localhost:8080/IOTBay/update.jsp'">Edit</button>
                                     </form>
                                     <form class="inline" method="post" action="accountlist.jsp">
-                                        <button type="submit" name="delete" value="<%=eachUsername%>" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Delete</button>
+                                        <button type="submit" class="delete" name="delete" value="<%=eachUsername%>" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Delete</button>
                                     </form>
                                     <form class="inline" method="post" action="accountlist.jsp">
-                                        <input type="hidden" name ="username" value="<%=eachUsername%>">
-                                        <button type="submit" name="status" value="<%=eachUserstatus%>" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'"><%=eachUserstatus.equals("1")? "Lock": "Active"%></button>
+                                        <input type="hidden"  name ="username" value="<%=eachUsername%>">
+                                        <button type="submit" class="<%=eachUserstatus.equals("1")? "lock": "actived"%>" name="status" value="<%=eachUserstatus%>" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'"><%=eachUserstatus.equals("1")? "Lock": "Active"%></button>
                                     </form>
                                 </div>
                             </div>
@@ -139,12 +138,6 @@
                     }%>
                 
             </section>
-            
-                
-                           
-             
-            
-            
         <%}%>
     </body>
 </html>

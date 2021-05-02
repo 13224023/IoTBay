@@ -4,11 +4,13 @@
     Author     : 
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
 <%@page import="uts.isd.model.dao.*"%>
 <%--//STEP 1. Import required packages --%>
 <%@page import="java.sql.*"%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,10 +31,17 @@
                 response.sendRedirect(redirectURL);
             }else {
                 if(isLoginButtonClicked) {
+                    DBConnector connector = new DBConnector();
+                    LOGManager logManager = new LOGManager(connector.getConnection());
                     String username = request.getParameter("uname");
                     String password = request.getParameter("upassword");
+                    logManager.addLog(username);
+                    logManager.getLogsByUsername(username);
+                    //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    //Date date = new Date(System.currentTimeMillis());
+                    //System.out.println(formatter.format(date));
                     
-                    DBConnector connector = new DBConnector();
+                    
                     DBManager dbManager = new DBManager(connector.getConnection());
                     User matchedUser = dbManager.findUser(username, password);
                     if(matchedUser != null) {
