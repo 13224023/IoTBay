@@ -78,6 +78,12 @@ public class LOGManager {
         return  filterList;
     }
     
+    public LogList getAllLogsByDate(String month,
+            String day) throws SQLException  {
+    
+        LogList filterList = getAllLogs().getListByDate(month, day);
+        return  filterList;
+    }
     
     public LogList getAllLogs() throws SQLException {
         String fetch = "SELECT USERNAME,TYPE,DATE,TIME FROM ROOT.LOGS ";
