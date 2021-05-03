@@ -31,22 +31,21 @@
                 response.sendRedirect(redirectURL);
             }else {
                 if(isLoginButtonClicked) {
+                    //Create connection to database
                     DBConnector connector = new DBConnector();
-                    LOGManager logManager = new LOGManager(connector.getConnection());
+                    
+                    //get username and password from user input
                     String username = request.getParameter("uname");
                     String password = request.getParameter("upassword");
-                    logManager.addLog(username);
-                    logManager.getLogsByUsername(username);
-                    //SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                    //Date date = new Date(System.currentTimeMillis());
-                    //System.out.println(formatter.format(date));
+                    
+                    //retrieve data from DBManager
+                    User matchedUser = new DBManager(connector.getConnection()).findUser(username, password);
                     
                     
-                    DBManager dbManager = new DBManager(connector.getConnection());
-                    User matchedUser = dbManager.findUser(username, password);
                     if(matchedUser != null) {
                         if(matchedUser.getStatus().equals("1")) {
                             loginSuccessful = true;
+                            new LOGManager(connector.getConnection()).addLog(matchedUser.getUsername(), "login");
                             session.setAttribute("user", matchedUser);
                             response.sendRedirect(redirectURL);
                         }else {

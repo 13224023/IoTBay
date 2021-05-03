@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
+<%@page import="uts.isd.model.dao.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +19,15 @@
             User user = (User)session.getAttribute("user");
             boolean isUserNull = user == null? true: false;
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
+            DBConnector connector = new DBConnector();
+            LOGManager logManager = new LOGManager(connector.getConnection());
+            String username = "";
+            
+                    
             if(!isUserNull) {
+                username = user.getUsername();
+                logManager.addLog(username, "logout");
+                logManager.getLogsByUsername(username);
                 session.invalidate();
             }
         %>

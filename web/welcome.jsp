@@ -42,6 +42,7 @@
                 <ul>
                     <li><a href="profile.jsp">My Profile</a></li>
                     <li><a href="cart.jsp">Cart</a></li>
+                    <li><a href="logs.jsp">LOGS</a></li>
                     <li><a href="logout.jsp">Logout</a></li>
                 </ul>
             </nav>
@@ -56,6 +57,7 @@
                     <li><a href="profile.jsp">My Profile</a></li>
                     <li><a>Product</a></li>
                     <li><a>Order</a></li>
+                    <li><a href="logs.jsp">LOGS</a></li>
                     <li><a href="logout.jsp">Logout</a></li>
                 </ul>
             </nav>
@@ -69,6 +71,7 @@
                 <ul>
                     <li><a href="profile.jsp">My Profile</a></li>
                     <li><a href="accountlist.jsp">AccountList</a></li>
+                    <li><a href="logs.jsp">LOGS</a></li>
                     <li><a href="logout.jsp">Logout</a></li>
                 </ul>
             </nav>
