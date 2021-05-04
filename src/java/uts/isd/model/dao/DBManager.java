@@ -134,7 +134,8 @@ public class DBManager {
         UserAccount accountList = new UserAccount();
         
         while(resultSet.next()) {
-            if(resultSet.getString(1).contains(username)) {
+            if(resultSet.getString(1).contains(username) || username.equals(resultSet.getString(6))
+                    || username.toLowerCase().contains(resultSet.getString(4).toLowerCase()) || username.toLowerCase().contains(resultSet.getString(5).toLowerCase())) {
                 accountList.setAnUser(
                     new User(
                         resultSet.getString(1),

@@ -32,7 +32,6 @@
             String status = request.getParameter("status");
             boolean isStatusButtonClicked = status != null? true: false;
                         
-            
             String search = request.getParameter("filter1");
             boolean isSearchButtonClicked = search != null? true: false;
             
@@ -92,7 +91,7 @@
             <section>
                 <div>
                     <form class="keyword" method="post" action="accountlist.jsp">
-                        <input type="text" class="search" name="keyword" autocomplete="off" placeholder="username">
+                        <input type="text" class="search" name="keyword" autocomplete="off" placeholder="username, full name, phone">
                         <button type="submit" class="submit" name="filter1" value="search" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Search</button>
                         <button type="submit" class="submit2" name="filter2" value="2" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Customer</button>
                         <button type="submit" class="submit3" name="filter2" value="1" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">Staff</button>
