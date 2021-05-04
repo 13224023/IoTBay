@@ -6,6 +6,8 @@
 package uts.isd.model;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 /**
  *
  * @author Administrator
@@ -37,9 +39,7 @@ public class Log {
     public Time getTime() {
         return time;
     }
-    public int getMonth() {
-        return date.getMonth();
-    }
+   
     
     
     private int getMonthDays(int month) {
@@ -81,9 +81,7 @@ public class Log {
     private boolean isDayIntegerable(String days) {
         try {
             int number = Integer.parseInt(days);
-            if(number > 0 && number <= 31)
-                return true;
-            return false;
+            return number > 0 && number <= 31;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -91,25 +89,26 @@ public class Log {
             
     public boolean isDateMatchByDate(String month, String days) {
         
-        Date now = new Date(System.currentTimeMillis());
-        int year = now.getYear();
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
         int numberOfMonth = isMonthIntegerable(month)? Integer.parseInt(month): 0;   
         int numberOfDays = isDayIntegerable(days)? Integer.parseInt(days): 0; 
         
         if(numberOfMonth != 0 && numberOfDays != 0) {
-            Date comparedDate = new Date(now.getYear(), numberOfMonth - 1, numberOfDays);
-            return comparedDate.compareTo(getDate()) == 0;
+            Calendar compared = new GregorianCalendar(year, numberOfMonth - 1, numberOfDays);
+            return compared.getTime().compareTo(getDate()) == 0;
         }
         if(numberOfMonth != 0 && numberOfDays == 0) {
-            Date startDate = new Date(year , numberOfMonth - 1 , 1);
-            Date endDate = new Date(year , numberOfMonth - 1, getMonthDays(numberOfMonth));
-            return this.date.compareTo(startDate) >= 0 && this.date.compareTo(endDate) <= 0;
+            Calendar startCalendar = new GregorianCalendar(year , numberOfMonth - 1 , 1);
+            Calendar endCalendar = new GregorianCalendar(year , numberOfMonth - 1, getMonthDays(numberOfMonth));
+            return this.date.compareTo(startCalendar.getTime()) >= 0 && this.date.compareTo(endCalendar.getTime()) <= 0;
         }
         
         if(numberOfMonth == 0 && numberOfDays != 0) {
-            ArrayList<Date> dateList = new ArrayList<Date>();
+            ArrayList<Date> dateList = new ArrayList<>();
             for(int i = 1; i <= 12; i++) {
-                dateList.add(new Date(now.getYear(), i - 1, numberOfDays));
+                Calendar c = new GregorianCalendar(year , i - 1, numberOfDays, 0, 0, 0);
+                dateList.add(new java.sql.Date(c.getTimeInMillis()));
             }
             for(int i = 0; i < 12; i++) {
                 if(dateList.get(i).compareTo(this.date) == 0)

@@ -5,7 +5,6 @@
  */
 package uts.isd.model;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +15,7 @@ public class LogList {
     ArrayList<Log> list;
     
     public LogList() {
-        list = new ArrayList<Log>();
+        list = new ArrayList<>();
     }
     
     public void addLog(Log log) {
