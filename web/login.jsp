@@ -25,10 +25,12 @@
             String existErr = (String)session.getAttribute("existErr");
             String passErr = (String)session.getAttribute("passErr");
             String usernameErr = (String) session.getAttribute("usernameErr");
+            
             User user = (User)session.getAttribute("user");
             if (user != null) {
                 response.sendRedirect(redirectURL);
             }
+            
         %>
         
         <form class="box" action="LoginServlet" method="post" id="login">

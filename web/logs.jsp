@@ -65,24 +65,17 @@
                 </label>
                 <label class="logo">User Logs</label>
                 <ul>
-                    <li><a href="welcome.jsp">BACK</a></li>
+                    <li><a href="WelcomeController">BACK</a></li>
                 </ul>
         </nav>
-        
-        
-    
-        <center>
             
+        <center>
             <div>
                 <form class="keyword" method="post" action="logs.jsp">
                         <input type="text" class="search" name="month" autocomplete="off" placeholder="Month">
                         <input type="text" class="search" name="days" autocomplete="off" placeholder="Days">
                         <button type="submit" class="submit" name="filter" value="search" onclick="location.href='http://localhost:8080/IOTBay/logs.jsp'">Search</button>
                 </form>
-            
-        
-        
-            
                 <table class="table-style">
                         <thead>
                             <tr>
@@ -94,7 +87,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             <% for(int i = 0; i < logList.listSize(); i++) {%>
                                 <tr>
                                     <td><%= i + 1%></td>
@@ -104,11 +96,9 @@
                                     <td><%= logList.getLogByIndex(i).getTime()%></td>
                                 </tr>
                             <%}%>
-
                         </tbody>
                 </table>
             </div>
-            
         </center>
             
         

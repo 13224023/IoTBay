@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBManager;
+import uts.isd.model.dao.LOGManager;
 
  
 /*
@@ -36,6 +37,7 @@ public class RegisterServlet extends HttpServlet {
         String cPassword = request.getParameter("cupassword");
         //5- retrieve the manager instance from session
         DBManager manager = (DBManager) session.getAttribute("manager");
+        LOGManager logManager = (LOGManager) session.getAttribute("logManager");
         //6- Declare a user with value of null
         User user = null;
         
@@ -75,13 +77,15 @@ public class RegisterServlet extends HttpServlet {
                     //save the logged in user object to the session 
                     user = new User(username, password, email);
                     session.setAttribute("user", user);
-                    
+                    //store user into databse
                     manager.addUser(username, password, "2", email, "1");
+                    //store log into database
+                    logManager.addLog(username,"login");
                     //redirect user to the welcome.jsp  
                     request.getRequestDispatcher("welcome.jsp").include(request, response);
                 }
             } catch (SQLException ex) {           
-                Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);       
+                Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);       
             }
         }
     } 

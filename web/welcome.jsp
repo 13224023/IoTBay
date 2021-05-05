@@ -4,6 +4,7 @@
     Author     : Jung
 --%>
 
+<%@page import="java.util.Base64"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uts.isd.model.*"%>
 <!DOCTYPE html>
@@ -14,22 +15,18 @@
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
         <title>Welcome Page</title>
     </head>
-    
-        
-            <%  
-                //Get the logged customer from the list
-                User user = (User)session.getAttribute("user");
-                
-                //Check a logged customer is received or not
-                boolean isUserEmpty = user == null? true : false;
-                                
-                String usertype = !isUserEmpty? user.getUsertype(): "";
-                String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-                
-            %>
-                   
-        
-        <%if(isUserEmpty) {
+        <%  
+            User user = (User)session.getAttribute("user");
+            boolean isUserNull = user == null? true : false;
+            String usertype = "";
+            String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
+            
+            if(!isUserNull) {
+                usertype = user.getUsertype();
+            }
+        %>
+               
+        <%if(isUserNull) {
             response.sendRedirect(redirectURL);
         %>
         <%}else if(usertype.equals("2")) {%>
@@ -40,10 +37,10 @@
                 </label>
                 <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
                 <ul>
-                    <li><a href="profile.jsp">My Profile</a></li>
+                    <li><a href="<%="ProfileController"%>">My Profile</a></li>
                     <li><a href="cart.jsp">Cart</a></li>
                     <li><a href="logs.jsp">LOGS</a></li>
-                    <li><a href="logout.jsp">Logout</a></li>
+                    <li><a href="LogoutController">Logout</a></li>
                 </ul>
             </nav>
         <%}else if(usertype.equals("1")) {%>
@@ -54,11 +51,11 @@
                 </label>
                 <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
                 <ul>
-                    <li><a href="profile.jsp">My Profile</a></li>
+                    <li><a href="<%="ProfileController"%>">My Profile</a></li>
                     <li><a>Product</a></li>
                     <li><a>Order</a></li>
                     <li><a href="logs.jsp">LOGS</a></li>
-                    <li><a href="logout.jsp">Logout</a></li>
+                    <li><a href="LogoutController">Logout</a></li>
                 </ul>
             </nav>
         <%}else {%>
@@ -69,10 +66,10 @@
                 </label>
                 <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
                 <ul>
-                    <li><a href="profile.jsp">My Profile</a></li>
+                    <li><a href="<%="ProfileController"%>">My Profile</a></li>
                     <li><a href="accountlist.jsp">AccountList</a></li>
                     <li><a href="logs.jsp">LOGS</a></li>
-                    <li><a href="logout.jsp">Logout</a></li>
+                    <li><a href="LogoutController">Logout</a></li>
                 </ul>
             </nav>
         <%}%>

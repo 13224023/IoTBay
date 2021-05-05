@@ -25,6 +25,7 @@ public class ConnServlet extends HttpServlet {
 
     private DBConnector db;
     private DBManager manager;
+    private LOGManager logManager;
     private Connection conn;
 
         
@@ -65,13 +66,15 @@ public class ConnServlet extends HttpServlet {
         try {
             //4 An instance to connect to DBManager database of users table
             manager = new DBManager(conn);
+            logManager = new LOGManager(conn);
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         //export the DB manager to the view-session (JSPs)
         //5 add the instance into current session
-        session.setAttribute("manager", manager);           
+        session.setAttribute("manager", manager);
+        session.setAttribute("logManager", logManager);
     }   
 
     @Override //Destroy the servlet and release the resources of the application (terminate also the db connection)

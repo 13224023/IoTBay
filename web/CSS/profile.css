@@ -196,14 +196,11 @@ section {
 
 
 .table-style tbody tr:last-of-type {
-    
-    border-bottom: 1px solid #3CB371;
-    
+    border-bottom: 1px solid white;
 }
 
 
 .table-header {
-    background-color: #3CB371;
     color: #ffffff;
     font-weight: bold;
     width: 40%;
