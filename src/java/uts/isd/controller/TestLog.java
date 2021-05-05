@@ -8,6 +8,8 @@ package uts.isd.controller;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.Calendar;
 import java.util.logging.*;
 import java.util.Scanner;
 import uts.isd.model.LogList;
@@ -23,13 +25,13 @@ public class TestLog {
     private static Scanner in = new Scanner(System.in);
     private DBConnector connector;
     private Connection connection;
-    private LOGManager LogManager;
+    private LOGManager logManager;
     
     public TestLog() throws SQLException {
         try {
             connector = new DBConnector();
             connection = connector.getConnection();
-            LogManager = new LOGManager(connection);
+            logManager = new LOGManager(connection);
         
         }catch(ClassNotFoundException | SQLException ex) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -37,20 +39,19 @@ public class TestLog {
     }
     
     public char readChoice() {
-        System.out.print("Operation CRFS or * to exit: ");
+        System.out.print("Operation CRUDS or * to exit: ");
         return in.nextLine().charAt(0);
     }
     
     private void testAdd() {
         System.out.print("Username: ");
         String username = in.nextLine();
-        Date date = new Date(System.currentTimeMillis());
-              
+                      
         System.out.print("LogType: login or logout ");
         String type = in.nextLine();
         
         try {
-            LogManager.addLog(username, type);
+            logManager.addLog(username, type);
         }catch(SQLException ex) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -62,8 +63,7 @@ public class TestLog {
         System.out.print("Username: ");
         String username = in.nextLine();
         
-        LogList logList = LogManager.getLogsByUsername(username);
-                
+        LogList logList = logManager.getLogsByUsername(username);
         logList.displayLogs();
     }
     
@@ -74,18 +74,69 @@ public class TestLog {
         String month = in.nextLine();
         System.out.print("Days: ");
         String days = in.nextLine();
-        LogList logList = LogManager.getLogsByNameAndDate(username, month, days);
+        LogList logList = logManager.getLogsByNameAndDate(username, month, days);
         logList.displayLogs();
-                
+    }
+    private void testUpdate() {
+        System.out.print("Number: ");
+        int number = Integer.parseInt(in.nextLine());
+        try {
+            if(logManager.findLog(number)) {
+                //test update user profile
+                System.out.print("Username: ");
+                String username = in.nextLine();
+                System.out.print("Type(login or logout): ");
+                String type = in.nextLine();
+                System.out.print("Year: ");
+                int year = Integer.parseInt(in.nextLine());
+                System.out.print("Month(1 - 12): ");
+                int month = Integer.parseInt(in.nextLine());
+                System.out.print("Days(1 - 30): ");
+                int days = Integer.parseInt(in.nextLine());
+                System.out.print("Hour(0 - 23): ");
+                int hour = Integer.parseInt(in.nextLine());
+                System.out.print("Minute(0 - 59): ");
+                int minute = Integer.parseInt(in.nextLine());
+                System.out.print("Second(0 - 59): ");
+                int second = Integer.parseInt(in.nextLine());
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month - 1, days, hour, minute, second);
+                Date date = new Date(calendar.getTimeInMillis());
+                Time time = new Time(calendar.getTimeInMillis());
+                logManager.updateLog(number, username, type, date, time);
+                System.out.println("Log Number " + number + " password is updated.");
+            }else {
+                System.out.println("Log Number " + number + " does not exist in database.");
+            }
+            //dbManager.addUser(username, password, usertype);
+        }catch(SQLException ex) {
+            Logger.getLogger(TestLog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    //test DBManager.deleteUser()
+    private void testDelete() {
+        System.out.print("Number: ");
+        int number = Integer.parseInt(in.nextLine());
+        try {
+            if(logManager.findLog(number)) {
+                //test update user profile
+                logManager.deleteLog(number);
+                System.out.println("Log Number: " + number + " is removed from database.");
+            }else {
+                System.out.println("Log Number: " + number + " does not exist in database.");
+            }
+        }catch(SQLException ex) {
+            Logger.getLogger(TestLog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     
     }
     
     private void showAll() {
         try {
-            LogList logList = LogManager.getAllLogs();
+            LogList logList = logManager.getAllLogs();
             logList.displayLogs();
         }catch(SQLException ex) {
-            Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestLog.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -100,6 +151,12 @@ public class TestLog {
                     break;
                 case 'R':
                     testRead();
+                    break;
+                case 'U':
+                    testUpdate();
+                    break;
+                case 'D':
+                    testDelete();
                     break;
                 case 'F':
                     testFilter();

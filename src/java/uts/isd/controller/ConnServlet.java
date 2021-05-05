@@ -74,8 +74,6 @@ public class ConnServlet extends HttpServlet {
         session.setAttribute("manager", manager);           
     }   
 
-        
-
     @Override //Destroy the servlet and release the resources of the application (terminate also the db connection)
     public void destroy() {
         try {

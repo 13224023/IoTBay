@@ -42,6 +42,10 @@ public class LogList {
     }
     
     public void displayLogs() {
+        if(listSize() == 0) {
+            System.out.println("No records.");
+            return;
+        }
         for(int i = 0; i < listSize(); i++) {
             System.out.println(getLogByIndex(i));
         }

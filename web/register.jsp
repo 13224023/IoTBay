@@ -17,87 +17,39 @@
         <link rel="stylesheet" href="CSS/register.css">
         <title>Register Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    
+            
     </head>
     <body class="back">
+        
+       
         <%
-            
-                        
-            User getUser = (User) session.getAttribute("user");
-            
             String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
+            String usernameErr = (String) session.getAttribute("usernameErr");
+            String passErr = (String)session.getAttribute("passErr");
+            String passDiffErr = (String) session.getAttribute("passDiffErr");
+            String emailErr = (String) session.getAttribute("emailErr");
+            String existErr = (String)session.getAttribute("existErr");
             
-            boolean isUserNull = getUser == null? true: false;
-            
-            boolean isRegisterButtonClicked = request.getParameter("register") != null ? true : false;
-            
-            boolean registerSuccessful = false;
-            
-            boolean isCustomerNameExist = false;
-            String customerNameExistInfo = "Sorry, user name already exists";
-            
-            boolean passwordsDifferent = false;
-            String passwordDiffInfo = "Sorry, passwords are different";
-            
-            if(!isUserNull) {
+            User user = (User)session.getAttribute("user");
+            if (user != null) {
                 response.sendRedirect(redirectURL);
-            }else {
-                if(isRegisterButtonClicked) {
-                    
-                    String name = request.getParameter("uname");
-                    String uPassword = request.getParameter("upassword");
-                    String cPassword = request.getParameter("cupassword");
-                    String email = request.getParameter("email");
-                    
-                    if(uPassword.equals(cPassword)) {
-                        DBConnector connector = new DBConnector();
-                        DBManager dbManager = new DBManager(connector.getConnection());
-                        
-                        if(!dbManager.isUsernameExist(name)) {
-                            dbManager.addUser(name, uPassword, "2", email, "1");
-                            registerSuccessful = true;
-                            connector.closeConnection();
-                        }else {
-                            isCustomerNameExist = true;
-                        }
-                    }
-                    else {
-                        passwordsDifferent = true;
-                    }
-                    
-                    if(registerSuccessful) {
-                        User newUser = new User(name, uPassword, email);
-                        newUser.setIsLogged(true);
-                        session.setAttribute("user", newUser);
-                        response.sendRedirect(redirectURL);
-                    }
-                }
-            }
-            
+            } 
+        
         %>
-        <form class="box" action="register.jsp" method="post" id="register">
+        <form class="box" action="RegisterServlet" method="post" id="register">
             <h1>Register</h1>
             <input type="text" id="uname" name="uname" autocomplete="off" placeholder="Username" required>
             <input type="password" id="upassword" name="upassword" autocomplete="off" placeholder="Password" required>
             <input type="password" id="cupassword" name="cupassword" autocomplete="off" placeholder="Confirm Password" required>
-            <input type="mail" id="email" name="email" autocomplete="off" placeholder="xxx@xxx.xxx" required>
+            <input type="mail" id="email" name="email" autocomplete="off" placeholder="xxx.xxx@xxx.xxx.xx" required>
             <input type="submit" form="register" name="register" value="Register">
             <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/'">
             <p> Already a Customer? <a href="login.jsp">Login</a></p>
-            <%
-                if(isRegisterButtonClicked) {
-                    if(!registerSuccessful) {
-                        if(isCustomerNameExist) {%>
-                            <p class="errorinfo"><%= customerNameExistInfo%></p>
-                        <%}else if(passwordsDifferent) {%>
-                            <p class="errorinfo"><%= passwordDiffInfo%></p>
-                        <%}else {%>
-                            <p class="errorinfo">Should check the code logic</p>
-                        <%}
-                    }
-                }
-            %>
+            <p class="errorinfo"><%=usernameErr != null? usernameErr: ""%></p>
+            <p class="errorinfo"><%=passErr != null? passErr: ""%></p>
+            <p class="errorinfo"><%=passDiffErr != null? passDiffErr: ""%></p>
+            <p class="errorinfo"><%=emailErr != null? emailErr: ""%></p>
+            <p class="errorinfo"><%=existErr != null? existErr: ""%></p>
         </form>
         
     </body>

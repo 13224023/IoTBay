@@ -22,6 +22,17 @@
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
     
+    <!-- RegisterServlet-->
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>uts.isd.controller.RegisterServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+    
     
     <session-config>
         <session-timeout>

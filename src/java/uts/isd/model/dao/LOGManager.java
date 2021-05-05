@@ -6,7 +6,7 @@
 package uts.isd.model.dao;
 import uts.isd.model.*;
 import java.sql.*;
-
+import java.util.Random;
  
 
 /**
@@ -26,16 +26,20 @@ public class LOGManager {
     
     public void addLog(String username, String type) throws SQLException {
         
-        String queryGetLine = "SELECT COUNT(*) FROM ROOT.LOGS";
-        this.preparedStmt = connection.prepareStatement(queryGetLine);
-        resultSet = preparedStmt.executeQuery();
-        int number = 0;
-        if(resultSet.next()) {
-            number = resultSet.getInt(1) + 1;
-        } 
+        String queryGetLine = "SELECT NUMBER FROM ROOT.LOGS WHERE NUMBER = ?";
+        Random rand = new Random();
+        int getInt = 0;
+        int upperbound = 100;
+        do {
+            getInt = rand.nextInt(upperbound);
+            this.preparedStmt = connection.prepareStatement(queryGetLine);
+            this.preparedStmt.setInt(1, getInt);
+            resultSet = preparedStmt.executeQuery();
+        }while(resultSet.next());
+        
         preparedStmt.close();
         resultSet.close();
-        
+                
         String query = "INSERT INTO ROOT.LOGS " + 
             "(NUMBER,USERNAME,DATE,TIME,TYPE) " +
             " VALUES(?,?,?,?,?)";
@@ -43,7 +47,7 @@ public class LOGManager {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         Time time = new Time(now);
-        this.preparedStmt.setInt(1, number);
+        this.preparedStmt.setInt(1, getInt);
         this.preparedStmt.setString(2, username);
         this.preparedStmt.setDate(3, date);
         this.preparedStmt.setTime(4, time);
@@ -55,8 +59,61 @@ public class LOGManager {
         
     }
     
+    public boolean findLog(int number) throws SQLException {
+        String fetch = "SELECT * FROM ROOT.LOGS " +
+            "WHERE NUMBER = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setInt(1, number);
+        resultSet = preparedStmt.executeQuery();
+        try {
+            if(resultSet.next()) {
+                resultSet.close();
+                return true;
+            }
+        }catch(SQLException ex) {
+            resultSet.close(); 
+            
+        } 
+        return false;   
+            
+    }
+    
+    public void updateLog(int number, String username,
+            String type, Date date, Time time) throws SQLException {
+        String query = "UPDATE ROOT.LOGS SET " + 
+            "USERNAME = ?, TYPE = ?, DATE = ?, TIME = ?" + 
+            "WHERE NUMBER = ?";
+        //Store values into each column
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, username);
+            preparedStmt.setString(2, type);
+            preparedStmt.setDate(3, date);
+            preparedStmt.setTime(4, time);
+            preparedStmt.setInt(5, number);
+               
+            //Execute the query and get a reponse from database
+            preparedStmt.executeUpdate();
+        }catch(SQLException ex) {
+                       
+        } 
+       
+    }
+       
+    
+    public void deleteLog(int number) throws SQLException {
+        String query = "DELETE FROM ROOT.LOGS WHERE NUMBER = ?";
+        if(findLog(number)) {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, number);
+            preparedStmt.executeUpdate();
+            preparedStmt.close();
+        }
+    }
+    
+    
     public LogList getLogsByUsername(String username) throws SQLException {
-        String fetch = "SELECT DATE,TIME,TYPE FROM ROOT.LOGS " + 
+        String fetch = "SELECT NUMBER,DATE,TIME,TYPE FROM ROOT.LOGS " + 
                 "WHERE USERNAME=?";
         this.preparedStmt = connection.prepareStatement(fetch);
         this.preparedStmt.setString(1, username);
@@ -65,10 +122,11 @@ public class LOGManager {
         LogList logList = new LogList();
         
         while(resultSet.next()) {
+            int number = resultSet.getInt("NUMBER");
             String type = resultSet.getString("TYPE");
             Date date = resultSet.getDate("DATE");
             Time time = resultSet.getTime("TIME");
-            logList.addLog(new Log(username, type, date, time));
+            logList.addLog(new Log(number, username, type, date, time));
         }
         resultSet.close();
         return logList;
@@ -88,18 +146,19 @@ public class LOGManager {
     }
     
     public LogList getAllLogs() throws SQLException {
-        String fetch = "SELECT USERNAME,TYPE,DATE,TIME FROM ROOT.LOGS ";
+        String fetch = "SELECT NUMBER,USERNAME,TYPE,DATE,TIME FROM ROOT.LOGS ";
         this.preparedStmt = connection.prepareStatement(fetch);
         resultSet = preparedStmt.executeQuery();
         
         LogList logList = new LogList();
         
         while(resultSet.next()) {
-            String username = resultSet.getString(1);
-            String type = resultSet.getString(2);
-            Date date = resultSet.getDate(3);
-            Time time = resultSet.getTime(4);
-            logList.addLog(new Log(username, type, date, time));
+            int number = resultSet.getInt("NUMBER");
+            String username = resultSet.getString("USERNAME");
+            String type = resultSet.getString("TYPE");
+            Date date = resultSet.getDate("DATE");
+            Time time = resultSet.getTime("TIME");
+            logList.addLog(new Log(number, username, type, date, time));
         }
         resultSet.close();
         return logList;

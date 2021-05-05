@@ -45,11 +45,16 @@ public class Validator implements Serializable{
        return validate(passwordPattern,password); 
     }
     
+    public boolean isValidatePassword(String password, String confirmPassword) {
+        return password.equals(confirmPassword);
+    }
+    
     public void clean(HttpSession session) {
         session.setAttribute("emailErr", "");
         session.setAttribute("passErr", "");
         session.setAttribute("nameErr", "");
         session.setAttribute("existErr", "");
         session.setAttribute("usernameErr", "");
+        session.setAttribute("passDiffErr", "");
     }
 }

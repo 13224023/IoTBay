@@ -13,18 +13,24 @@ import java.util.GregorianCalendar;
  * @author Administrator
  */
 public class Log {
+    final int number;
     final String username;
     final String type;
     final private Date date;
     final private Time time;
     
     
-    public Log(String username, String type, Date date, Time time) {
+    public Log(int number, String username, String type, Date date, Time time) {
+        this.number = number;
         this.username = username;
         this.type = type;
         this.date = date;
         this.time = time;
         
+    }
+    
+    public int getNumber() {
+        return number;
     }
     
     public String getUsername() {
@@ -126,6 +132,6 @@ public class Log {
     
     @Override
     public String toString() {
-        return username + " " + type + " " + date + " " + time;
+        return "" + number + " " + username + " " + type + " " + date + " " + time;
     }
 }

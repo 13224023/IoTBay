@@ -21,14 +21,16 @@
     <body>
         
         <%
+            String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
             String existErr = (String)session.getAttribute("existErr");
             String passErr = (String)session.getAttribute("passErr");
             String usernameErr = (String) session.getAttribute("usernameErr");
+            User user = (User)session.getAttribute("user");
+            if (user != null) {
+                response.sendRedirect(redirectURL);
+            }
         %>
         
-        <!--
-        <form class="box" action="login.jsp" method="get" id="login">
-        -->
         <form class="box" action="LoginServlet" method="post" id="login">
             <h1>Login</h1>
             <input type="text" id="uname" name="uname" autocomplete="off" placeholder="Username" required>

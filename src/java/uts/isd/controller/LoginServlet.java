@@ -34,7 +34,10 @@ public class LoginServlet extends HttpServlet {
         //5- retrieve the manager instance from session
         DBManager manager = (DBManager) session.getAttribute("manager");
         //6- Declare a user with value of null
-        User user = null;       
+        User user = null;
+        
+        //7 initialise the error message
+        validator.clean(session);
        
         if (!validator.validateUsername(username)) {           
             //8-set incorrect email error to the session
@@ -65,10 +68,6 @@ public class LoginServlet extends HttpServlet {
             } catch (SQLException ex) {           
                 Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);       
             }
-                          
-                
-                          
-                     
         }
     } 
 }
