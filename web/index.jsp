@@ -17,7 +17,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        
+        <jsp:include page="/ConnServlet" flush="true" />
         <nav>
             <input type="checkbox" id="check">
             <label for="check" class="checkbtn">

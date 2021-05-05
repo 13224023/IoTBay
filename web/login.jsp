@@ -19,54 +19,26 @@
         <title>Login Page</title>
     </head>
     <body>
-        <%
-            User user = (User) session.getAttribute("user");
-            String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
-            
-            boolean isUserNull = user == null? true : false;
-            boolean isLoginButtonClicked = request.getParameter("login") != null? true : false;
-            boolean loginSuccessful = false;
-            boolean isAccountLocked = false;
-            if(!isUserNull) {
-                response.sendRedirect(redirectURL);
-            }else {
-                if(isLoginButtonClicked) {
-                    //Create connection to database
-                    DBConnector connector = new DBConnector();
-                    
-                    //get username and password from user input
-                    String username = request.getParameter("uname");
-                    String password = request.getParameter("upassword");
-                    
-                    //retrieve data from DBManager
-                    User matchedUser = new DBManager(connector.getConnection()).findUser(username, password);
-                    
-                    
-                    if(matchedUser != null) {
-                        if(matchedUser.getStatus().equals("1")) {
-                            loginSuccessful = true;
-                            new LOGManager(connector.getConnection()).addLog(matchedUser.getUsername(), "login");
-                            session.setAttribute("user", matchedUser);
-                            response.sendRedirect(redirectURL);
-                        }else {
-                            isAccountLocked = true;
-                        }
-                        
-                    } 
-                }
-            }
-            
-        %>
-       
         
+        <%
+            String existErr = (String)session.getAttribute("existErr");
+            String passErr = (String)session.getAttribute("passErr");
+            String usernameErr = (String) session.getAttribute("usernameErr");
+        %>
+        
+        <!--
         <form class="box" action="login.jsp" method="get" id="login">
+        -->
+        <form class="box" action="LoginServlet" method="post" id="login">
             <h1>Login</h1>
             <input type="text" id="uname" name="uname" autocomplete="off" placeholder="Username" required>
             <input type="password" id="upassword" name="upassword" autocomplete="off" placeholder="Password" required>
             <input type="submit" form="login" name="login" value="Login">
             <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/'">
             <p> Not a Customer? <a href="register.jsp">Register</a></p>
-            <p class="errorinfo"><%= isLoginButtonClicked? loginSuccessful? "": isAccountLocked? "Your Account is Locked": "Invalid password. Please try again" :"" %></p>
+            <p class="errorinfo"><%=existErr != null? existErr: ""%></p>
+            <p class="errorinfo"><%=passErr != null? passErr: ""%></p>
+            <p class="errorinfo"><%=usernameErr != null? usernameErr: ""%></p>
         </form>
         
     </body>
