@@ -15,36 +15,31 @@
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
         <title>Welcome Page</title>
     </head>
+    <body>
         <%  
-            User user = (User)session.getAttribute("user");
-            boolean isUserNull = user == null? true : false;
-            String usertype = "";
+            User user = (User) session.getAttribute("user");
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-            
-            if(!isUserNull) {
-                usertype = user.getUsertype();
-            }
+            boolean isUserNull = user == null;
+            if(isUserNull) response.sendRedirect(redirectURL);
+            String usertype = user.getUsertype();
         %>
-               
-        <%if(isUserNull) {
-            response.sendRedirect(redirectURL);
-        %>
-        <%}else if(usertype.equals("2")) {%>
-            <nav class="customer">
+        
+        <%if(usertype.equals("0")) {%>
+            <nav class="root">
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
                     <i class="fas fa-bars"></i>
                 </label>
                 <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
                 <ul>
-                    <li><a href="<%="ProfileController"%>">My Profile</a></li>
-                    <li><a href="cart.jsp">Cart</a></li>
-                    <li><a href="logs.jsp">LOGS</a></li>
+                    <li><a href="ProfileController">My Profile</a></li>
+                    <li><a href="AccountListController">AccountList</a></li>
+                    <li><a href="LogsController">LOGS</a></li>
                     <li><a href="LogoutController">Logout</a></li>
                 </ul>
             </nav>
         <%}else if(usertype.equals("1")) {%>
-             <nav class="staff">
+            <nav class="staff">
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
                     <i class="fas fa-bars"></i>
@@ -54,12 +49,12 @@
                     <li><a href="<%="ProfileController"%>">My Profile</a></li>
                     <li><a>Product</a></li>
                     <li><a>Order</a></li>
-                    <li><a href="logs.jsp">LOGS</a></li>
+                    <li><a href="LogsController">LOGS</a></li>
                     <li><a href="LogoutController">Logout</a></li>
                 </ul>
             </nav>
-        <%}else {%>
-             <nav class="root">
+        <%} else {%>
+            <nav class="customer">
                 <input type="checkbox" id="check">
                 <label for="check" class="checkbtn">
                     <i class="fas fa-bars"></i>
@@ -67,12 +62,16 @@
                 <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
                 <ul>
                     <li><a href="<%="ProfileController"%>">My Profile</a></li>
-                    <li><a href="accountlist.jsp">AccountList</a></li>
-                    <li><a href="logs.jsp">LOGS</a></li>
+                    <li><a href="cart.jsp">Cart</a></li>
+                    <li><a href="LogsController">LOGS</a></li>
                     <li><a href="LogoutController">Logout</a></li>
                 </ul>
             </nav>
         <%}%>
+        
+        
+    </body>
+        
         
         
     

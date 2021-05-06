@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance (Links to an external site.)" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee (Links to an external site.) http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd (Links to an external site.)">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee           http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <!-- ConnServlet-->
     <servlet>
         <servlet-name>ConnServlet</servlet-name>
@@ -30,6 +30,84 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
+    
+    <!-- EditServlet-->
+    <servlet>
+        <servlet-name>EditServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EditServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditServlet</servlet-name>
+        <url-pattern>/EditServlet</url-pattern>
+    </servlet-mapping>
+    <!--ChangePasswordServlet-->
+    <servlet>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ChangePasswordServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordServlet</servlet-name>
+        <url-pattern>/ChangePasswordServlet</url-pattern>
+    </servlet-mapping>
+    <!--SearchLogServlet-->
+    <servlet>
+        <servlet-name>SearchLogServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchLogServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchLogServlet</servlet-name>
+        <url-pattern>/SearchLogServlet</url-pattern>
+    </servlet-mapping>
+    <!--SearchUserServlet-->
+    <servlet>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchUserServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <url-pattern>/SearchUserServlet</url-pattern>
+    </servlet-mapping>
+    
+    <!--UpdateServlet-->
+    <servlet>
+        <servlet-name>UpdateServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateServlet</servlet-name>
+        <url-pattern>/UpdateServlet</url-pattern>
+    </servlet-mapping>
+    
+    <!--DeleteServlet-->
+    <servlet>
+        <servlet-name>DeleteServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteServlet</servlet-name>
+        <url-pattern>/DeleteServlet</url-pattern>
+    </servlet-mapping>
+    
+    <!--StatusServlet-->
+    <servlet>
+        <servlet-name>StatusServlet</servlet-name>
+        <servlet-class>uts.isd.controller.StatusServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StatusServlet</servlet-name>
+        <url-pattern>/StatusServlet</url-pattern>
+    </servlet-mapping>
+    
+    <!--Controller below -->
+    
+    
     <!-- ProfileController-->
     <servlet>
         <servlet-name>ProfileController</servlet-name>
@@ -50,7 +128,7 @@
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
     </servlet-mapping>
-    <!-- WelcomeControllerController-->
+    <!-- WelcomeController-->
     <servlet>
         <servlet-name>WelcomeController</servlet-name>
         <servlet-class>uts.isd.controller.WelcomeController</servlet-class>
@@ -60,6 +138,57 @@
         <servlet-name>WelcomeController</servlet-name>
         <url-pattern>/WelcomeController</url-pattern>
     </servlet-mapping>
+    <!-- AccountListController-->
+    <servlet>
+        <servlet-name>AccountListController</servlet-name>
+        <servlet-class>uts.isd.controller.AccountListController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AccountListController</servlet-name>
+        <url-pattern>/AccountListController</url-pattern>
+    </servlet-mapping>
+    <!-- ChangePasswordController-->
+    <servlet>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <servlet-class>uts.isd.controller.ChangePasswordController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ChangePasswordController</servlet-name>
+        <url-pattern>/ChangePasswordController</url-pattern>
+    </servlet-mapping>
+    <!-- EditController-->
+    <servlet>
+        <servlet-name>EditController</servlet-name>
+        <servlet-class>uts.isd.controller.EditController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditController</servlet-name>
+        <url-pattern>/EditController</url-pattern>
+    </servlet-mapping>
+    <!-- LogsController-->
+    <servlet>
+        <servlet-name>LogsController</servlet-name>
+        <servlet-class>uts.isd.controller.LogsController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogsController</servlet-name>
+        <url-pattern>/LogsController</url-pattern>
+    </servlet-mapping>
+    <!-- UpdateController-->
+    <servlet>
+        <servlet-name>UpdateController</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateController</servlet-name>
+        <url-pattern>/UpdateController</url-pattern>
+    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

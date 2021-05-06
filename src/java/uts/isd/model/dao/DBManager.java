@@ -127,6 +127,37 @@ public class DBManager {
     
     }
     
+    public UserAccount getAllUsersWithoutRoot() throws SQLException {
+        String fetch;
+        fetch = "SELECT * FROM ROOT.USERS WHERE USERTYPE != ?"; 
+              
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, "0");
+        resultSet = preparedStmt.executeQuery();
+        UserAccount accountList = new UserAccount();
+        
+        while(resultSet.next()) {
+            accountList.setAnUser(
+                    new User(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3), 
+                        resultSet.getString(4),  
+                        resultSet.getString(5), 
+                        resultSet.getString(6), 
+                        resultSet.getString(7), 
+                        resultSet.getString(8),
+                        resultSet.getString(9)
+                    )
+                );
+            
+        }
+        return accountList;
+    
+    }
+    
+    
+    
     public UserAccount getAllUsersByUsername(String username) throws SQLException {
         String fetch = "SELECT * FROM ROOT.USERS";
         this.preparedStmt = connection.prepareStatement(fetch);
@@ -135,7 +166,7 @@ public class DBManager {
         
         while(resultSet.next()) {
             if(resultSet.getString(1).contains(username) || username.equals(resultSet.getString(6))
-                    || username.toLowerCase().contains(resultSet.getString(4).toLowerCase()) || username.toLowerCase().contains(resultSet.getString(5).toLowerCase())) {
+                    || (username.toLowerCase().contains(resultSet.getString(4).toLowerCase()) && username.toLowerCase().contains(resultSet.getString(5).toLowerCase()))) {
                 accountList.setAnUser(
                     new User(
                         resultSet.getString(1),
@@ -154,6 +185,42 @@ public class DBManager {
         return accountList;
     
     }
+    
+    public UserAccount getAllUsersByKeyWord(String keyword) throws SQLException {
+        String fetch; 
+        fetch = "SELECT * FROM ROOT.USERS WHERE USERTYPE != ?"; 
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, "0");
+        resultSet = preparedStmt.executeQuery();
+        UserAccount accountList = new UserAccount();
+        
+        while(resultSet.next()) {
+                if(resultSet.getString(1).toLowerCase().contains(keyword.toLowerCase()) ||
+                        keyword.equals(resultSet.getString(6)) ||
+                        (keyword.toLowerCase().contains(resultSet.getString(4).toLowerCase()) &&
+                        keyword.toLowerCase().contains(resultSet.getString(5).toLowerCase()))) {
+                    accountList.setAnUser(
+                        new User(
+                            resultSet.getString(1),
+                            resultSet.getString(2),
+                            resultSet.getString(3), 
+                            resultSet.getString(4),  
+                            resultSet.getString(5), 
+                            resultSet.getString(6), 
+                            resultSet.getString(7), 
+                            resultSet.getString(8),
+                            resultSet.getString(9)
+                            )
+                    );
+                }
+        }
+        return accountList;
+    
+    }
+    
+    
+    
+    
     
     
        

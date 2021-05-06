@@ -29,7 +29,7 @@ public class LOGManager {
         String queryGetLine = "SELECT NUMBER FROM ROOT.LOGS WHERE NUMBER = ?";
         Random rand = new Random();
         int getInt = 0;
-        int upperbound = 100;
+        int upperbound = 1000;
         do {
             getInt = rand.nextInt(upperbound);
             this.preparedStmt = connection.prepareStatement(queryGetLine);

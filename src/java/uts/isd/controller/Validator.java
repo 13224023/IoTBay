@@ -49,6 +49,10 @@ public class Validator implements Serializable{
         return password.equals(confirmPassword);
     }
     
+    public boolean isAccountLocked(String status) {
+        return status.equals("0");
+    }
+    
     public void clean(HttpSession session) {
         session.setAttribute("emailErr", "");
         session.setAttribute("passErr", "");
@@ -56,5 +60,7 @@ public class Validator implements Serializable{
         session.setAttribute("existErr", "");
         session.setAttribute("usernameErr", "");
         session.setAttribute("passDiffErr", "");
+        session.setAttribute("profileUpdate", "");
+        session.setAttribute("userLock", "");
     }
 }

@@ -36,9 +36,7 @@ public class LoginServlet extends HttpServlet {
         LOGManager logManager = (LOGManager) session.getAttribute("logManager");
         //initialise the error message
         validator.clean(session);
-        //Declare a user with value of null
-        User user = null;
-       
+        
         if (!validator.validateUsername(username)) {           
             //set incorrect email error to the session
             session.setAttribute("usernameErr", "Error: Username format incorrect");
@@ -53,18 +51,29 @@ public class LoginServlet extends HttpServlet {
         } else {
             try {
                 //find user by email and password
-                user = manager.findUser(username, password);
+                User user = manager.findUser(username, password);
                 if(user != null) {
-                    //save the logged in user object to the session 
-                    session.setAttribute("user", user);
-                    //store log into database
-                    logManager.addLog(username,"login");
+                    if(user.getStatus().equals("1")) {
+                        //save the logged in user object to the session 
+                        session.setAttribute("user", user);
                     
-                    //redirect user to the welcom.jsp
-                    request.getRequestDispatcher("welcome.jsp").include(request, response);
+                        //store log into database
+                        logManager.addLog(username,"login");
+                    
+                        //redirect user to the welcom.jsp
+                        request.getRequestDispatcher("welcome.jsp").include(request, response);
+                    }else {
+                        //set user does not exist error to the session 
+                        session.setAttribute("userLock", "Account is locked");
+                        
+                        //redirect user back to the login.jsp  
+                        request.getRequestDispatcher("login.jsp").include(request, response);
+                    }
+                    
                 }else {
                     //set user does not exist error to the session 
                     session.setAttribute("existErr", "Username or password is incorrect");
+                    
                     //redirect user back to the login.jsp  
                     request.getRequestDispatcher("login.jsp").include(request, response);
                 }

@@ -21,10 +21,11 @@
     <body>
         
         <%
-            String redirectURL = "http://localhost:8080/IOTBay/welcome.jsp";
+            String redirectURL = "http://localhost:8080/IOTBay/WelcomeController";
             String existErr = (String)session.getAttribute("existErr");
             String passErr = (String)session.getAttribute("passErr");
             String usernameErr = (String) session.getAttribute("usernameErr");
+            String userLock = (String)session.getAttribute("userLock");
             
             User user = (User)session.getAttribute("user");
             if (user != null) {
@@ -40,9 +41,11 @@
             <input type="submit" form="login" name="login" value="Login">
             <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/'">
             <p> Not a Customer? <a href="register.jsp">Register</a></p>
-            <p class="errorinfo"><%=existErr != null? existErr: ""%></p>
-            <p class="errorinfo"><%=passErr != null? passErr: ""%></p>
             <p class="errorinfo"><%=usernameErr != null? usernameErr: ""%></p>
+            <p class="errorinfo"><%=passErr != null? passErr: ""%></p>
+            <p class="errorinfo"><%=userLock != null? userLock: ""%></p>
+            <p class="errorinfo"><%=existErr != null? existErr: ""%></p>
+            
         </form>
         
     </body>

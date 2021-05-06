@@ -18,91 +18,21 @@
     </head>
     <body>
         <%
-            //Get data from the object
             User user = (User) session.getAttribute("user");
-            
-            //The variable is to check user presses update button or not 
-            String updated = request.getParameter("updated");
-            String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-            
-            //The variables is store the inforamtion of success or failure update
-            String successInfo = "Successfully update";
-            String failureInfo = "Update Failure! Check the code";
-            String pFirstName = "";
-            String pLastName = "";
-            String pEmail = "";
-            String pBirthday = "";
-            String pPhone = "";
-                       
-            //The variables is to check to disply the update result
-            boolean isUserNull = user == null? true: false;
-            boolean isUpdateSuccessful = false;
-            boolean isUpdateOn = false;
-            
-            if(updated != null)
-                isUpdateOn = true;
-            
-            //Store user info into variables
-            if(!isUserNull) {
-                pFirstName = user.getUserFirstName();
-                pLastName = user.getUserLastName();
-                pEmail = user.getEmail();
-                pBirthday = user.getBirthday();
-                pPhone = user.getPhone();
-            }
-                
-            if(isUpdateOn && !isUserNull) {
-                    //get data from html form
-                    String username = user.getUsername();
-                    String password = user.getPassword();
-                    String firstname = request.getParameter("fname");
-                    String lastname = request.getParameter("lname");
-                    String email = request.getParameter("email");
-                    String birthday = request.getParameter("birthday");
-                    String phone = request.getParameter("phone");
-                    
-                                        
-                    //update variables
-                    pFirstName = firstname;
-                    pLastName = lastname;
-                    pEmail = email;
-                    pBirthday = birthday;
-                    pPhone = phone;
-                    
-                    DBConnector connector = new DBConnector();
-                    DBManager dbManager = new DBManager(connector.getConnection());
-                    dbManager.updateUserProfile(username, password, firstname, lastname, email, birthday, phone);
-                    
-                    //update user profile
-                    isUpdateSuccessful = user.setProfile(firstname, lastname , email, birthday, phone);
-                    
-                    //update session
-                    session.setAttribute("user", user);
-                                      
-            }
-        
-            if(isUserNull) {
-                response.sendRedirect(redirectURL);
-            }else {%>
-                <form class="box" action="edit.jsp" method="post" id="update">
-                    <h1>Edit Profile</h1>
-                    <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First Name" value="<%=pFirstName%>">
-                    <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last Name" value="<%=pLastName%>">
-                    <input type="mail" id="email" name="email" autocomplete="off" placeholder="Email" value="<%=pEmail%>" required>
-                    <input type="date" id="birthday" name="birthday" autocomplete="off" value="<%=pBirthday%>" required>
-                    <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="Phone Number" value="<%=pPhone%>">
-                    <input type="submit" form="update" name="updated" value="Update">
-                    <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/profile.jsp'">
-                    <%
-                    if(isUpdateOn) {
-                        if(isUpdateSuccessful) {%>
-                            <p><%=successInfo%></p>
-                        <%}else {%>
-                            <p class="errorinfo"><%=failureInfo%></p>
-                        <%}%>
-                    <%}%>
-                </form>
-            <%}%>
-            
+            String emailErr = (String) session.getAttribute("emailErr");
+            String profileUpdate = (String) session.getAttribute("profileUpdate");
+        %>  
+        <form class="box" action="EditServlet" method="post" id="update">
+            <h1>Edit Profile</h1>
+            <input type="text" id="fname" name="fname" autocomplete="off" placeholder="First Name" value="<%=user.getUserFirstName()%>">
+            <input type="text" id="lname" name="lname" autocomplete="off" placeholder="Last Name" value="<%=user.getUserLastName()%>">
+            <input type="mail" id="email" name="email" autocomplete="off" placeholder="Email" value="<%=user.getEmail()%>" required>
+            <input type="date" id="birthday" name="birthday" autocomplete="off" value="<%=user.getBirthday()%>" required>
+            <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="Phone Number" value="<%=user.getPhone()%>">
+            <input type="submit" form="update" name="updated" value="Update">
+            <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/ProfileController'">
+            <p class="errorinfo"><%=emailErr != null? emailErr: ""%></p>
+            <p class="successinfo"><%=profileUpdate != null? profileUpdate: ""%></p>
+        </form>
     </body>
 </html>

@@ -201,7 +201,6 @@ a:hover {
 }
 
 .table-style thead tr {
-    background-color: #5A7670;
     color: #ffffff;
     text-align: left;
     font-weight: bold;
@@ -241,7 +240,7 @@ a:hover {
 
 
 .table-header {
-    background-color: #3CB371;
+    /*background-color: #3CB371;*/
     color: #ffffff;
     font-weight: bold;
     /*width: 40%;*/
@@ -249,16 +248,18 @@ a:hover {
 
 .root {
     background: #5A7670;
+    background-color: #5A7670;
     
 }
 
 .staff {
     background: #B89F5D;
-    
+     background-color: #B89F5D;
 }
 
 .customer {
     background: #3FB0AC;
+    background-color: #3FB0AC;
 }
 
 

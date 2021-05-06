@@ -14,49 +14,12 @@
         <title>LOGS Page</title>
         <link rel="stylesheet" href="CSS/logs.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <%
             User user = (User) session.getAttribute("user");
-            String redirectURL = "http://localhost:8080/IOTBay/unathorised.jsp";
-            boolean isUserNull = user == null? true : false;
-            LogList logList = new LogList();
-            boolean isUserAdmin = false;
-            String search = request.getParameter("filter");
-            boolean isSearchButtonClicked = search != null? true: false;
-            
-            String userType = "";
-            if(!isUserNull) {
-                DBConnector connector = new DBConnector();
-                LOGManager logManager = new LOGManager(connector.getConnection());
-                isUserAdmin = user.getUsertype().equals("0");
-                userType = isUserAdmin? "root" : user.getUsertype().equals("1")? "staff" : "customer";
-                if(isSearchButtonClicked) {
-                    String month = request.getParameter("month");
-                    String day = request.getParameter("days");
-                    if(isUserAdmin) {
-                        logList = logManager.getAllLogs().getListByDate(month, day);
-                    }else {
-                        logList = logManager.getLogsByNameAndDate(user.getUsername(), month, day);
-                        //logList = logManager.
-                    }
-                }else {
-                    if(isUserAdmin) {
-                        logList = logManager.getAllLogs();
-                    }else {
-                        //userType = user.getUsertype().equals("1")? "staff": "customer";
-                        logList = logManager.getLogsByUsername(user.getUsername());
-                    }
-                }
-                
-                
-                
-            }
-            else {
-                response.sendRedirect(redirectURL);
-            }
-            
+            String userType = user.getUsertype().equals("0")? "root":  user.getUsertype().equals("1")? "staff": "customer";
+            LogList logList = (LogList) session.getAttribute("logList");
         %>
         <nav class="<%=userType%>">
                 <input type="checkbox" id="check">
@@ -71,13 +34,13 @@
             
         <center>
             <div>
-                <form class="keyword" method="post" action="logs.jsp">
+                <form class="keyword" method="post" action="SearchLogServlet" id="search">
                         <input type="text" class="search" name="month" autocomplete="off" placeholder="Month">
                         <input type="text" class="search" name="days" autocomplete="off" placeholder="Days">
-                        <button type="submit" class="submit" name="filter" value="search" onclick="location.href='http://localhost:8080/IOTBay/logs.jsp'">Search</button>
+                        <button type="submit" class="submit" form="search">Search</button>
                 </form>
                 <table class="table-style">
-                        <thead>
+                        <thead class="<%=userType%>">
                             <tr>
                                 <th>No</th>
                                 <th>Username</th>
@@ -100,12 +63,5 @@
                 </table>
             </div>
         </center>
-            
-        
-        
-               
-        
-        
-        
     </body>
 </html>

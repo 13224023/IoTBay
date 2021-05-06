@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 public class WelcomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getHeader("referer"));
-        //System.out.println(request.getAttribute("javax.servlet.forward.request_uri"));
         request.getRequestDispatcher("welcome.jsp").include(request, response);
     } 
 }
