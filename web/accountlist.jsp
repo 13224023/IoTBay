@@ -30,7 +30,7 @@
                 </label>
                 <label class="logo">User List</label>
                 <ul>
-                    <li><a href="adduser.jsp">ADD USER</a></li>
+                    <li><a href="AddUserController">ADD USER</a></li>
                     <li><a href="WelcomeController">BACK</a></li>
                 </ul>
             </nav>

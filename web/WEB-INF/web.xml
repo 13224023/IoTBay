@@ -105,6 +105,16 @@
         <url-pattern>/StatusServlet</url-pattern>
     </servlet-mapping>
     
+    <!--AddUserServlet-->
+    <servlet>
+        <servlet-name>AddUserServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AddUserServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddUserServlet</servlet-name>
+        <url-pattern>/AddUserServlet</url-pattern>
+    </servlet-mapping>
     <!--Controller below -->
     
     
@@ -187,6 +197,27 @@
     <servlet-mapping>
         <servlet-name>UpdateController</servlet-name>
         <url-pattern>/UpdateController</url-pattern>
+    </servlet-mapping>
+    <!-- AddUserController-->
+    <servlet>
+        <servlet-name>AddUserController</servlet-name>
+        <servlet-class>uts.isd.controller.AddUserController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddUserController</servlet-name>
+        <url-pattern>/AddUserController</url-pattern>
+    </servlet-mapping>
+    
+    <!-- UnAuthorisedController-->
+    <servlet>
+        <servlet-name>UnAuthorisedController</servlet-name>
+        <servlet-class>uts.isd.controller.UnAuthorisedController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UnAuthorisedController</servlet-name>
+        <url-pattern>/UnAuthorisedController</url-pattern>
     </servlet-mapping>
     
     <session-config>

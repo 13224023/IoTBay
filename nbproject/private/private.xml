@@ -10,6 +10,7 @@
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/accountlist.css</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/cart.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/UpdateServlet.java</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/AddUserController.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/AccountListController.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/dao/DBManager.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/LogoutController.java</file>
@@ -22,6 +23,7 @@
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/index.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/RegisterServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/UpdateController.java</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/UnAuthorisedController.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/edit.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/update.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/ChangePasswordController.java</file>
@@ -50,8 +52,10 @@
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/LogList.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/register.css</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/DeleteServlet.java</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/nbproject/build-impl.xml</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/logs.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/TestDB.java</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/AddUserServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/SearchUserServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/SearchLogServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/User.java</file>
