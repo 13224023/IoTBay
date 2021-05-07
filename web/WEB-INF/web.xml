@@ -115,6 +115,49 @@
         <servlet-name>AddUserServlet</servlet-name>
         <url-pattern>/AddUserServlet</url-pattern>
     </servlet-mapping>
+    
+    <!--AddProductServlet-->
+    <servlet>
+        <servlet-name>AddProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.AddProductServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddProductServlet</servlet-name>
+        <url-pattern>/AddProductServlet</url-pattern>
+    </servlet-mapping>
+    <!--DeleteServlet-->
+    <servlet>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteProductServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteProductServlet</servlet-name>
+        <url-pattern>/DeleteProductServlet</url-pattern>
+    </servlet-mapping>
+    <!--UpdateProductServlet-->
+    <servlet>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateProductServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProductServlet</servlet-name>
+        <url-pattern>/UpdateProductServlet</url-pattern>
+    </servlet-mapping>
+    <!--SearchProductServlet-->
+    <servlet>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchProductServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchProductServlet</servlet-name>
+        <url-pattern>/SearchProductServlet</url-pattern>
+    </servlet-mapping>
+    
+    
     <!--Controller below -->
     
     
@@ -218,6 +261,39 @@
     <servlet-mapping>
         <servlet-name>UnAuthorisedController</servlet-name>
         <url-pattern>/UnAuthorisedController</url-pattern>
+    </servlet-mapping>
+    
+    <!-- ProductListController-->
+    <servlet>
+        <servlet-name>ProductListController</servlet-name>
+        <servlet-class>uts.isd.controller.ProductListController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductListController</servlet-name>
+        <url-pattern>/ProductListController</url-pattern>
+    </servlet-mapping>
+    
+    <!-- AddProductController-->
+    <servlet>
+        <servlet-name>AddProductController</servlet-name>
+        <servlet-class>uts.isd.controller.AddProductController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddProductController</servlet-name>
+        <url-pattern>/AddProductController</url-pattern>
+    </servlet-mapping>
+    
+    <!--UpdateProductController-->
+    <servlet>
+        <servlet-name>UpdateProductController</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateProductController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProductController</servlet-name>
+        <url-pattern>/UpdateProductController</url-pattern>
     </servlet-mapping>
     
     <session-config>

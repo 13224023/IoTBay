@@ -27,6 +27,7 @@ public class ConnServlet extends HttpServlet {
     private DBManager manager;
     private LOGManager logManager;
     private Connection conn;
+    private DBProductManager productManager;
 
         
 
@@ -67,6 +68,7 @@ public class ConnServlet extends HttpServlet {
             //4 An instance to connect to DBManager database of users table
             manager = new DBManager(conn);
             logManager = new LOGManager(conn);
+            productManager = new DBProductManager(conn);
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -75,6 +77,7 @@ public class ConnServlet extends HttpServlet {
         //5 add the instance into current session
         session.setAttribute("manager", manager);
         session.setAttribute("logManager", logManager);
+        session.setAttribute("productManager", productManager);
     }   
 
     @Override //Destroy the servlet and release the resources of the application (terminate also the db connection)

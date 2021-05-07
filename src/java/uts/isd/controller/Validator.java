@@ -13,7 +13,9 @@ public class Validator implements Serializable{
     private final String namePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";       
     private final String passwordPattern = "[a-z0-9]{4,}";
     private final String usernamePattern = "[a-z0-9]{4,15}";
-              
+    private final String productNamePattern = "[A-Za-z0-9\\s]{4,20}";
+    private final String productTypePattern = "[A-Za-z0-9\\s]{3,20}";
+    private final String productNumberPattern = "[0-9]{1,}";
     public Validator(){}       
 
 
@@ -53,6 +55,18 @@ public class Validator implements Serializable{
         return status.equals("0");
     }
     
+    public boolean validateProductName(String name){
+       return validate(productNamePattern,name); 
+    } 
+    
+    public boolean validateProductType(String type){
+       return validate(productTypePattern,type); 
+    }
+    
+    public boolean validateProductNumber(String number){
+       return validate(productNumberPattern,number); 
+    }
+    
     public void clean(HttpSession session) {
         session.setAttribute("emailErr", "");
         session.setAttribute("passErr", "");
@@ -62,5 +76,10 @@ public class Validator implements Serializable{
         session.setAttribute("passDiffErr", "");
         session.setAttribute("profileUpdate", "");
         session.setAttribute("userLock", "");
+        session.setAttribute("productNameErr","");
+        session.setAttribute("productTypeErr","");
+        session.setAttribute("productPriceErr","");
+        session.setAttribute("productStockErr","");
+        session.setAttribute("successInfo", "");
     }
 }

@@ -40,6 +40,5 @@
             <p class="errorinfo"><%=emailErr != null? emailErr: ""%></p>
             <p class="successinfo"><%=profileUpdate != null? profileUpdate: ""%></p>
         </form>
-            
     </body>
 </html>

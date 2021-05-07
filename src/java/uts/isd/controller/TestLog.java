@@ -34,7 +34,7 @@ public class TestLog {
             logManager = new LOGManager(connection);
         
         }catch(ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestLog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

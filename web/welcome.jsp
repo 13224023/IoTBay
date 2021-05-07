@@ -47,7 +47,7 @@
                 <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
                 <ul>
                     <li><a href="<%="ProfileController"%>">My Profile</a></li>
-                    <li><a>Product</a></li>
+                    <li><a href="ProductListController">Product</a></li>
                     <li><a>Order</a></li>
                     <li><a href="LogsController">LOGS</a></li>
                     <li><a href="LogoutController">Logout</a></li>

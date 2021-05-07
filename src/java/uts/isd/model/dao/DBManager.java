@@ -45,7 +45,6 @@ public class DBManager {
                         resultSet.getString(9)
                         );
         }
-        resultSet.close();
         return null;
     }
     
