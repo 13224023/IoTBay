@@ -37,17 +37,37 @@
             <section>
                 <div>
                     <form class="keyword" method="post" action="SearchUserServlet">
+                        
+                        <label for="all">
+                            <input type="radio" id="all" name="usertype" value="0" checked>
+                            All
+                            <span></span>
+                        </label>
+                        <label for="staff">
+                            <input type="radio" id="staff" name="usertype" value="1">
+                            Staff
+                            <span></span>
+                        </label>
+                        <label for="customer">
+                            <input type="radio" id="customer" name="usertype" value="2">
+                            Customer
+                            <span></span>
+                        </label>
                         <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Username, full name, phone">
                         <button type="submit" class="submit" name="filter1" value="search">Search</button>
+                        
+                        
+                        <!--
                         <button type="submit" class="submit2" name="filter2" value="customer">Customer</button>
                         <button type="submit" class="submit3" name="filter3" value="staff">Staff</button>
+                        -->
                     </form>
                 </div>
                             
                 
             <%for (int i = 0; i < userList.getUserAccountNumber(); i++) {
                 String eachUsername = userList.getUserByNumber(i).getUsername();
-                String eachUsertype = userList.getUserByNumber(i).getUsertype();
+                String eachUsertype = userList.getUserByNumber(i).getUsertype().equals("1")? "staff":"customer";
                 String eachUserstatus = userList.getUserByNumber(i).getStatus();
                 String eachFirstname = userList.getUserByNumber(i).getUserFirstName();
                 String eachLastname = userList.getUserByNumber(i).getUserLastName();
@@ -57,8 +77,10 @@
                 String eachUsermail = userList.getUserByNumber(i).getEmail();
             %>
                 <div>
-                    <div class="<%=eachUsertype.equals("1")? "staff": "customer"%>">
-                        <h1><%=eachUsertype.equals("1")? "Staff": "Customer"%></h1>
+                    <div class="<%=eachUsertype%>">
+                        <h1><%=eachUsertype.toUpperCase()%></h1>
+                    </div>
+                    <div class="<%=eachUsertype%>">
                         <h3>Account status: <span class="<%=eachUserstatus.equals("1")? "unlocked": "locked"%>"><%=eachUserstatus.equals("1")? "Active": "Locked"%></span></h3>
                         <h3>User name: <%=eachUsername%> Password: <%=eachUserPassword%></h3>
                         <h3>First name: <%=eachFirstname%> Last name: <%=eachLastname%></h3>
@@ -66,7 +88,7 @@
                         <h3>Phone: <%=eachUserphone%></h3>
                         <h3>Birth: <%=eachUserbirth%></h3>
                     </div>
-                    <div class="<%=eachUsertype.equals("1")? "staff": "customer"%>">
+                    <div class="<%=eachUsertype%>">
                         <form class="inline" method="post" action="UpdateController">
                             <button type="submit" class="edit" name="username" value="<%=eachUsername%>">Edit</button>
                         </form>

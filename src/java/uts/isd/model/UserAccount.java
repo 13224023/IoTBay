@@ -48,7 +48,28 @@ public class UserAccount implements Serializable {
         return false;
     }
     
+    public void setUserStatus(String username, String status) {
+        String reverseStatus = status.equals("0")? "1": "0";
+        for (User userList1 : userList) {
+            if(userList1.getUsername().equals(username)) {
+                userList1.setStatus(reverseStatus);
+                return;
+            }
+        }
+    
+    }
         
+    public void removeUser(String username) {
+        for(int i = 0; i < userList.size(); i++) {
+            if(userList.get(i).getUsername().equals(username)) {
+                userList.remove(i);
+                return;
+            }
+        
+        }
+    
+    }
+    
     
     //Getters
     public User getAnUser(User customer) {

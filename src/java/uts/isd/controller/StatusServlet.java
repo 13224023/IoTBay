@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.User;
+import uts.isd.model.UserAccount;
 import uts.isd.model.dao.DBManager;
 
 /**
@@ -30,6 +31,7 @@ public class StatusServlet extends HttpServlet {
         
         //Get user from session
         User user = (User) session.getAttribute("user");
+        UserAccount accountList = (UserAccount) session.getAttribute("accountList");
         String username = request.getParameter("username");
         String status = request.getParameter("status");
                 
@@ -43,7 +45,9 @@ public class StatusServlet extends HttpServlet {
         
         try {
             manager.updateUserStatus(username, status);
-            session.setAttribute("accountList", manager.getAllUsersWithoutRoot());
+            accountList.setUserStatus(username, status);
+            //session.setAttribute("accountList", getAllUsersWithoutRoot());
+            session.setAttribute("accountList", accountList);
             request.getRequestDispatcher("accountlist.jsp").include(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(StatusServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -83,8 +83,6 @@ public class TestDB {
         }catch(SQLException ex) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("User is added into database.");
-        
     }
     
     //DBManager.findUser() 
@@ -119,21 +117,17 @@ public class TestDB {
                 String firstname = in.nextLine();
                 System.out.print("Lastname: ");
                 String lastname = in.nextLine();
-                System.out.print("Emal: ");
+                System.out.print("User new password: ");
+                String newPassword = in.nextLine();
+                System.out.print("Email: ");
                 String email = in.nextLine();
                 System.out.print("Birthday: ");
                 String birthday = in.nextLine();
                 System.out.print("Phone: ");
                 String phone = in.nextLine();
                 dbManager.updateUserProfile(username, password, firstname, lastname, email, birthday, phone);
-                System.out.println("User " + username + " profile is updated.");
-                
-                //test change password
-                System.out.print("User new password: ");
-                String newPassword = in.nextLine();
                 dbManager.updateUserPassword(username, newPassword);
-                System.out.println("User " + username + " password is updated.");
-                
+                System.out.println("User " + username + " profile is updated.");
                 
             }else {
                 System.out.println("User " + username + " does not exist in database.");

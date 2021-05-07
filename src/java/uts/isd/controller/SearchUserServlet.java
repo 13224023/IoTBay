@@ -30,32 +30,30 @@ public class SearchUserServlet extends HttpServlet {
         //retrieve the current session
         HttpSession session = request.getSession();
         
-        String search = request.getParameter("filter1");
-        boolean isSearchButtonClicked = search != null;
+        //String search = request.getParameter("filter1");
+        //boolean isSearchButtonClicked = search != null;
             
-        String customer = request.getParameter("filter2");
-        boolean isCustomerButtonClicked = customer != null;
+        //String customer = request.getParameter("filter2");
+        //boolean isCustomerButtonClicked = customer != null;
         
-        String staff = request.getParameter("filter3");
-        boolean isStaffButtonClicked = staff != null;
+        //String staff = request.getParameter("filter3");
+        //boolean isStaffButtonClicked = staff != null;
         
         String keyword;
-        
+        String usertype;
         keyword = request.getParameter("keyword");
+        usertype = request.getParameter("usertype");
+        
         
         DBManager manager = (DBManager) session.getAttribute("manager");
         
         UserAccount accountList;
              
         try {
-            if(isSearchButtonClicked) {
+            if(usertype.equals("0")) {
                 accountList = manager.getAllUsersByKeyWord(keyword);
-            }else if(isCustomerButtonClicked) {
-                accountList = manager.getAllUsersByUsertype("2");
-            }else if(isStaffButtonClicked) {
-                accountList = manager.getAllUsersByUsertype("1");
             }else {
-                accountList = manager.getAllUsersWithoutRoot();
+                accountList = manager.getAllUsersByKeyWord(usertype, keyword);
             }
             session.setAttribute("accountList", accountList);
             request.getRequestDispatcher("accountlist.jsp").include(request, response);

@@ -97,16 +97,15 @@ public class DBManager {
         resultSet.close();
         return accountList;
     }
-    
     public UserAccount getAllUsersByUsertype(String usertype) throws SQLException {
-        String fetch = "SELECT * FROM ROOT.USERS";
+        String fetch = "SELECT * FROM ROOT.USERS WHERE USERTYPE = ?";
         this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, usertype);
         resultSet = preparedStmt.executeQuery();
         UserAccount accountList = new UserAccount();
         
         while(resultSet.next()) {
-            if(resultSet.getString(3).equals(usertype)) {
-                accountList.setAnUser(
+            accountList.setAnUser(
                     new User(
                         resultSet.getString(1),
                         resultSet.getString(2),
@@ -117,13 +116,41 @@ public class DBManager {
                         resultSet.getString(7), 
                         resultSet.getString(8),
                         resultSet.getString(9)
-                    )
-                );
+                    ));
+            
+        }
+        return accountList;
+    }
+    
+    public UserAccount getAllUsersByKeyWord(String usertype, String keyword) throws SQLException {
+        if(keyword.equals("")) return getAllUsersByUsertype(usertype);
+        String fetch = "SELECT * FROM ROOT.USERS WHERE USERTYPE = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, usertype);
+        resultSet = preparedStmt.executeQuery();
+        UserAccount accountList = new UserAccount();
+        
+        while(resultSet.next()) {
+            String username = resultSet.getString(1);
+            String fullName = resultSet.getString(4) + " " + resultSet.getString(5);
+            String phone = resultSet.getString(6);
+            if(fullName.toLowerCase().equals(keyword.toLowerCase()) ||
+                    phone.equals(keyword)) {
+                accountList.setAnUser(
+                    new User(
+                        username,
+                        resultSet.getString(2),
+                        resultSet.getString(3), 
+                        resultSet.getString(4),  
+                        resultSet.getString(5), 
+                        phone, 
+                        resultSet.getString(7), 
+                        resultSet.getString(8),
+                        resultSet.getString(9)
+                    ));
             }
         }
-        //resultSet.close();
         return accountList;
-    
     }
     
     public UserAccount getAllUsersWithoutRoot() throws SQLException {
@@ -152,11 +179,8 @@ public class DBManager {
             
         }
         return accountList;
-    
     }
-    
-    
-    
+        
     public UserAccount getAllUsersByUsername(String username) throws SQLException {
         String fetch = "SELECT * FROM ROOT.USERS";
         this.preparedStmt = connection.prepareStatement(fetch);
@@ -164,8 +188,9 @@ public class DBManager {
         UserAccount accountList = new UserAccount();
         
         while(resultSet.next()) {
-            if(resultSet.getString(1).contains(username) || username.equals(resultSet.getString(6))
-                    || (username.toLowerCase().contains(resultSet.getString(4).toLowerCase()) && username.toLowerCase().contains(resultSet.getString(5).toLowerCase()))) {
+            //if(resultSet.getString(1).contains(username) || username.equals(resultSet.getString(6))
+                    //|| (username.toLowerCase().contains(resultSet.getString(4).toLowerCase()) && username.toLowerCase().contains(resultSet.getString(5).toLowerCase()))) {
+            if(resultSet.getString("USERNAME").toLowerCase().equals(username.toLowerCase())) {    
                 accountList.setAnUser(
                     new User(
                         resultSet.getString(1),
@@ -186,6 +211,7 @@ public class DBManager {
     }
     
     public UserAccount getAllUsersByKeyWord(String keyword) throws SQLException {
+        if(keyword.equals("")) return getAllUsersWithoutRoot(); 
         String fetch; 
         fetch = "SELECT * FROM ROOT.USERS WHERE USERTYPE != ?"; 
         this.preparedStmt = connection.prepareStatement(fetch);
@@ -194,18 +220,22 @@ public class DBManager {
         UserAccount accountList = new UserAccount();
         
         while(resultSet.next()) {
-                if(resultSet.getString(1).toLowerCase().contains(keyword.toLowerCase()) ||
-                        keyword.equals(resultSet.getString(6)) ||
-                        (keyword.toLowerCase().contains(resultSet.getString(4).toLowerCase()) &&
-                        keyword.toLowerCase().contains(resultSet.getString(5).toLowerCase()))) {
+                //if(resultSet.getString(1).toLowerCase().contains(keyword.toLowerCase()) ||
+                        //keyword.equals(resultSet.getString(6)) ||
+                        //(keyword.toLowerCase().contains(resultSet.getString(4).toLowerCase()) &&
+                        //keyword.toLowerCase().contains(resultSet.getString(5).toLowerCase()))) {
+                String username = resultSet.getString(1);
+                String fullName = resultSet.getString(4) + " " + resultSet.getString(5);
+                String phone = resultSet.getString(6);
+                if(fullName.toLowerCase().equals(keyword.toLowerCase()) || phone.equals(keyword)) {
                     accountList.setAnUser(
                         new User(
-                            resultSet.getString(1),
+                            username,
                             resultSet.getString(2),
                             resultSet.getString(3), 
                             resultSet.getString(4),  
                             resultSet.getString(5), 
-                            resultSet.getString(6), 
+                            phone, 
                             resultSet.getString(7), 
                             resultSet.getString(8),
                             resultSet.getString(9)
@@ -217,30 +247,22 @@ public class DBManager {
     
     }
     
-    
-    
-    
-    
-    
-       
-    
     public void addUser(String username, String password,
             String usertype, String email, String status) throws SQLException {
-        
-        
-        String query = "INSERT INTO USERS " + 
+        if(!isUsernameExist(username)) {
+            String query = "INSERT INTO USERS " + 
             "(USERNAME,PASSWORD,USERTYPE,FIRSTNAME,LASTNAME,PHONE,EMAIL,DOB,STATUS) " +
             " VALUES(?,?,?,'','','',?,'',?)";
-        this.preparedStmt = connection.prepareStatement(query);
-        this.preparedStmt.setString(1, username);
-        this.preparedStmt.setString(2, password);
-        this.preparedStmt.setString(3, usertype);
-        this.preparedStmt.setString(4, email);
-        this.preparedStmt.setString(5, status);
+            this.preparedStmt = connection.prepareStatement(query);
+            this.preparedStmt.setString(1, username);
+            this.preparedStmt.setString(2, password);
+            this.preparedStmt.setString(3, usertype);
+            this.preparedStmt.setString(4, email);
+            this.preparedStmt.setString(5, status);
         
-        //Execute the query, then return a value for storing successfully
-        int row = preparedStmt.executeUpdate();
-        
+            //Execute the query, then return a value for storing successfully
+            int executeUpdate = preparedStmt.executeUpdate();
+        }
     }
     
     public void updateUserProfile(String username, String password, 
@@ -289,8 +311,6 @@ public class DBManager {
         preparedStmt = connection.prepareStatement(query);
         preparedStmt.setString(1, reverseStatus);
         preparedStmt.setString(2, username);
-               
-        //Execute the query and get a reponse from database
         preparedStmt.executeUpdate();
         preparedStmt.close();
         
