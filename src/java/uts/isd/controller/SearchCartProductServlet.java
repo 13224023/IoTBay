@@ -14,15 +14,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.UserAccount;
-import uts.isd.model.dao.DBManager;
 import uts.isd.model.dao.DBProductManager;
 
 /**
  *
  * @author Administrator
  */
-public class SearchProductServlet extends HttpServlet {
+public class SearchCartProductServlet extends HttpServlet{
     @Override   
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //retrieve the current session
@@ -36,7 +34,7 @@ public class SearchProductServlet extends HttpServlet {
             session.setAttribute("productList", productManager.getProductByKeyword(keyword));
             request.getRequestDispatcher("productlist.jsp").include(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(SearchProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchCartProductServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

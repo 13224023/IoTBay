@@ -26,9 +26,60 @@ public class ProductList {
         productList.add(product);
     }
     
+    public void setRemainStock(int productNo, int number) {
+        for(Product each: productList) {
+            if(each.getProductNo() == productNo) {
+                each.setSoldNumber(number);
+                return;
+            }
+        } 
+    
+    }
+    
+    public void updateSoldNumber(int productNo, int orderNumber) {
+        for(Product each: this.productList) {
+            if(each.getProductNo() == productNo) {
+                each.updateSoldNumber(orderNumber);
+            }
+        }
+        
+    }
+    
+    
+    public boolean isProductInList(int productNo) {
+        for(int i = 0; i < productList.size(); i++) {
+            if(getProductByIndex(i).getProductNo() == productNo) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public int getQuantityByProductNo(int productNo) {
+        for(int i = 0; i < productList.size(); i++) {
+            if(getProductByIndex(i).getProductNo() == productNo) {
+                return getProductByIndex(i).getStock();
+            }
+        }
+        return 0;
+    
+    }
+    
+    
+    
     public Product getProductByIndex(int index) {
         return productList.get(index);
     }
+    
+    public Product getProductByProductNo(int productNo) {
+        for(int i = 0; i < productList.size(); i++) {
+            if(getProductByIndex(i).getProductNo() == productNo) {
+                return getProductByIndex(i);
+            }
+        }
+        return null;
+    }
+        
     
     public void displayProducts() {
         if(listSize() == 0) {
@@ -38,6 +89,5 @@ public class ProductList {
         for(int i = 0; i < listSize(); i++) {
             System.out.println(getProductByIndex(i));
         }
-    
     }
 }

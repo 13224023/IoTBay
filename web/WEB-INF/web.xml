@@ -156,7 +156,26 @@
         <servlet-name>SearchProductServlet</servlet-name>
         <url-pattern>/SearchProductServlet</url-pattern>
     </servlet-mapping>
-    
+    <!--CustomerSearchProductServlet-->
+    <servlet>
+        <servlet-name>CustomerSearchProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.CustomerSearchProductServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerSearchProductServlet</servlet-name>
+        <url-pattern>/CustomerSearchProductServlet</url-pattern>
+    </servlet-mapping>
+    <!--ProductCartServlet-->
+    <servlet>
+        <servlet-name>ProductCartServlet</servlet-name>
+        <servlet-class>uts.isd.controller.ProductCartServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductCartServlet</servlet-name>
+        <url-pattern>/ProductCartServlet</url-pattern>
+    </servlet-mapping>
     
     <!--Controller below -->
     
@@ -295,6 +314,17 @@
         <servlet-name>UpdateProductController</servlet-name>
         <url-pattern>/UpdateProductController</url-pattern>
     </servlet-mapping>
+    <!--ProductCartController-->
+    <servlet>
+        <servlet-name>ProductCartController</servlet-name>
+        <servlet-class>uts.isd.controller.ProductCartController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProductCartController</servlet-name>
+        <url-pattern>/ProductCartController</url-pattern>
+    </servlet-mapping>
+    
     
     <session-config>
         <session-timeout>

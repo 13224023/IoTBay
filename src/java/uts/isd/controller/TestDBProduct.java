@@ -92,7 +92,7 @@ public class TestDBProduct {
         System.out.print("Product Name: ");
         String name = in.nextLine();
         
-        ProductList productList = productManager.getLogsByKeyWord(name);
+        ProductList productList = productManager.getProductByKeyword(name);
         productList.displayProducts();
     }
     

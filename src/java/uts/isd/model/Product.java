@@ -71,6 +71,21 @@ public class Product {
         this.stock = stock;
     }
     
+    public void setSoldNumber(int number) {
+        this.stock = this.stock - number;
+    }
+    
+    public int updateOrderNumber(int number) {
+        int addition = number - this.stock;
+        setSoldNumber(addition);
+        return addition;
+    }
+    
+    public void updateSoldNumber(int number) {
+        this.stock = this.stock + number;
+    }
+    
+    
     public boolean isOutOfStock() {
         return this.stock == 0;
     }

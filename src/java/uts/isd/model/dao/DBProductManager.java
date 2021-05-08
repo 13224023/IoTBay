@@ -151,7 +151,7 @@ public class DBProductManager {
     
     
     
-    public ProductList getLogsByKeyWord(String keyword) throws SQLException {
+    public ProductList getProductByKeyword(String keyword) throws SQLException {
         
         if(keyword.equals("")) {
             return getAllProducts();

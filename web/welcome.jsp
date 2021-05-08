@@ -18,10 +18,15 @@
     <body>
         <%  
             User user = (User) session.getAttribute("user");
+            ProductList availableProductList = (ProductList) session.getAttribute("availableProductList");
+            ProductList cartProductList = (ProductList) session.getAttribute("cartProductList");
+            if(cartProductList == null) cartProductList = new ProductList();
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
             boolean isUserNull = user == null;
             if(isUserNull) response.sendRedirect(redirectURL);
             String usertype = user.getUsertype();
+            String productStockErr = (String) session.getAttribute("productStockErr");
+            String successInfo = (String) session.getAttribute("successInfo");
         %>
         
         <%if(usertype.equals("0")) {%>
@@ -61,15 +66,52 @@
                 </label>
                 <label class="logo">Hi, <%=user.getUserFirstName().equals("")? user.getUsername(): user.getUserFirstName()%></label>
                 <ul>
-                    <li><a href="<%="ProfileController"%>">My Profile</a></li>
-                    <li><a href="cart.jsp">Cart</a></li>
+                    <li><a href="ProfileController">My Profile</a></li>
+                    <li><a href="ProductCartController">Cart(<%=cartProductList.listSize()%>)</a></li>
                     <li><a href="LogsController">LOGS</a></li>
                     <li><a href="LogoutController">Logout</a></li>
                 </ul>
             </nav>
+            <section>
+            <div>
+                <form class="keyword" method="post" action="CustomerSearchProductServlet">
+                    <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Product name or type">
+                    <button type="submit" class="submit" name="filter" value="search">Search</button>
+                    <p class="errorinfo"><%=productStockErr != null? productStockErr: ""%></p>
+                    <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
+                </form>
+            </div>
+            <%for (int i = 0; i < availableProductList.listSize(); i++) {
+                int productNo = availableProductList.getProductByIndex(i).getProductNo();
+                String name = availableProductList.getProductByIndex(i).getName();
+                String type = availableProductList.getProductByIndex(i).getType();
+                int price = availableProductList.getProductByIndex(i).getPrice();
+                int stock = availableProductList.getProductByIndex(i).getStock();
+            %>
+            <div>
+                <div class="<%=type.toLowerCase()%>">
+                    <h1><%=type.toUpperCase()%></h1>
+                </div>
+                <div class="<%=type.toLowerCase()%>">
+                    <h3>Product Name: <%=name%></h3>
+                    <h3>Product Price: <%=price%></h3>
+                    <h3>Available stock: <%=stock%></h3>
+                </div>
+                <div class="<%=type.toLowerCase()%>">
+                    <%if(stock != 0) {%>
+                        <form method="post" action="ProductCartServlet">
+                            <label class="inline" for="<%=productNo%>"><h3>Quantity: </h3></label>
+                            <input class="inline" type="text" id="<%=productNo%>" name="quantity" placeholder="Number">
+                            <button class="edit inline" type="submit" name="add" value="<%=i%>">Add to cart</button>
+                        </form>
+                    <%}else {%>
+                    <h3>Quantity: <span>Sold out</span></h3>
+                    <%}%>
+                </div>
+            </div>
+            <%}%>
         <%}%>
-        
-        
+        </section>
     </body>
         
         

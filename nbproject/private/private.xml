@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/ProductCartController.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/dao/DB.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/update.css</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/StatusServlet.java</file>
@@ -29,18 +30,23 @@
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/RegisterServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/UpdateController.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/TestDBProduct.java</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/SearchCartProductServlet.java</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/cart.css</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/SearchProductServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/UnAuthorisedController.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/edit.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/update.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/ChangePasswordController.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/welcome.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/UpdateCartProductServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/ConnServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/changepassword.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/adduser.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/ProductCartServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/logout.jsp</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/logs.css</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/DeleteProductServlet.java</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/DeletCartProductServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/ProfileController.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/edit.css</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/CSS/welcome.css</file>
@@ -68,6 +74,8 @@
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/DeleteServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/nbproject/build-impl.xml</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/web/logs.jsp</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/model/dao/DBCartManager.java</file>
+            <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/CustomerSearchProductServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/TestDB.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/AddProductServlet.java</file>
             <file>file:/C:/github/13224023/IoTBay/IoTBay/src/java/uts/isd/controller/AddUserServlet.java</file>
