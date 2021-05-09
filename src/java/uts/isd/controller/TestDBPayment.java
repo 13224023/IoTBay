@@ -55,12 +55,8 @@ public class TestDBPayment {
                     break;
                 case 'D':
                     testDelete();
+                    testDeleteByUsername();
                     break;
-                /*
-                case 'F':
-                    testFilter();
-                    break;
-                */
                 case 'S':
                     showAll();
                     break;
@@ -72,10 +68,8 @@ public class TestDBPayment {
         }
     }
     
-    private void testAdd() {
-        System.out.print("PaymentID: ");
-        int paymentID = Integer.parseInt(in.nextLine());
-                      
+    private void testAdd() throws SQLException {
+                              
         System.out.print("Username: ");
         String username = in.nextLine();
         
@@ -83,9 +77,9 @@ public class TestDBPayment {
         String type = in.nextLine();
         
         System.out.print("Payment number: ");
-        int number = Integer.parseInt(in.nextLine());
+        String number = in.nextLine();
                 
-        paymentManager.addPayment(paymentID, username, type, number);
+        paymentManager.addPayment(username, type, number);
         System.out.println("A payment is added into database.");
         
         
@@ -104,10 +98,10 @@ public class TestDBPayment {
         System.out.print("Payment type: ");
         String type = in.nextLine();
         System.out.print("Payment number: ");
-        int paymentNumber = Integer.parseInt(in.nextLine());
+        String number = in.nextLine();
         try {
             if(paymentManager.findPayment(paymentNo)) {
-                paymentManager.updatePayment(paymentNo, type, paymentNumber);
+                paymentManager.updatePayment(paymentNo, type, number);
                 System.out.println("Payment detail is updated.");
             }else {
                 System.out.println("Payment does not exist in database.");
@@ -119,9 +113,9 @@ public class TestDBPayment {
     
     private void testDelete() {
         System.out.print("Payment ID: ");
-        int paymentID = Integer.parseInt(in.nextLine());
-        
+                
         try {
+            int paymentID = Integer.parseInt(in.nextLine());
             if(paymentManager.findPayment(paymentID)) {
                 //test update user profile
                 paymentManager.deletePayment(paymentID);
@@ -131,8 +125,23 @@ public class TestDBPayment {
             }
         }catch(SQLException ex) {
             Logger.getLogger(TestDBPayment.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (NumberFormatException e){
+            System.out.println("Input format is incorrect");
         }
     }
+    
+    private void testDeleteByUsername() throws SQLException {
+        System.out.print("Username : ");
+        String username = in.nextLine();
+        
+        if(paymentManager.findPaymentByUsername(username)) {
+            paymentManager.deletePaymentByUsername(username);
+            System.out.println("user's payment has been deleted");
+        }else {
+            System.out.println("User's payment does not exist");
+        }
+    }
+       
     private void showAll() {
         try {
             PaymentList productList = paymentManager.getAllRecords();
@@ -141,5 +150,8 @@ public class TestDBPayment {
             Logger.getLogger(TestDBPayment.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    public static void main(String [] args) throws SQLException {
+        new TestDBPayment().runQueries();
     }
 }

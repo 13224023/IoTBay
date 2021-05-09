@@ -72,29 +72,30 @@ public class TestDBOrderline {
     }
     
     private void testAdd() {
-        System.out.print("OrderID: ");
-        int orderID = Integer.parseInt(in.nextLine());
-                      
-        System.out.print("Product Number: ");
-        int productNo = Integer.parseInt(in.nextLine());
-        
-        System.out.print("Product Name: ");
-        String name = in.nextLine();
-        
-        System.out.print("Product Type: ");
-        String type = in.nextLine();
-        
-        System.out.print("Product Price: ");
-        int price = Integer.parseInt(in.nextLine());
-                
-        System.out.print("Product Quantity: ");
-        int quantity = Integer.parseInt(in.nextLine());
-        
         try {
+            System.out.print("OrderID: ");
+            int orderID = Integer.parseInt(in.nextLine());
+                      
+            System.out.print("Product Number: ");
+            int productNo = Integer.parseInt(in.nextLine());
+        
+            System.out.print("Product Name: ");
+            String name = in.nextLine();
+        
+            System.out.print("Product Type: ");
+            String type = in.nextLine();
+        
+            System.out.print("Product Price: ");
+            int price = Integer.parseInt(in.nextLine());
+                
+            System.out.print("Product Quantity: ");
+            int quantity = Integer.parseInt(in.nextLine());
             orderlineManager.addProductOrderline(orderID, productNo, name, type, price, quantity);
             System.out.println("A product is added into orderline database.");
         }catch(SQLException ex) {
             Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (NumberFormatException e){
+            System.out.println("Input format is incorrect");
         }
         
         
@@ -109,11 +110,12 @@ public class TestDBOrderline {
     }
     
     private void testUpdate() {
-        System.out.print("OrderID: ");
-        int orderID = Integer.parseInt(in.nextLine());
-        System.out.print("Product Number: ");
-        int productNo = Integer.parseInt(in.nextLine());
+        
         try {
+            System.out.print("OrderID: ");
+            int orderID = Integer.parseInt(in.nextLine());
+            System.out.print("Product Number: ");
+            int productNo = Integer.parseInt(in.nextLine());
             if(orderlineManager.findOrderlineProduct(orderID, productNo)) {
                 System.out.print("Quantity: ");
                 int quantity = Integer.parseInt(in.nextLine());
@@ -125,15 +127,17 @@ public class TestDBOrderline {
             }
         }catch(SQLException ex) {
             Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (NumberFormatException e){
+            System.out.println("Input format is incorrect");
         }
     }
     
     private void testDelete() {
-        System.out.print("OrderID: ");
-        int orderID = Integer.parseInt(in.nextLine());
-        System.out.print("Product Number: ");
-        int productNo = Integer.parseInt(in.nextLine());
         try {
+            System.out.print("OrderID: ");
+            int orderID = Integer.parseInt(in.nextLine());
+            System.out.print("Product Number: ");
+            int productNo = Integer.parseInt(in.nextLine());
             if(orderlineManager.findOrderlineProduct(orderID, productNo)) {
                 //test update user profile
                 orderlineManager.deleteProduct(orderID, productNo);
@@ -143,8 +147,11 @@ public class TestDBOrderline {
             }
         }catch(SQLException ex) {
             Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (NumberFormatException e){
+            System.out.println("Input format is incorrect");
         }
     }
+    
     private void showAll() {
         try {
             ProductList productList = orderlineManager.getAllRecords();
@@ -156,15 +163,17 @@ public class TestDBOrderline {
     }
     
     private void testFilter() {
-        System.out.print("OrderID: ");
-        int orderID = Integer.parseInt(in.nextLine());
-        System.out.print("Keyword: ");
-        String keyword = in.nextLine();
         try {
+            System.out.print("OrderID: ");
+            int orderID = Integer.parseInt(in.nextLine());
+            System.out.print("Keyword: ");
+            String keyword = in.nextLine();
             ProductList productList = orderlineManager.getProductByKeyword(orderID, keyword);
             productList.displayProducts();
         }catch (SQLException ex){
             Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (NumberFormatException e){
+            System.out.println("Input format is incorrect");
         }
     }
     

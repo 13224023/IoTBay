@@ -5,6 +5,8 @@
  */
 package uts.isd.model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Administrator
@@ -12,12 +14,29 @@ package uts.isd.model;
 public class Payment {
     private int paymentNo;
     private String paymentType;
-    private int paymentNumber;
-
-    public Payment(int paymentNumber, String type, int number) {
+    private String paymentNumber;
+    private Date date;
+    
+    public Payment(int paymentNumber, String type, String number, Date date) {
         this.paymentNo = paymentNumber;
         this.paymentType = type;
         this.paymentNumber = number;
+        this.date = date;
+    }
+    
+    public Payment(int paymentNumber, String type, String number) {
+        this.paymentNo = paymentNumber;
+        this.paymentType = type;
+        this.paymentNumber = number;
+        this.date = new Date(System.currentTimeMillis());
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setPaymentNo(int paymentNo) {
@@ -32,7 +51,7 @@ public class Payment {
         return paymentType;
     }
 
-    public int getPaymentNumber() {
+    public String getPaymentNumber() {
         return paymentNumber;
     }
 
@@ -40,7 +59,7 @@ public class Payment {
         this.paymentType = paymentType;
     }
 
-    public void setPaymentNumber(int paymentNumber) {
+    public void setPaymentNumber(String paymentNumber) {
         this.paymentNumber = paymentNumber;
     }
     

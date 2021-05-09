@@ -29,11 +29,12 @@ public class ConnServlet extends HttpServlet {
     private Connection conn;
     private DBProductManager productManager;
     private DBCartManager cartManager;
-
+    private DBOrderManager orderManager;
+    private DBOrderlineManager orderlineManager;
+    private DBPaymentManager paymentManager;
         
 
     @Override //Create and instance of DBConnector for the deployment session
-
     public void init() {
         try {
             db = new DBConnector();
@@ -71,6 +72,9 @@ public class ConnServlet extends HttpServlet {
             logManager = new LOGManager(conn);
             productManager = new DBProductManager(conn);
             cartManager = new DBCartManager(conn);
+            orderManager = new DBOrderManager(conn);
+            orderlineManager = new DBOrderlineManager(conn);
+            paymentManager = new DBPaymentManager(conn);
         } catch (SQLException ex) {
             Logger.getLogger(ConnServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -81,6 +85,9 @@ public class ConnServlet extends HttpServlet {
         session.setAttribute("logManager", logManager);
         session.setAttribute("productManager", productManager);
         session.setAttribute("cartManager", cartManager);
+        session.setAttribute("orderManager", orderManager);
+        session.setAttribute("orderlineManager", orderlineManager);
+        session.setAttribute("paymentManager", paymentManager);
     }   
 
     @Override //Destroy the servlet and release the resources of the application (terminate also the db connection)

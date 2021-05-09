@@ -29,7 +29,7 @@ public class DBPaymentManager {
     }
     
     public void addPayment(String username, String type,
-            int paymentNumber) throws SQLException {
+            String paymentNumber) throws SQLException {
         String queryGetLine = "SELECT NUMBER FROM ROOT.PAYMENT WHERE NUMBER = ?";
         Random rand = new Random();
         int getInt = 0;
@@ -46,18 +46,36 @@ public class DBPaymentManager {
                 
         String query = "INSERT INTO ROOT.PAYMENT " + 
             "(NUMBER,USERNAME,PAYMENTTYPE,PAYMENTNUMBER) " +
-            " VALUES(?,?,?,?)";
+            "VALUES(?,?,?,?)";
         this.preparedStmt = connection.prepareStatement(query);
         this.preparedStmt.setInt(1, getInt);
         this.preparedStmt.setString(2, username);
         this.preparedStmt.setString(3, type.toLowerCase());
-        this.preparedStmt.setInt(4, paymentNumber);
+        this.preparedStmt.setString(4, paymentNumber);
                 
         //Execute the query, then return a value for storing successfully
         int row = preparedStmt.executeUpdate();
         preparedStmt.close();
         
     }
+    public boolean findPaymentByUsername(String username) throws SQLException {
+        String fetch = "SELECT * FROM ROOT.PAYMENT " +
+            "WHERE USERNAME = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, username);
+        resultSet = preparedStmt.executeQuery();
+        try {
+            if(resultSet.next()) {
+                resultSet.close();
+                return true;
+            }
+        }catch(SQLException ex) {
+            resultSet.close(); 
+            
+        } 
+        return false;
+    }
+    
     
     public boolean findPayment(int paymentNo) throws SQLException {
         String fetch = "SELECT * FROM ROOT.PAYMENT " +
@@ -88,13 +106,13 @@ public class DBPaymentManager {
         while(resultSet.next()) {
             int paymentNo = resultSet.getInt("NUMBER");
             String type = resultSet.getString("PAYMENTTYPE");
-            int paymentNumber = resultSet.getInt("PAYMENTNUMBER");
+            String paymentNumber = resultSet.getString("PAYMENTNUMBER");
             paymentList.addPayment(new Payment(paymentNo, type, paymentNumber));
         }
         return paymentList;   
     }
     
-    public void updatePayment(int paymentNo, String type, int number) throws SQLException {
+    public void updatePayment(int paymentNo, String type, String number) throws SQLException {
         String query = "UPDATE ROOT.PAYMENT SET " + 
             "PAYMENTTYPE = ?, PAYMENTNUMBER = ? " + 
             "WHERE NUMBER = ?";
@@ -102,7 +120,7 @@ public class DBPaymentManager {
         try {
             preparedStmt = connection.prepareStatement(query);
             preparedStmt.setString(1, type.toLowerCase());
-            preparedStmt.setInt(2, number);
+            preparedStmt.setString(2, number);
             preparedStmt.setInt(3, paymentNo);
             //Execute the query and get a reponse from database
             preparedStmt.executeUpdate();
@@ -130,6 +148,10 @@ public class DBPaymentManager {
         preparedStmt.close();
     }    
     
+    
+    
+    
+    
     public PaymentList getAllRecords() throws SQLException {
         String fetch = "SELECT NUMBER,PAYMENTTYPE,PAYMENTNUMBER FROM ROOT.PAYMENT";
         this.preparedStmt = connection.prepareStatement(fetch);
@@ -140,7 +162,7 @@ public class DBPaymentManager {
         while(resultSet.next()) {
             int number = resultSet.getInt("NUMBER");
             String type = resultSet.getString("PAYMENTTYPE");
-            int paymentNumber = resultSet.getInt("PAYMENTNUMBER");
+            String paymentNumber = resultSet.getString("PAYMENTNUMBER");
             paymentList.addPayment(new Payment(number, type, paymentNumber));
         }
         resultSet.close();
