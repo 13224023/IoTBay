@@ -18,10 +18,9 @@
         <%  
             ProductList availableProductList = (ProductList) session.getAttribute("availableProductList");
             ProductList cartProductList = (ProductList) session.getAttribute("cartProductList");
-            if(cartProductList == null) cartProductList = new ProductList();
-            //if(cartProductList == null) cartProductList = new ProductList();
-            //String productStockErr = (String) session.getAttribute("productStockErr");
-            //String successInfo = (String) session.getAttribute("successInfo");
+            int total = 0;
+            String productStockErr = (String) session.getAttribute("productStockErr");
+            String successInfo = (String) session.getAttribute("successInfo");
         %>
         <nav class="customer">
             <input type="checkbox" id="check">
@@ -37,10 +36,12 @@
         <section>
             
             <div>
-                <form class="keyword" method="post" action="">
+                <form class="keyword" method="post" action="SearchCartProductServlet">
                     <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Product name or type">
                     <button type="submit" class="submit" name="filter" value="search">Search</button>
                 </form>
+                <p class="errorinfo"><%=productStockErr != null? productStockErr: ""%></p>
+                <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
             </div>
             
             <%if(cartProductList.listSize() == 0) {%>
@@ -54,29 +55,36 @@
                 String type = cartProductList.getProductByIndex(i).getType();
                 int price = cartProductList.getProductByIndex(i).getPrice();
                 int stock = cartProductList.getProductByIndex(i).getStock();
+                int availableNumber = stock + availableProductList.getQuantityByProductNo(productNo);
+                total = total + price * stock;
                 %>
                 <div>
                     <div class="<%=type.toLowerCase()%>">
-                        <h1><%=type.toUpperCase()%></h1>
+                        <h1 class="title_left"><%=type.toUpperCase()%></h1>
+                        <h1 class="title_right">$<%=price * stock%></h2>
                     </div>
                     <div class="<%=type.toLowerCase()%>">
                         <h3>Product Name: <%=name%></h3>
                         <h3>Product Price: <%=price%></h3>
-                        <h3>Maximum Available Quantity: <%=stock + availableProductList.getQuantityByProductNo(productNo)%></h3>
+                        <h3>Maximum Available Quantity: <%=availableNumber%></h3>
                     </div>
                     <div class="<%=type.toLowerCase()%>">
-                        <form method="post" action="">
+                        <form method="post" action="UpdateCartProductServlet">
                             <label class="inline" for="<%=productNo%>"><h3>Order: </h3></label>
                             <input class="inline" type="text" id="<%=productNo%>" name="quantity" value="<%=stock%>" placeholder="Number">
-                            <button class="edit inline" type="submit" name="add" value="<%=i%>">Update</button>
-                            <button class="delete inline" type="submit" name="delete" value="<%=i%>">Delete</button>
+                            <input type="hidden" name="validnumber" value="<%=availableNumber%>">
+                            <button class="edit inline" type="submit" name="update" value="<%=productNo%>">Update</button>
+                            <button class="delete inline" type="submit" name="delete" value="<%=productNo%>">Delete</button>
                         </form>
                     </div>
                 </div>
                 <%}%>
+                
+                <div>
+                    <h1 class="total_right">Total: $<%=total%></h1>
+                </div>
+                
             <%}%>
-            
-            
         </section>
     </body>
 </html>

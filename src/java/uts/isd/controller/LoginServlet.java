@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.User;
+import uts.isd.model.dao.DBCartManager;
 import uts.isd.model.dao.DBManager;
 import uts.isd.model.dao.DBProductManager;
 import uts.isd.model.dao.LOGManager;
@@ -35,6 +36,7 @@ public class LoginServlet extends HttpServlet {
         //retrieve the manager instance from session
         DBManager manager = (DBManager) session.getAttribute("manager");
         DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
+        DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
         LOGManager logManager = (LOGManager) session.getAttribute("logManager");
         //initialise the error message
         validator.clean(session);
@@ -59,7 +61,7 @@ public class LoginServlet extends HttpServlet {
                         //save the logged in user object to the session 
                         session.setAttribute("user", user);
                         session.setAttribute("availableProductList", productManager.getAllProducts());
-                        
+                        session.setAttribute("cartProductList", cartManager.getCartProductByUsername(username));
                         //store log into database
                         logManager.addLog(username,"login");
                     

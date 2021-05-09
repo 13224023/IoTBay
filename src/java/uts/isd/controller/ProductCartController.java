@@ -26,7 +26,7 @@ public class ProductCartController extends HttpServlet {
         
         User user = (User)session.getAttribute("user");
         String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-        if(user == null) {
+        if(user == null || !user.getUsertype().equals("2")) {
             response.sendRedirect(redirectURL);
         }
         //create an instance of the Validator class    

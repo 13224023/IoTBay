@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import uts.isd.model.ProductList;
 import uts.isd.model.User;
+import uts.isd.model.dao.DBCartManager;
 import uts.isd.model.dao.DBManager;
 import uts.isd.model.dao.DBProductManager;
 import uts.isd.model.dao.LOGManager;
@@ -39,6 +41,7 @@ public class RegisterServlet extends HttpServlet {
         //5- retrieve the manager instance from session
         DBManager manager = (DBManager) session.getAttribute("manager");
         DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
+        DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
         LOGManager logManager = (LOGManager) session.getAttribute("logManager");
         //6- Declare a user with value of null
         User user = null;
@@ -83,6 +86,7 @@ public class RegisterServlet extends HttpServlet {
                     //save the logged in user object to the session 
                     session.setAttribute("user", new User(username, password, email));
                     session.setAttribute("availableProductList", productManager.getAllProducts());
+                    session.setAttribute("cartProductList", new ProductList());
                     //redirect user to the welcome.jsp  
                     request.getRequestDispatcher("welcome.jsp").include(request, response);
                 }

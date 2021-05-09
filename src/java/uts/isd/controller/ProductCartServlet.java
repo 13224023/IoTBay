@@ -6,6 +6,9 @@
 package uts.isd.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +17,8 @@ import javax.servlet.http.HttpSession;
 import uts.isd.model.Product;
 import uts.isd.model.ProductList;
 import uts.isd.model.User;
+import uts.isd.model.dao.DBCartManager;
+import uts.isd.model.dao.DBProductManager;
 
 /**
  *
@@ -26,7 +31,7 @@ public class ProductCartServlet extends HttpServlet {
         
         User user = (User)session.getAttribute("user");
         String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-        if(user == null) {
+        if(user == null || !user.getUsertype().equals("2")) {
             response.sendRedirect(redirectURL);
         }
         
@@ -35,8 +40,15 @@ public class ProductCartServlet extends HttpServlet {
         String number = request.getParameter("quantity");
         int orderNumber = 0;
         int index = Integer.parseInt(request.getParameter("add"));
+        
         ProductList availableProductList = (ProductList) session.getAttribute("availableProductList");
+        ProductList cartProductList = (ProductList) session.getAttribute("cartProductList");
+        if(cartProductList == null) cartProductList = new ProductList();
+        
         Product selectedProduct = availableProductList.getProductByIndex(index);
+        DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
+        DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
+        
         if(!validator.validateProductNumber(number)) {
             //set incorrect password different error to the session
             session.setAttribute("productStockErr", "Error: Order number format incorrect");
@@ -48,42 +60,44 @@ public class ProductCartServlet extends HttpServlet {
                 
             }else {
                 //System.out.println("index: " + index);
-                int productNo;
-                //DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
-                ProductList cartProductList = (ProductList) session.getAttribute("cartProductList");
-                if(cartProductList == null) cartProductList = new ProductList();
-                productNo = selectedProduct.getProductNo();
-                String pName = selectedProduct.getName();
-                String pType = selectedProduct.getType();
+                String username = user.getUsername();
+                int productNo = selectedProduct.getProductNo();
+                String name = selectedProduct.getName();
+                String type = selectedProduct.getType();
                 int price = selectedProduct.getPrice();
+                int quantity = Integer.parseInt(number);
+                int remainStock = selectedProduct.getStock() - quantity;
+                
+                
+                
 
-                if(cartProductList.isProductInList(productNo)) {
-                    System.out.println("product exists cart");
-                    cartProductList.updateSoldNumber(productNo, orderNumber);
-                    availableProductList.setRemainStock(productNo, orderNumber);
-                    System.out.println("Cart list:");
-                    cartProductList.displayProducts();
-                    System.out.println("Avaialable list");
-                    availableProductList.displayProducts();
+                if(!cartProductList.isProductInList(productNo)) {
+                    try {
+                        cartManager.addProductInCart(username, productNo, name, type, price, quantity);
+                        productManager.updateProductByNumber(productNo, remainStock);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ProductCartServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }else {
-                    System.out.println("product does not exist cart");
-                    //selectedProduct.setStock(orderNumber);
-                    Product newProduct = new Product(productNo, pName, pType, price, orderNumber);
-                    //System.out.println(selectedProduct);
-                    cartProductList.addProduct(newProduct);
-                    System.out.println("Cart list:");
-                    cartProductList.displayProducts();
-                    //update the stock in available stock in productlist
-                    availableProductList.setRemainStock(productNo, orderNumber);
-                    System.out.println("Avaialable list");
-                    availableProductList.displayProducts();
+                    //get product quantity from cartProductList
+                    int alreadyNumber = cartProductList.getQuantityByProductNo(productNo);
+                    
+                    try {
+                        cartManager.updateProduct(username, productNo, alreadyNumber + quantity);
+                        productManager.updateProductByNumber(productNo, remainStock);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ProductCartServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 //store information into session
                 session.setAttribute("successInfo", "Product is added into cart");
-                session.setAttribute("availableProductList", availableProductList);
-                session.setAttribute("cartProductList", cartProductList);
+                try {
+                    session.setAttribute("availableProductList", productManager.getAllProducts());
+                    session.setAttribute("cartProductList", cartManager.getCartProductByUsername(username));
+                } catch (SQLException ex) {
+                    Logger.getLogger(ProductCartServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-        
         }
         
         //redirect user to the welcom.jsp

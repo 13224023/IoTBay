@@ -82,6 +82,17 @@
         <servlet-name>UpdateServlet</servlet-name>
         <url-pattern>/UpdateServlet</url-pattern>
     </servlet-mapping>
+    <!--UpdateCartProductServlet-->
+    <servlet>
+        <servlet-name>UpdateCartProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateCartProductServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateCartProductServlet</servlet-name>
+        <url-pattern>/UpdateCartProductServlet</url-pattern>
+    </servlet-mapping>
+    
     
     <!--DeleteServlet-->
     <servlet>
@@ -156,6 +167,18 @@
         <servlet-name>SearchProductServlet</servlet-name>
         <url-pattern>/SearchProductServlet</url-pattern>
     </servlet-mapping>
+    <!--SearchCartProductServlet-->
+    <servlet>
+        <servlet-name>SearchCartProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchCartProductServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchCartProductServlet</servlet-name>
+        <url-pattern>/SearchCartProductServlet</url-pattern>
+    </servlet-mapping>
+    
+    
     <!--CustomerSearchProductServlet-->
     <servlet>
         <servlet-name>CustomerSearchProductServlet</servlet-name>

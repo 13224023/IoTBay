@@ -117,6 +117,26 @@ public class DBProductManager {
             resultSet.close();         
         } 
     }
+    
+    
+    public void updateProductByNumber(int number, int stock) throws SQLException {
+        String query = "UPDATE ROOT.PRODUCTS SET " + 
+            "STOCK = ?" + 
+            "WHERE NUMBER = ?";
+        //Store values into each column
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, stock);
+            preparedStmt.setInt(2, number);
+            //Execute the query and get a reponse from database
+            preparedStmt.executeUpdate();
+        }catch(SQLException ex) {
+            resultSet.close();         
+        } 
+    }
+    
+    
+    
     public void deleteProduct(int number) throws SQLException {
         String query = "DELETE FROM ROOT.PRODUCTS WHERE NUMBER = ?";
         if(findProduct(number)) {

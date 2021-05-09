@@ -20,7 +20,6 @@
             User user = (User) session.getAttribute("user");
             ProductList availableProductList = (ProductList) session.getAttribute("availableProductList");
             ProductList cartProductList = (ProductList) session.getAttribute("cartProductList");
-            if(cartProductList == null) cartProductList = new ProductList();
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
             boolean isUserNull = user == null;
             if(isUserNull) response.sendRedirect(redirectURL);

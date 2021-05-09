@@ -11,27 +11,27 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import uts.isd.model.ProductList;
-import uts.isd.model.dao.DBCartManager;
 import uts.isd.model.dao.DBConnector;
+import uts.isd.model.dao.DBOrderlineManager;
 
 /**
  *
  * @author Administrator
  */
-public class TestDBCart {
+public class TestDBOrderline {
     private static Scanner in = new Scanner(System.in);
     private DBConnector connector;
     private Connection connection;
-    private DBCartManager cartManager;
+    private DBOrderlineManager orderlineManager;
     
-    public TestDBCart() throws SQLException {
+    public TestDBOrderline() throws SQLException {
         try {
             connector = new DBConnector();
             connection = connector.getConnection();
-            cartManager = new DBCartManager(connection);
+            orderlineManager = new DBOrderlineManager(connection);
         
         }catch(ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(TestDBProduct.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -72,8 +72,8 @@ public class TestDBCart {
     }
     
     private void testAdd() {
-        System.out.print("Username: ");
-        String username = in.nextLine();
+        System.out.print("OrderID: ");
+        int orderID = Integer.parseInt(in.nextLine());
                       
         System.out.print("Product Number: ");
         int productNo = Integer.parseInt(in.nextLine());
@@ -83,6 +83,7 @@ public class TestDBCart {
         
         System.out.print("Product Type: ");
         String type = in.nextLine();
+        
         System.out.print("Product Price: ");
         int price = Integer.parseInt(in.nextLine());
                 
@@ -90,85 +91,86 @@ public class TestDBCart {
         int quantity = Integer.parseInt(in.nextLine());
         
         try {
-            cartManager.addProductInCart(username, productNo, name, type, price, quantity);
+            orderlineManager.addProductOrderline(orderID, productNo, name, type, price, quantity);
+            System.out.println("A product is added into orderline database.");
         }catch(SQLException ex) {
-            Logger.getLogger(TestDBCart.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("A product is added into cart database.");
+        
         
     }
     
     private void testRead() throws SQLException {
-        System.out.print("Username: ");
-        String username = in.nextLine();
+        System.out.print("OrderID: ");
+        int orderID = Integer.parseInt(in.nextLine());
         
-        ProductList productList = cartManager.getCartProductByUsername(username);
+        ProductList productList = orderlineManager.getProductsByOrderID(orderID);
         productList.displayProducts();
     }
     
     private void testUpdate() {
-        System.out.print("Username: ");
-        String username = in.nextLine();
+        System.out.print("OrderID: ");
+        int orderID = Integer.parseInt(in.nextLine());
         System.out.print("Product Number: ");
         int productNo = Integer.parseInt(in.nextLine());
         try {
-            if(cartManager.findCartProduct(username, productNo)) {
+            if(orderlineManager.findOrderlineProduct(orderID, productNo)) {
                 System.out.print("Quantity: ");
                 int quantity = Integer.parseInt(in.nextLine());
                 
-                cartManager.updateProduct(username, productNo, quantity);
-                System.out.println("Username's product quantity is updated.");
+                orderlineManager.updateOrderlineProduct(orderID, productNo, quantity);
+                System.out.println("Order's product quantity is updated.");
             }else {
-                System.out.println("Username's product does not exist in database.");
+                System.out.println("Order's product does not exist in database.");
             }
         }catch(SQLException ex) {
-            Logger.getLogger(TestDBCart.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     private void testDelete() {
-        System.out.print("Username: ");
-        String username = in.nextLine();
+        System.out.print("OrderID: ");
+        int orderID = Integer.parseInt(in.nextLine());
         System.out.print("Product Number: ");
         int productNo = Integer.parseInt(in.nextLine());
         try {
-            if(cartManager.findCartProduct(username, productNo)) {
+            if(orderlineManager.findOrderlineProduct(orderID, productNo)) {
                 //test update user profile
-                cartManager.deleteProduct(username, productNo);
-                System.out.println("Username's product is removed from database.");
+                orderlineManager.deleteProduct(orderID, productNo);
+                System.out.println("Order's product is removed from database.");
             }else {
-                System.out.println("Username's product does not exist in database.");
+                System.out.println("Order's product does not exist in database.");
             }
         }catch(SQLException ex) {
-            Logger.getLogger(TestDBCart.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     private void showAll() {
         try {
-            ProductList productList = cartManager.getAllRecords();
+            ProductList productList = orderlineManager.getAllRecords();
             productList.displayProducts();
         }catch(SQLException ex) {
-            Logger.getLogger(TestDBCart.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
     
     private void testFilter() {
-        System.out.print("Username: ");
-        String username = in.nextLine();
+        System.out.print("OrderID: ");
+        int orderID = Integer.parseInt(in.nextLine());
         System.out.print("Keyword: ");
         String keyword = in.nextLine();
         try {
-            ProductList productList = cartManager.getProductByKeyword(username, keyword);
+            ProductList productList = orderlineManager.getProductByKeyword(orderID, keyword);
             productList.displayProducts();
         }catch (SQLException ex){
-            Logger.getLogger(TestDBCart.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     
     public static void main(String [] args) throws SQLException {
-        new TestDBCart().runQueries();
+        new TestDBOrderline().runQueries();
     }
 
     
