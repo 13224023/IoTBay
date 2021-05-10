@@ -16,6 +16,7 @@ import uts.isd.model.User;
 import uts.isd.model.dao.DBCartManager;
 import uts.isd.model.dao.DBManager;
 import uts.isd.model.dao.DBOrderManager;
+import uts.isd.model.dao.DBPaymentManager;
 import uts.isd.model.dao.DBProductManager;
 import uts.isd.model.dao.LOGManager;
  
@@ -40,6 +41,7 @@ public class LoginServlet extends HttpServlet {
         DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
         DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
         LOGManager logManager = (LOGManager) session.getAttribute("logManager");
+        DBPaymentManager paymentManager = (DBPaymentManager) session.getAttribute("paymentManager");
         //initialise the error message
         validator.clean(session);
         
@@ -64,6 +66,7 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("user", user);
                         session.setAttribute("availableProductList", productManager.getAllProducts());
                         session.setAttribute("cartProductList", cartManager.getCartProductByUsername(username));
+                        session.setAttribute("paymentList", paymentManager.findPaymentByUsername(username));
                         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
                         OrderList orderList = orderManager.getOrdersByUsername(username);
                         if(orderList == null) session.setAttribute("orderList", new OrderList());

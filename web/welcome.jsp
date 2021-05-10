@@ -69,7 +69,7 @@
                     <li><a href="ProfileController">My Profile</a></li>
                     <li><a href="ProductCartController">Cart(<%=cartProductList.listSize()%>)</a></li>
                     <li><a href="OrderController">Order(<%=orderList.availableOrder()%>)</a></li>
-                    <li><a href="PaymentController">Payment</a></li>
+                    <li><a href="UserPaymentController">Payment</a></li>
                     <li><a href="LogsController">LOGS</a></li>
                     <li><a href="LogoutController">Logout</a></li>
                 </ul>

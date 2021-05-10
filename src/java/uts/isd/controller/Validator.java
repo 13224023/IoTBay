@@ -16,6 +16,7 @@ public class Validator implements Serializable{
     private final String productNamePattern = "[A-Za-z0-9\\s]{4,20}";
     private final String productTypePattern = "[A-Za-z0-9\\s]{3,20}";
     private final String productNumberPattern = "[0-9]{1,}";
+    private final String paymentTypePattern = "[A-Za-z\\s]{4,20}";
     public Validator(){}       
 
 
@@ -67,6 +68,10 @@ public class Validator implements Serializable{
        return validate(productNumberPattern,number); 
     }
     
+    public boolean validatePaymentType(String type){
+       return validate(paymentTypePattern,type); 
+    }
+    
     public boolean validateDate(String month, String days) {
         if(validateProductNumber(month) && validateProductNumber(days)){
             int intMonth = Integer.parseInt(month);
@@ -114,5 +119,7 @@ public class Validator implements Serializable{
         session.setAttribute("productStockErr","");
         session.setAttribute("dateFormErr", "");
         session.setAttribute("successInfo", "");
+        session.setAttribute("paymentTypeErr","");
+        session.setAttribute("paymentNumberErr","");
     }
 }

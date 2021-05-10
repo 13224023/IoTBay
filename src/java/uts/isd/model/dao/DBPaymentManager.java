@@ -76,6 +76,27 @@ public class DBPaymentManager {
         return false;
     }
     
+    public boolean findPaymentByTypeAndNumber(String username, String type, String number) throws SQLException {
+        String fetch = "SELECT * FROM ROOT.PAYMENT " +
+            "WHERE USERNAME = ? AND PAYMENTTYPE = ? AND PAYMENTNUMBER = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, username);
+        this.preparedStmt.setString(2, type);
+        this.preparedStmt.setString(3, number);
+        resultSet = preparedStmt.executeQuery();
+        try {
+            if(resultSet.next()) {
+                resultSet.close();
+                return true;
+            }
+        }catch(SQLException ex) {
+            resultSet.close(); 
+            
+        } 
+        return false;
+    }
+    
+    
     
     public boolean findPayment(int paymentNo) throws SQLException {
         String fetch = "SELECT * FROM ROOT.PAYMENT " +

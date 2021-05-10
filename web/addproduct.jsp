@@ -19,13 +19,7 @@
     </head>
     <body>
         <%
-            /*
-            session.setAttribute("productNameErr","");
-            session.setAttribute("productTypeErr","");
-            session.setAttribute("productPriceErr","");
-            session.setAttribute("productStockErr","");
-            session.setAttribute("successInfo", "");
-            */
+           
             String productNameErr = (String)session.getAttribute("productNameErr");
             String productTypeErr = (String)session.getAttribute("productTypeErr");
             String productPriceErr = (String)session.getAttribute("productPriceErr");
@@ -40,7 +34,7 @@
             <input type="text" name="name" autocomplete="off" placeholder="Product Name" required>
             <input type="text" name="price" autocomplete="off" placeholder="Product Price" required>
             <input type="text" name="stock" autocomplete="off" placeholder="Product Stock" required>
-            <input type="submit" form="register" name="register" value="Register">
+            <input type="submit" form="register" name="register" value="Add">
             <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/ProductListController'">
             <p class="errorinfo"><%=productNameErr != null? productNameErr: ""%></p>
             <p class="errorinfo"><%=productTypeErr != null? productTypeErr: ""%></p>

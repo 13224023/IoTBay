@@ -16,6 +16,7 @@ import uts.isd.model.ProductList;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBCartManager;
 import uts.isd.model.dao.DBManager;
+import uts.isd.model.dao.DBPaymentManager;
 import uts.isd.model.dao.DBProductManager;
 import uts.isd.model.dao.LOGManager;
 
@@ -44,6 +45,7 @@ public class RegisterServlet extends HttpServlet {
         DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
         DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
         LOGManager logManager = (LOGManager) session.getAttribute("logManager");
+        DBPaymentManager paymentManager = (DBPaymentManager) session.getAttribute("paymentManager");
         //6- Declare a user with value of null
         User user = null;
         
@@ -89,6 +91,7 @@ public class RegisterServlet extends HttpServlet {
                     session.setAttribute("availableProductList", productManager.getAllProducts());
                     session.setAttribute("cartProductList", new ProductList());
                     session.setAttribute("orderList", new OrderList());
+                    session.setAttribute("paymentList", paymentManager.findPaymentByUsername(username));
                     //redirect user to the welcome.jsp  
                     request.getRequestDispatcher("welcome.jsp").include(request, response);
                 }
