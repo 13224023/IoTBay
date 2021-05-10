@@ -28,7 +28,7 @@ public class DBOrderManager {
           this.preparedStmt = null;
           this.resultSet = null;
     }
-    public void addOrder(String username, int amount) throws SQLException {
+    public int addOrder(String username, int amount) throws SQLException {
         String queryGetLine = "SELECT ORDERID FROM ROOT.ORDERS WHERE ORDERID = ?";
         Random rand = new Random();
         int getInt = 0;
@@ -56,6 +56,7 @@ public class DBOrderManager {
         //Execute the query, then return a value for storing successfully
         int row = preparedStmt.executeUpdate();
         preparedStmt.close();
+        return getInt;
         
     }
     
@@ -116,6 +117,40 @@ public class DBOrderManager {
             resultSet.close();         
         } 
     }
+    
+    public void updateOrderStatus(int orderID, int status) throws SQLException {
+        String query = "UPDATE ROOT.ORDERS SET " + 
+            "STATUS = ? " + 
+            "WHERE ORDERID = ?";
+        //Store values into each column
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, status);
+            preparedStmt.setInt(2, orderID);
+            //Execute the query and get a reponse from database
+            preparedStmt.executeUpdate();
+        }catch(SQLException ex) {
+            resultSet.close();         
+        } 
+    }
+    
+    public void updateOrderAmount(int orderID, int amount) throws SQLException {
+        String query = "UPDATE ROOT.ORDERS SET " + 
+            "AMOUNT = ? " + 
+            "WHERE ORDERID = ?";
+        //Store values into each column
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, amount);
+            preparedStmt.setInt(2, orderID);
+            //Execute the query and get a reponse from database
+            preparedStmt.executeUpdate();
+        }catch(SQLException ex) {
+            resultSet.close();         
+        } 
+    }
+    
+    
     
     public void deleteOrder(int orderID) throws SQLException {
         String query = "DELETE FROM ROOT.ORDERS WHERE ORDERID = ?";

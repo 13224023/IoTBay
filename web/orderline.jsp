@@ -1,6 +1,6 @@
 <%-- 
-    Document   : cart
-    Created on : 27/04/2021, 2:35:34 PM
+    Document   : orderline
+    Created on : 10/05/2021, 12:30:12 PM
     Author     : Administrator
 --%>
 
@@ -12,49 +12,43 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="CSS/cart.css">
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-        <title>My Cart</title>
+        <title>My Orderline</title>
     </head>
     <body>
         <%  
             ProductList availableProductList = (ProductList) session.getAttribute("availableProductList");
-            ProductList cartProductList = (ProductList) session.getAttribute("cartProductList");
+            ProductList orderProductList = (ProductList) session.getAttribute("orderProductList");
             int total = 0;
             String productStockErr = (String) session.getAttribute("productStockErr");
             String successInfo = (String) session.getAttribute("successInfo");
+            String orderID = (String) session.getAttribute("orderID");
         %>
         <nav class="customer">
             <input type="checkbox" id="check">
             <label for="check" class="checkbtn">
                 <i class="fas fa-bars"></i>
             </label>
-            <label class="logo">My Cart</label>
+            <label class="logo">Order Detail</label>
             <ul>
-                <li><a href="SaveOrderServlet">Record To Order</a></li>
-                <li><a href="WelcomeController">Back</a></li>
+                <li><a href="OrderController">Back</a></li>
             </ul>
         </nav>
         <section>
-            
             <div>
-                <form class="keyword" method="post" action="SearchCartProductServlet">
+                <form class="keyword" method="post" action="SearchOrderProductServlet">
                     <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Product name or type">
-                    <button type="submit" class="submit" name="filter" value="search">Search</button>
+                    <button type="submit" class="submit" name="filter" value="<%=orderID%>">Search</button>
                 </form>
                 <p class="errorinfo"><%=productStockErr != null? productStockErr: ""%></p>
                 <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
             </div>
             
-            <%if(cartProductList.listSize() == 0) {%>
-                <div>
-                    <h1>No Product in Cart</h1>
-                </div>
-            <%}else {%>
-                <%for (int i = 0; i < cartProductList.listSize(); i++) {
-                int productNo = cartProductList.getProductByIndex(i).getProductNo();
-                String name = cartProductList.getProductByIndex(i).getName();
-                String type = cartProductList.getProductByIndex(i).getType();
-                int price = cartProductList.getProductByIndex(i).getPrice();
-                int stock = cartProductList.getProductByIndex(i).getStock();
+            <%for (int i = 0; i < orderProductList.listSize(); i++) {
+                int productNo = orderProductList.getProductByIndex(i).getProductNo();
+                String name = orderProductList.getProductByIndex(i).getName();
+                String type = orderProductList.getProductByIndex(i).getType();
+                int price = orderProductList.getProductByIndex(i).getPrice();
+                int stock = orderProductList.getProductByIndex(i).getStock();
                 int availableNumber = stock + availableProductList.getQuantityByProductNo(productNo);
                 total = total + price * stock;
                 %>
@@ -69,22 +63,22 @@
                         <h3>Maximum Available Quantity: <%=availableNumber%></h3>
                     </div>
                     <div class="<%=type.toLowerCase()%>">
-                        <form method="post" action="UpdateCartProductServlet">
+                        <form method="post" action="UpdateOrderProductServlet">
                             <label class="inline" for="<%=productNo%>"><h3>Order: </h3></label>
                             <input class="inline" type="text" id="<%=productNo%>" name="quantity" value="<%=stock%>" placeholder="Number">
                             <input type="hidden" name="validnumber" value="<%=availableNumber%>">
+                            <input type="hidden" name="orderID" value="<%=orderID%>">
                             <button class="edit inline" type="submit" name="update" value="<%=productNo%>">Update</button>
                             <button class="delete inline" type="submit" name="delete" value="<%=productNo%>">Delete</button>
                         </form>
                     </div>
                 </div>
                 <%}%>
+            <div>
+                <h1 class="total_right">Total: $<%=total%></h1>
+            </div>
                 
-                <div>
-                    <h1 class="total_right">Total: $<%=total%></h1>
-                </div>
-                
-            <%}%>
+           
         </section>
     </body>
 </html>

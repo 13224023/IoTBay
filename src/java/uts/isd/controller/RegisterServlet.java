@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import uts.isd.model.OrderList;
 import uts.isd.model.ProductList;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBCartManager;
@@ -87,6 +88,7 @@ public class RegisterServlet extends HttpServlet {
                     session.setAttribute("user", new User(username, password, email));
                     session.setAttribute("availableProductList", productManager.getAllProducts());
                     session.setAttribute("cartProductList", new ProductList());
+                    session.setAttribute("orderList", new OrderList());
                     //redirect user to the welcome.jsp  
                     request.getRequestDispatcher("welcome.jsp").include(request, response);
                 }

@@ -76,7 +76,7 @@ public class DBOrderlineManager {
             String type = resultSet.getString("TYPE");
             int price = resultSet.getInt("PRICE");
             int quantity = resultSet.getInt("QUANTITY");
-            productList.addProduct(new Product(number, name, type, price, quantity));
+            productList.addProduct(new Product(number, type, name, price, quantity));
         }
         return productList;   
     }
@@ -150,7 +150,7 @@ public class DBOrderlineManager {
             String type = resultSet.getString("TYPE");
             int price = resultSet.getInt("PRICE");
             int stock = resultSet.getInt("QUANTITY");
-            productList.addProduct(new Product(number, name, type, price, stock));
+            productList.addProduct(new Product(number, type, name, price, stock));
         }
         resultSet.close();
         return productList;

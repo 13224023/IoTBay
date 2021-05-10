@@ -144,6 +144,26 @@ public class DBCartManager {
         return false;
     }
     
+    public boolean findCartProductByUsername(String username) throws SQLException {
+        String fetch = "SELECT * FROM ROOT.CART " +
+            "WHERE USERNAME = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, username);
+        resultSet = preparedStmt.executeQuery();
+        try {
+            if(resultSet.next()) {
+                resultSet.close();
+                return true;
+            }
+        }catch(SQLException ex) {
+            resultSet.close(); 
+            
+        } 
+        return false;
+    }
+    
+    
+    
     
     public void deleteProduct(String username, int productNo) throws SQLException {
         String query = "DELETE FROM ROOT.CART WHERE USERNAME = ? AND PRODUCTNO = ?";
@@ -156,23 +176,39 @@ public class DBCartManager {
         }
     }
     
-    public ProductList getCartProductByUsername(String username) throws SQLException {
-        String fetch = "SELECT PRODUCTNO,NAME,TYPE,PRICE,QUANTITY FROM ROOT.CART " + 
-                "WHERE USERNAME = ?";
-        this.preparedStmt = connection.prepareStatement(fetch);
-        this.preparedStmt.setString(1, username);
-        resultSet = preparedStmt.executeQuery();
-        
-        ProductList productList = new ProductList();
-        while(resultSet.next()) {
-            int productNO = resultSet.getInt("PRODUCTNO");
-            String name = resultSet.getString("NAME");
-            String type = resultSet.getString("TYPE");
-            int price = resultSet.getInt("PRICE");
-            int quantity = resultSet.getInt("QUANTITY");
-            productList.addProduct(new Product(productNO, name, type, price, quantity));
+    public void deleteProduct(String username) throws SQLException {
+        String query = "DELETE FROM ROOT.CART WHERE USERNAME = ?";
+        if(findCartProductByUsername(username)) {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, username);
+            int executeUpdate = preparedStmt.executeUpdate();
+            preparedStmt.close();
         }
-        resultSet.close();
+    }
+    
+    
+    
+    public ProductList getCartProductByUsername(String username) throws SQLException {
+        ProductList productList = new ProductList();
+        if(findCartProductByUsername(username)) {
+            String fetch = "SELECT PRODUCTNO,NAME,TYPE,PRICE,QUANTITY FROM ROOT.CART " + 
+                "WHERE USERNAME = ?";
+        
+            this.preparedStmt = connection.prepareStatement(fetch);
+            this.preparedStmt.setString(1, username);
+            resultSet = preparedStmt.executeQuery();
+        
+            
+            while(resultSet.next()) {
+                int productNO = resultSet.getInt("PRODUCTNO");
+                String name = resultSet.getString("NAME");
+                String type = resultSet.getString("TYPE");
+                int price = resultSet.getInt("PRICE");
+                int quantity = resultSet.getInt("QUANTITY");
+                productList.addProduct(new Product(productNO, name, type, price, quantity));
+            }
+            resultSet.close();
+        }
         return productList;
     }
     

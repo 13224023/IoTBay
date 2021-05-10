@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import uts.isd.model.OrderList;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBCartManager;
 import uts.isd.model.dao.DBManager;
+import uts.isd.model.dao.DBOrderManager;
 import uts.isd.model.dao.DBProductManager;
 import uts.isd.model.dao.LOGManager;
  
@@ -62,6 +64,10 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("user", user);
                         session.setAttribute("availableProductList", productManager.getAllProducts());
                         session.setAttribute("cartProductList", cartManager.getCartProductByUsername(username));
+                        DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
+                        OrderList orderList = orderManager.getOrdersByUsername(username);
+                        if(orderList == null) session.setAttribute("orderList", new OrderList());
+                        session.setAttribute("orderList", orderList);
                         //store log into database
                         logManager.addLog(username,"login");
                     

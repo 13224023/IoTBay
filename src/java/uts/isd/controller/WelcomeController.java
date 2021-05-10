@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBCartManager;
+import uts.isd.model.dao.DBOrderManager;
 
 /**
  *
@@ -36,8 +37,10 @@ public class WelcomeController extends HttpServlet {
         
         if(user.getUsertype().equals("2")) {
             DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
+            DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
             try {
                 session.setAttribute("cartProductList", cartManager.getCartProductByUsername(user.getUsername()));
+                session.setAttribute("orderList", orderManager.getOrdersByUsername(user.getUsername()));
             } catch (SQLException ex) {
                 Logger.getLogger(WelcomeController.class.getName()).log(Level.SEVERE, null, ex);
             }

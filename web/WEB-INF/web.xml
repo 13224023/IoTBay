@@ -177,6 +177,26 @@
         <servlet-name>SearchCartProductServlet</servlet-name>
         <url-pattern>/SearchCartProductServlet</url-pattern>
     </servlet-mapping>
+    <!--SaveOrderServlet-->
+    <servlet>
+        <servlet-name>SaveOrderServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SaveOrderServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SaveOrderServlet</servlet-name>
+        <url-pattern>/SaveOrderServlet</url-pattern>
+    </servlet-mapping>
+    <!--SearchOrderServlet-->
+    <servlet>
+        <servlet-name>SearchOrderServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchOrderServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchOrderServlet</servlet-name>
+        <url-pattern>/SearchOrderServlet</url-pattern>
+    </servlet-mapping>
     
     
     <!--CustomerSearchProductServlet-->
@@ -199,6 +219,28 @@
         <servlet-name>ProductCartServlet</servlet-name>
         <url-pattern>/ProductCartServlet</url-pattern>
     </servlet-mapping>
+    
+    <!--UpdateOrderProductServlet-->
+    <servlet>
+        <servlet-name>UpdateOrderProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateOrderProductServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateOrderProductServlet</servlet-name>
+        <url-pattern>/UpdateOrderProductServlet</url-pattern>
+    </servlet-mapping>
+    <!--SearchOrderProductServlet-->
+    <servlet>
+        <servlet-name>SearchOrderProductServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchOrderProductServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchOrderProductServlet</servlet-name>
+        <url-pattern>/SearchOrderProductServlet</url-pattern>
+    </servlet-mapping>
+        
     
     <!--Controller below -->
     
@@ -347,6 +389,29 @@
         <servlet-name>ProductCartController</servlet-name>
         <url-pattern>/ProductCartController</url-pattern>
     </servlet-mapping>
+    <!--OrderController-->
+    <servlet>
+        <servlet-name>OrderController</servlet-name>
+        <servlet-class>uts.isd.controller.OrderController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderController</servlet-name>
+        <url-pattern>/OrderController</url-pattern>
+    </servlet-mapping>
+    
+    <!--UpdateOrderController-->
+    <servlet>
+        <servlet-name>UpdateOrderController</servlet-name>
+        <servlet-class>uts.isd.controller.UpdateOrderController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateOrderController</servlet-name>
+        <url-pattern>/UpdateOrderController</url-pattern>
+    </servlet-mapping>
+    
+    
     
     
     <session-config>

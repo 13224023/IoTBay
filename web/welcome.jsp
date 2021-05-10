@@ -20,6 +20,7 @@
             User user = (User) session.getAttribute("user");
             ProductList availableProductList = (ProductList) session.getAttribute("availableProductList");
             ProductList cartProductList = (ProductList) session.getAttribute("cartProductList");
+            OrderList orderList = (OrderList) session.getAttribute("orderList");
             String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
             boolean isUserNull = user == null;
             if(isUserNull) response.sendRedirect(redirectURL);
@@ -67,6 +68,8 @@
                 <ul>
                     <li><a href="ProfileController">My Profile</a></li>
                     <li><a href="ProductCartController">Cart(<%=cartProductList.listSize()%>)</a></li>
+                    <li><a href="OrderController">Order(<%=orderList.availableOrder()%>)</a></li>
+                    <li><a href="PaymentController">Payment</a></li>
                     <li><a href="LogsController">LOGS</a></li>
                     <li><a href="LogoutController">Logout</a></li>
                 </ul>

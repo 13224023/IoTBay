@@ -67,6 +67,38 @@ public class Validator implements Serializable{
        return validate(productNumberPattern,number); 
     }
     
+    public boolean validateDate(String month, String days) {
+        if(validateProductNumber(month) && validateProductNumber(days)){
+            int intMonth = Integer.parseInt(month);
+            int intDays = Integer.parseInt(days);
+            if((intMonth <= 12 && intMonth >= 0) && (intDays > 0 && intDays <= getDaysByMonth(intMonth)))
+                return true;
+        }
+        return false;
+    }
+    
+    public int getDaysByMonth(int month) {
+        switch(month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                return 31;
+            case 2:
+                return 28;
+            case 4:
+            case 6:
+            case 9:
+            case 11:
+                return 30;
+            default:
+                return -1;
+        
+        }
+    }
     public void clean(HttpSession session) {
         session.setAttribute("emailErr", "");
         session.setAttribute("passErr", "");
@@ -80,6 +112,7 @@ public class Validator implements Serializable{
         session.setAttribute("productTypeErr","");
         session.setAttribute("productPriceErr","");
         session.setAttribute("productStockErr","");
+        session.setAttribute("dateFormErr", "");
         session.setAttribute("successInfo", "");
     }
 }

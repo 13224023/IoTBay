@@ -26,6 +26,36 @@ public class OrderList {
         this.orderList.add(newOrder);
     }
     
+    public int listSize() {
+        return orderList.size();
+    }
+    
+    public int availableOrder() {
+        int count = 0;
+        for(Order each: orderList) {
+            if(each.getStatus() >= 0) {
+                count = count + 1;
+            }
+        } 
+        return count;
+    }
+    
+    
+    public Order getOrderByIndex(int i) {
+        return orderList.get(i);
+    }
+    public OrderList getListByDate(String month, String day) {
+        OrderList filterList = new OrderList();
+        
+        for(int i = 0; i < listSize(); i++) {
+            if(getOrderByIndex(i).isDateMatchByDate(month, day)) {
+                filterList.addOrder(getOrderByIndex(i));
+            }
+        }
+        return filterList;
+    }
+    
+    
     
     public void displayOrders() {
         for(Order each: orderList) {

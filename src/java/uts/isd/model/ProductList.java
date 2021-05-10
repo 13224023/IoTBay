@@ -79,7 +79,14 @@ public class ProductList {
         }
         return null;
     }
-        
+    
+    public int getAmount() {
+        int amount = 0;
+        for(Product each: productList)
+            amount = amount + each.getPrice() * each.getStock();
+        return amount;
+    }
+    
     
     public void displayProducts() {
         if(listSize() == 0) {

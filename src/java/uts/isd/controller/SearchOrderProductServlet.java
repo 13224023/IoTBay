@@ -14,30 +14,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.UserAccount;
-import uts.isd.model.dao.DBManager;
+import uts.isd.model.ProductList;
+import uts.isd.model.User;
+import uts.isd.model.dao.DBCartManager;
+import uts.isd.model.dao.DBOrderlineManager;
 import uts.isd.model.dao.DBProductManager;
 
 /**
  *
  * @author Administrator
  */
-public class SearchProductServlet extends HttpServlet {
+public class SearchOrderProductServlet extends HttpServlet{
     @Override   
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //retrieve the current session
         HttpSession session = request.getSession();
-        
+        User user = (User) session.getAttribute("user");
+        String username = user.getUsername();
         String keyword;
         keyword = request.getParameter("keyword");
-        DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
+        int orderID = Integer.parseInt(request.getParameter("filter"));
+        //DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
+        DBOrderlineManager orderlineManager = (DBOrderlineManager) session.getAttribute("orderlineManager");
         Validator validator = new Validator();
         validator.clean(session);
+        //orderlineManager.getProductByKeyword(0, keyword)
         try {
-            session.setAttribute("productList", productManager.getProductByKeyword(keyword));
-            request.getRequestDispatcher("productlist.jsp").include(request, response);
+            //ProductList orderProductList = orderlineManager.getProductByKeyword(orderID, keyword);
+            session.setAttribute("orderProductList", orderlineManager.getProductByKeyword(orderID, keyword));
+            request.getRequestDispatcher("orderline.jsp").include(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(SearchProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchCartProductServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

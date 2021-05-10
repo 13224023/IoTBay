@@ -32,6 +32,8 @@ public class SearchCartProductServlet extends HttpServlet{
         String keyword;
         keyword = request.getParameter("keyword");
         DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
+        Validator validator = new Validator();
+        validator.clean(session);
         
         try {
             session.setAttribute("cartProductList", cartManager.getProductByKeyword(username, keyword));
