@@ -31,6 +31,12 @@ public class Payment {
         this.date = new Date(System.currentTimeMillis());
     }
 
+    public Payment () {
+        this.paymentNo = -1;
+        this.paymentType = "none";
+        this.paymentNumber = "none";
+        this.date = new Date(System.currentTimeMillis());
+    }
     public Date getDate() {
         return date;
     }

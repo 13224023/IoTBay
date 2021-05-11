@@ -197,8 +197,6 @@
         <servlet-name>SearchOrderServlet</servlet-name>
         <url-pattern>/SearchOrderServlet</url-pattern>
     </servlet-mapping>
-    
-    
     <!--CustomerSearchProductServlet-->
     <servlet>
         <servlet-name>CustomerSearchProductServlet</servlet-name>
@@ -251,6 +249,37 @@
         <url-pattern>/AddPaymentServlet</url-pattern>
     </servlet-mapping>
     
+    <!--EditPaymentServlet-->
+    <servlet>
+        <servlet-name>EditPaymentServlet</servlet-name>
+        <servlet-class>uts.isd.controller.EditPaymentServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditPaymentServlet</servlet-name>
+        <url-pattern>/EditPaymentServlet</url-pattern>
+    </servlet-mapping>
+    <!--DeletePaymentServlet-->
+    <servlet>
+        <servlet-name>DeletePaymentServlet</servlet-name>
+        <servlet-class>uts.isd.controller.DeletePaymentServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeletePaymentServlet</servlet-name>
+        <url-pattern>/DeletePaymentServlet</url-pattern>
+    </servlet-mapping>
+    
+    <!--SearchPaymentServlet-->
+    <servlet>
+        <servlet-name>SearchPaymentServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchPaymentServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchPaymentServlet</servlet-name>
+        <url-pattern>/SearchPaymentServlet</url-pattern>
+    </servlet-mapping>
     <!--Controller below -->
     
     
@@ -438,6 +467,17 @@
     <servlet-mapping>
         <servlet-name>AddPaymentController</servlet-name>
         <url-pattern>/AddPaymentController</url-pattern>
+    </servlet-mapping>
+    
+    <!--EditPaymentController-->
+    <servlet>
+        <servlet-name>EditPaymentController</servlet-name>
+        <servlet-class>uts.isd.controller.EditPaymentController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditPaymentController</servlet-name>
+        <url-pattern>/EditPaymentController</url-pattern>
     </servlet-mapping>
     
     <session-config>

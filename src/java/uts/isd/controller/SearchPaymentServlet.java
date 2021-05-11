@@ -22,21 +22,30 @@ import uts.isd.model.dao.DBPaymentManager;
  *
  * @author Administrator
  */
-public class UserPaymentController extends HttpServlet{
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class SearchPaymentServlet extends HttpServlet {
+    @Override   
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        
-        String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-        if(user == null || !user.getUsertype().equals("2")) {
-            response.sendRedirect(redirectURL);
-        }
+        String username = user.getUsername();
+        String keyword;
+        keyword = request.getParameter("keyword");
+        Validator validator = new Validator();
+        validator.clean(session);
         DBPaymentManager paymentManager = (DBPaymentManager) session.getAttribute("paymentManager");
+        System.out.println(username + " " + keyword);
+        
         try {
-            PaymentList paymentList = paymentManager.getPaymentByUsername(user.getUsername());
-            session.setAttribute("paymentList", paymentList);
+            PaymentList paymentList = paymentManager.getPaymentByKeyword(username, keyword);
+            if(paymentList.listSize() != 0) {
+                session.setAttribute("paymentList", paymentList);
+            }else {
+                session.setAttribute("paymentList", paymentManager.getPaymentByUsername(username));
+            }
+                
+            
         } catch (SQLException ex) {
-            Logger.getLogger(UserPaymentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SearchPaymentServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         request.getRequestDispatcher("userpayments.jsp").include(request, response);
     }

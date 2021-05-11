@@ -326,7 +326,6 @@ a:hover {
 }
 
 .keyword input[type = "text"]:focus {
-    width: 60%;
     border-color: #3498db;
     transition: 0.5s;
     
@@ -345,6 +344,7 @@ a:hover {
 .submit {
     width: 10%;
     padding: 12px;
+    border-radius: 3px;
     font-size: 15px;
     color: white;
     background-color: #2ecc71;
@@ -407,9 +407,9 @@ a:hover {
 }
 
 .storage {
-    background-color:currentColor;
+    background-color:chocolate;
 }
 
 .case {
-    background-color:#1b9bff;
+    background-color:yellowgreen;
 }

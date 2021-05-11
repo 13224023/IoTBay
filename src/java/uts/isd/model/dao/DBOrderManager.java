@@ -150,6 +150,31 @@ public class DBOrderManager {
         } 
     }
     
+       
+    
+    public void updateOrderPayment(String username, String pType, String pNumber, String nType, String nNumber) throws SQLException {
+        String query = "UPDATE ROOT.ORDERS SET " + 
+            "PAYMENTTYPE = ? AND PAYMENTNUMBER = ? " + 
+            "WHERE USERNAME = ? AND PAYMENTTYPE = ? AND PAYMENTNUMBER = ?";
+        //Store values into each column
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, nType);
+            preparedStmt.setString(2, nNumber);
+            preparedStmt.setString(3, username);
+            preparedStmt.setString(4, pType);
+            preparedStmt.setString(5, pNumber);
+            //Execute the query and get a reponse from database
+            preparedStmt.executeUpdate();
+        }catch(SQLException ex) {
+            resultSet.close();         
+        } 
+    }
+    
+    
+    
+    
+    
     
     
     public void deleteOrder(int orderID) throws SQLException {

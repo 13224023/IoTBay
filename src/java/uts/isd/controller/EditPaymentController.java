@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import uts.isd.model.PaymentList;
+import uts.isd.model.Payment;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBPaymentManager;
 
@@ -22,22 +22,27 @@ import uts.isd.model.dao.DBPaymentManager;
  *
  * @author Administrator
  */
-public class UserPaymentController extends HttpServlet{
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class EditPaymentController extends HttpServlet {
+    @Override   
+    protected void doPost(HttpServletRequest request, 
+            HttpServletResponse response) throws ServletException, IOException { 
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
         
+        User user = (User) session.getAttribute("user");
         String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
         if(user == null || !user.getUsertype().equals("2")) {
             response.sendRedirect(redirectURL);
         }
+        String paymentNo = (String) request.getParameter("edit");
+        int payNumber = Integer.parseInt(paymentNo);
         DBPaymentManager paymentManager = (DBPaymentManager) session.getAttribute("paymentManager");
         try {
-            PaymentList paymentList = paymentManager.getPaymentByUsername(user.getUsername());
-            session.setAttribute("paymentList", paymentList);
+            Payment payment = paymentManager.getPaymentByPaymentNo(payNumber);
+            session.setAttribute("payment", payment);
         } catch (SQLException ex) {
-            Logger.getLogger(UserPaymentController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditPaymentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.getRequestDispatcher("userpayments.jsp").include(request, response);
+        request.getRequestDispatcher("editpayment.jsp").include(request, response);
+        
     }
 }

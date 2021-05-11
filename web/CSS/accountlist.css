@@ -253,6 +253,7 @@ a:hover {
 
 
 .actived {
+    
     color:white;
     background-color: limegreen;
     border-style: none;
@@ -265,6 +266,7 @@ a:hover {
 }
 
 .edit {
+    
     color:white;
     background-color:#0082e6;
     border-style: none;
@@ -277,6 +279,7 @@ a:hover {
 }
 
 .delete {
+    
     color:white;
     background-color:firebrick;
     border-style: none;
@@ -292,6 +295,7 @@ a:hover {
 
 
 .lock {
+    
     color:white;
     background-color: crimson;
     border-style: none;
@@ -340,6 +344,7 @@ a:hover {
 
 .submit {
     width: 10%;
+    border-radius: 3px;
     padding: 12px;
     font-size: 15px;
     color: white;

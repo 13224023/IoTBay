@@ -88,7 +88,9 @@ public class TestDBPayment {
     private void testRead() throws SQLException {
         System.out.print("Username : ");
         String username = in.nextLine();
-        PaymentList paymentList = paymentManager.getPaymentByUsername(username);
+        System.out.print("Keyword : ");
+        String keyword = in.nextLine();
+        PaymentList paymentList = paymentManager.getPaymentByKeyword(username, keyword);
         paymentList.displayPaymentList();
     }
     

@@ -30,15 +30,6 @@ public class SearchUserServlet extends HttpServlet {
         //retrieve the current session
         HttpSession session = request.getSession();
         
-        //String search = request.getParameter("filter1");
-        //boolean isSearchButtonClicked = search != null;
-            
-        //String customer = request.getParameter("filter2");
-        //boolean isCustomerButtonClicked = customer != null;
-        
-        //String staff = request.getParameter("filter3");
-        //boolean isStaffButtonClicked = staff != null;
-        
         String keyword;
         String usertype;
         keyword = request.getParameter("keyword");

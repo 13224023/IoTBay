@@ -354,6 +354,7 @@ a:hover {
 
 .submit {
     width: 10%;
+    border-radius: 3px;
     padding: 12px;
     font-size: 15px;
     color: white;
@@ -423,13 +424,13 @@ a:hover {
 }
 
 .storage {
-    background-color:currentColor;
     color: white;
+    background-color:chocolate;
 }
 
 .case {
-    background-color:#1b9bff;
     color: white;
+    background-color:yellowgreen;
 }
 
 .successinfo {

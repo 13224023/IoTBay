@@ -1,12 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 10/05/2021, 11:56:01 PM
-    Author     : Administrator
-*/
 
 * {
     padding: 0;
@@ -19,6 +10,10 @@ and open the template in the editor.
 }
 
 body {
+    /*
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('https://miro.medium.com/max/4800/0*Ujfq0bFIEYEoMiEG');
+    */
     font-family: Arial, Helvetica, sans-serif;
     background:linear-gradient(rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 0.5) 100%), url('../img/background.jpg');
 }
@@ -37,8 +32,8 @@ section {
     margin-bottom: 5px;
     margin-right: auto;
     margin-left: auto;
-    /*padding: 5px 5px 5px 5px;*/
-    border-radius: 2px;
+    padding: 5px 5px 5px 5px;
+    
 }
 
 div {
@@ -48,13 +43,6 @@ div {
     margin-left: auto;
     margin-right: auto;
     padding: 5px 5px 5px 5px;
-    border-radius: 2px;
-}
-
-
-span {
-    color:crimson;
-    
 }
 
 .root {
@@ -116,26 +104,19 @@ a:hover {
 
 .inline {
     display: inline-block;
-    width: 10%;
-    padding: 10px;
-    margin: auto;
-    border-radius: 2px;
-    border-style: none;
+    width: 15%;
+    margin:auto;
+    background-color: red;
 }
 
 .inline button {
     width: 100%;
- }
-
-.inline label {
-    text-align: right; 
+    padding: 10px;
+    font-size: 15px;
 }
-
-.inline input {
-}
-
 
 .checkbtn {
+    
     font-size: 30px;
     color: white;
     float: right;
@@ -262,15 +243,17 @@ a:hover {
 
 .staff {
     background: #B89F5D;
-    
+    color: white;
 }
 
 .customer {
     background: #3FB0AC;
+    color: white;
 }
 
 
 .actived {
+    
     color:white;
     background-color: limegreen;
     border-style: none;
@@ -283,6 +266,7 @@ a:hover {
 }
 
 .edit {
+    
     color:white;
     background-color:#0082e6;
     border-style: none;
@@ -295,6 +279,7 @@ a:hover {
 }
 
 .delete {
+    
     color:white;
     background-color:firebrick;
     border-style: none;
@@ -310,6 +295,7 @@ a:hover {
 
 
 .lock {
+    
     color:white;
     background-color: crimson;
     border-style: none;
@@ -339,9 +325,12 @@ a:hover {
 
 .keyword input[type = "text"]:focus {
     border-color: #3498db;
-    
+}
+.keyword label {
+    margin: 5px;
     
 }
+
 
 .search {
     width: 30%;
@@ -355,12 +344,12 @@ a:hover {
 
 .submit {
     width: 10%;
+    border-radius: 3px;
     padding: 12px;
     font-size: 15px;
     color: white;
     background-color: #2ecc71;
     border-style: none;
-    border-radius: 2px;
 }
 
 .submit:hover {
@@ -395,70 +384,4 @@ a:hover {
 .submit3:hover {
     color: white;
     background-color: grey;
-}
-
-
-
-.cpu {
-    background-color:#5A7670;
-    color: white;
-}
-
-.motherboard {
-    background-color:#3FB0AC;
-    color: white;
-}
-
-.ram {
-    background-color:burlywood;
-    color: white;
-}
-
-.graphic {
-    background-color:coral;
-    color: white;
-}
-
-.power {
-    background-color:darkseagreen;
-    color: white;
-}
-
-.storage {
-    background-color:currentColor;
-    color: white;
-}
-
-.case {
-    background-color:#1b9bff;
-    color: white;
-}
-
-.order {
-    background-color:#3FB0AC;
-    color: white;
-    
-}
-
-
-.successinfo {
-    margin: 5px;
-    color: green;
-}
-
-.errorinfo {
-    margin: 5px;
-    color: red;
-}
-
-.title_right {
-    display: inline-block;
-    float: right;
-}
-.title_left {
-    display: inline-block;
-}
-
-.total_right {
-    text-align: right;
 }

@@ -30,6 +30,12 @@ public class PaymentList {
         return paymentList.size();
     }
     
+    public Payment getPaymentByIndex(int index) {
+        return paymentList.get(index);
+    
+    }
+    
+    
     public void displayPaymentList() {
         paymentList.forEach((each) -> {
             System.out.println(each);

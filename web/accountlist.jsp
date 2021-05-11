@@ -55,12 +55,8 @@
                         </label>
                         <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Username, full name, phone">
                         <button type="submit" class="submit" name="filter1" value="search">Search</button>
-                        
-                        
-                        <!--
-                        <button type="submit" class="submit2" name="filter2" value="customer">Customer</button>
-                        <button type="submit" class="submit3" name="filter3" value="staff">Staff</button>
-                        -->
+                                              
+                       
                     </form>
                 </div>
                             

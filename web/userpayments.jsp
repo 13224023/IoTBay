@@ -4,6 +4,7 @@
     Author     : Administrator
 --%>
 
+<%@page import="uts.isd.model.dao.DBPaymentManager"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@page import="uts.isd.model.dao.DBOrderManager"%>
@@ -22,6 +23,9 @@
         <title>My Payments</title>
     </head>
     <body>
+        <%
+            PaymentList paymentList = (PaymentList) session.getAttribute("paymentList");
+        %>
         <nav class="customer">
             <input type="checkbox" id="check">
             <label for="check" class="checkbtn">
@@ -34,6 +38,43 @@
             </ul>
         </nav>
         <section>
+            <div>
+                <form class="keyword" method="post" action="SearchPaymentServlet">
+                    <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Type, Payment number">
+                    <button type="submit" class="submit" name="filter1" value="search">Search</button>
+                </form>
+            </div>
+            <%if(paymentList.listSize() == 0) {%>
+                <h1>No payment</h1>
+            <%}else {%>
+                <%for(int i = 0; i < paymentList.listSize(); i++) {
+                    NumberFormat formatter = new DecimalFormat("00000000");
+                    int paymentNo = paymentList.getPaymentByIndex(i).getPaymentNo();
+                    String type = paymentList.getPaymentByIndex(i).getPaymentType();
+                    String number = paymentList.getPaymentByIndex(i).getPaymentNumber();
+                %>
+                    <div>
+                        <div class="customer">
+                            <h1>Payment number: <%=formatter.format(paymentNo)%></h1>
+                        </div>
+                        <div class="customer">
+                            <h1>Type: <%=type.toUpperCase()%></h1>
+                            <h1>Number: <%=number%></h1>
+                        </div>
+                        <div class="customer">
+                            <form class="inline" method="post" action="">
+                                <button type="submit" class="actived" name="record" value="<%=paymentNo%>">Payment records</button>
+                            </form>
+                            <form class="inline" method="post" action="EditPaymentController">
+                                <button type="submit" class="edit" name="edit" value="<%=paymentNo%>">Edit</button>
+                            </form>
+                            <form class="inline" method="post" action="DeletePaymentServlet">
+                                <button type="submit" class="delete" name="delete" value="<%=paymentNo%>">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                <%}%>
+            <%}%>
             
         </section>
     </body>

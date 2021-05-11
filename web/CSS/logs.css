@@ -331,7 +331,7 @@ a:hover {
 }
 
 .keyword input[type = "text"]:focus {
-    width: 15%;
+    /*width: 15%;*/
     border-color: #3498db;
     transition: 0.5s;
     
@@ -351,6 +351,7 @@ a:hover {
     width: 10%;
     padding: 12px;
     font-size: 15px;
+    border-radius: 3px;
     color: white;
     background-color: #2ecc71;
     border-style: none;

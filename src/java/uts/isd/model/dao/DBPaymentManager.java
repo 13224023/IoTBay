@@ -116,6 +116,21 @@ public class DBPaymentManager {
         return false;
     }
     
+    public Payment getPaymentByPaymentNo(int paymentNo) throws SQLException{
+        String fetch = "SELECT NUMBER,PAYMENTTYPE,PAYMENTNUMBER FROM ROOT.PAYMENT " +
+            "WHERE NUMBER = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setInt(1, paymentNo);
+        resultSet = preparedStmt.executeQuery();
+        if(resultSet.next()) {
+            String type = resultSet.getString("PAYMENTTYPE");
+            String paymentNumber = resultSet.getString("PAYMENTNUMBER");
+            return new Payment(paymentNo, type, paymentNumber);
+        }
+        return new Payment();
+    }
+     
+    
     public PaymentList getPaymentByUsername(String username) throws SQLException {
         String fetch = "SELECT NUMBER,PAYMENTTYPE,PAYMENTNUMBER FROM ROOT.PAYMENT " +
             "WHERE USERNAME = ?";
@@ -190,8 +205,24 @@ public class DBPaymentManager {
         return paymentList;
     }
 
-    public void addPayment(int paymentID, String username, String type, int number) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public PaymentList getPaymentByKeyword(String username, String keyword) throws SQLException {
+        String fetch = "SELECT NUMBER,PAYMENTTYPE,PAYMENTNUMBER FROM ROOT.PAYMENT " +
+            "WHERE USERNAME = ? AND (PAYMENTTYPE = ? OR PAYMENTNUMBER = ?)";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, username);
+        this.preparedStmt.setString(2, keyword.toLowerCase());
+        this.preparedStmt.setString(3, keyword);
+        resultSet = preparedStmt.executeQuery();
+        PaymentList paymentList = new PaymentList();
+        
+        while(resultSet.next()) {
+            int paymentNo = resultSet.getInt("NUMBER");
+            String type = resultSet.getString("PAYMENTTYPE");
+            String paymentNumber = resultSet.getString("PAYMENTNUMBER");
+            paymentList.addPayment(new Payment(paymentNo, type, paymentNumber));
+        }
+        return paymentList;   
     }
+       
     
 }

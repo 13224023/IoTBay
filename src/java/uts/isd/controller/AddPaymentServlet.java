@@ -42,7 +42,7 @@ public class AddPaymentServlet extends HttpServlet{
         
         if (!validator.validatePaymentType(type)) {
             session.setAttribute("paymentTypeErr","Error: Payment type incorrect");
-        }else if(!validator.validateProductNumber(number)) {
+        }else if(!validator.validatePaymentNumber(number)) {
             session.setAttribute("paymentNumberErr","Error: Payment number incorrect");
         }else {
             try {

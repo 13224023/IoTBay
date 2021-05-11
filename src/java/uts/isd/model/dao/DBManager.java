@@ -135,7 +135,7 @@ public class DBManager {
             String fullName = resultSet.getString(4) + " " + resultSet.getString(5);
             String phone = resultSet.getString(6);
             if(fullName.toLowerCase().equals(keyword.toLowerCase()) ||
-                    phone.equals(keyword)) {
+                    phone.equals(keyword) || username.equals(keyword)) {
                 accountList.setAnUser(
                     new User(
                         username,
@@ -227,7 +227,7 @@ public class DBManager {
                 String username = resultSet.getString(1);
                 String fullName = resultSet.getString(4) + " " + resultSet.getString(5);
                 String phone = resultSet.getString(6);
-                if(fullName.toLowerCase().equals(keyword.toLowerCase()) || phone.equals(keyword)) {
+                if(username.equals(keyword) || fullName.toLowerCase().equals(keyword.toLowerCase()) || phone.equals(keyword)) {
                     accountList.setAnUser(
                         new User(
                             username,
