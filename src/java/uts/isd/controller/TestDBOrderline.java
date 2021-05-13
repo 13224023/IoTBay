@@ -104,8 +104,10 @@ public class TestDBOrderline {
     private void testRead() throws SQLException {
         System.out.print("OrderID: ");
         int orderID = Integer.parseInt(in.nextLine());
+        System.out.print("Order Status: ");
+        int status = Integer.parseInt(in.nextLine());
         
-        ProductList productList = orderlineManager.getProductsByOrderID(orderID);
+        ProductList productList = orderlineManager.getProductsByOrderID(orderID, status);
         productList.displayProducts();
     }
     
@@ -168,7 +170,9 @@ public class TestDBOrderline {
             int orderID = Integer.parseInt(in.nextLine());
             System.out.print("Keyword: ");
             String keyword = in.nextLine();
-            ProductList productList = orderlineManager.getProductByKeyword(orderID, keyword);
+            System.out.print("Status: ");
+            int status = Integer.parseInt(in.nextLine());
+            ProductList productList = orderlineManager.getProductByKeyword(orderID, status, keyword);
             productList.displayProducts();
         }catch (SQLException ex){
             Logger.getLogger(TestDBOrderline.class.getName()).log(Level.SEVERE, null, ex);

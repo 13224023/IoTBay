@@ -59,7 +59,7 @@
                         </div>
                         <div class="customer">
                             <h1>Type: <%=type.toUpperCase()%></h1>
-                            <h1>Number: <%=number%></h1>
+                            <h1>Number: <%=String.format("%20s",number).replace(' ', '0')%></h1>
                         </div>
                         <div class="customer">
                             <form class="inline" method="post" action="">

@@ -24,19 +24,22 @@ public class OrderController extends HttpServlet {
         
         User user = (User)session.getAttribute("user");
         String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-        if(user == null || !user.getUsertype().equals("2")) {
-            response.sendRedirect(redirectURL);
-        }
         //create an instance of the Validator class    
         Validator validator = new Validator();
         
         //initialise the error message
         validator.clean(session);
-         
+        
+        System.out.println(user.getUsertype());
+        if(user.getUsertype().equals("2")) {
+            request.getRequestDispatcher("order.jsp").include(request, response);
+        }else if(user.getUsertype().equals("1")) {
+            request.getRequestDispatcher("allorders.jsp").include(request, response);
+        }else {
+            response.sendRedirect(redirectURL);
+        }
+        
         //redirect user to the welcom.jsp
-        request.getRequestDispatcher("order.jsp").include(request, response);
-        
-        
     }
     
 }

@@ -49,7 +49,6 @@
                         <h1><%=type.toUpperCase()%></h1>
                     </div>
                     <div class="<%=type.toLowerCase()%>">
-                        
                         <h3>Product Name: <%=name%></h3>
                         <h3>Product Price: <%=price%></h3>
                         <h3>Stock: <%=stock%></h3>

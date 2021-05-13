@@ -59,6 +59,7 @@ public class Payment {
 
     public String getPaymentNumber() {
         return paymentNumber;
+        
     }
 
     public void setPaymentType(String paymentType) {

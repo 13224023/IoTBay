@@ -33,18 +33,24 @@ public class WelcomeController extends HttpServlet {
         
         //initialise the error message
         validator.clean(session);
-        
+        DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
+        DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
         
         if(user.getUsertype().equals("2")) {
-            DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
-            DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
+            
             try {
                 session.setAttribute("cartProductList", cartManager.getCartProductByUsername(user.getUsername()));
                 session.setAttribute("orderList", orderManager.getOrdersByUsername(user.getUsername()));
             } catch (SQLException ex) {
                 Logger.getLogger(WelcomeController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } 
+        }else if(user.getUsertype().equals("1")) {
+            try {
+                session.setAttribute("orderList", orderManager.getAllOrders());
+            } catch (SQLException ex) {
+                Logger.getLogger(WelcomeController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
         request.getRequestDispatcher("welcome.jsp").include(request, response);
     } 

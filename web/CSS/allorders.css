@@ -4,10 +4,19 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 07/05/2021, 3:10:54 PM
+    Created on : 13/05/2021, 6:24:04 PM
     Author     : Administrator
 */
 
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12/05/2021, 6:04:23 PM
+    Author     : Administrator
+*/
 
 * {
     padding: 0;
@@ -38,8 +47,8 @@ section {
     margin-bottom: 5px;
     margin-right: auto;
     margin-left: auto;
-    padding: 5px 5px 5px 5px;
-    
+    /*padding: 5px 5px 5px 5px;*/
+    border-radius: 2px;
 }
 
 div {
@@ -48,8 +57,14 @@ div {
     margin-bottom: 2px;
     margin-left: auto;
     margin-right: auto;
-    color: white;
     padding: 5px 5px 5px 5px;
+    border-radius: 2px;
+}
+
+
+span {
+    color:crimson;
+    
 }
 
 .root {
@@ -111,19 +126,26 @@ a:hover {
 
 .inline {
     display: inline-block;
-    width: 15%;
-    margin:auto;
-    background-color: red;
+    width: 10%;
+    padding: 10px;
+    margin: auto;
+    border-radius: 2px;
+    border-style: none;
 }
 
 .inline button {
     width: 100%;
-    padding: 10px;
-    font-size: 15px;
+ }
+
+.inline label {
+    text-align: right; 
 }
 
+.inline input {
+}
+
+
 .checkbtn {
-    
     font-size: 30px;
     color: white;
     float: right;
@@ -327,12 +349,12 @@ a:hover {
 
 .keyword input[type = "text"]:focus {
     border-color: #3498db;
-    transition: 0.5s;
+    
     
 }
 
 .search {
-    width: 40%;
+    width: 30%;
     padding: 10px;
     font-size: 15px;
     border-radius: 4px;
@@ -344,11 +366,11 @@ a:hover {
 .submit {
     width: 10%;
     padding: 12px;
-    border-radius: 3px;
     font-size: 15px;
     color: white;
     background-color: #2ecc71;
     border-style: none;
+    border-radius: 2px;
 }
 
 .submit:hover {
@@ -386,30 +408,81 @@ a:hover {
 }
 
 
+
 .cpu {
     background-color:#5A7670;
+    color: white;
 }
 
 .motherboard {
     background-color:steelblue;
+    color: white;
 }
 
 .ram {
     background-color:burlywood;
+    color: white;
 }
 
 .graphic {
-    background-color:coral; 
+    background-color:coral;
+    color: white;
 }
 
 .power {
     background-color:darkseagreen;
+    color: white;
 }
 
 .storage {
-    background-color:chocolate;
+    background-color:currentColor;
+    color: white;
 }
 
 .case {
-    background-color:yellowgreen;
+    background-color:#1b9bff;
+    color: white;
+}
+
+
+
+
+.successinfo {
+    margin: 5px;
+    color: green;
+}
+
+.errorinfo {
+    margin: 5px;
+    color: red;
+}
+
+.title_right {
+    display: inline-block;
+    float: right;
+}
+.title_left {
+    display: inline-block;
+}
+
+.total_right {
+    text-align: right;
+}
+
+.paid {
+    background-color:#3FB0AC;
+    color: white;
+    
+}
+
+.unpaid {
+    background-color:darkkhaki;
+    color: white;
+    
+}
+
+.cancelled {
+    background-color:sienna;
+    color: white;
+    
 }

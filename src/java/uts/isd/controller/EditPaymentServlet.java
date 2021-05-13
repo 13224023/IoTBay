@@ -41,12 +41,15 @@ public class EditPaymentServlet extends HttpServlet {
         
         if(!validator.validatePaymentType(type)) {
             session.setAttribute("paymentTypeErr", "Error: Payment type format incorrect");
-        }else if(!validator.validateProductNumber(number)) {
+        }else if(!validator.validatePaymentNumber(number)) {
             session.setAttribute("paymentNumberErr", "Error: Number format incorrect");
         }else {
             try {
                 Payment payment = paymentManager.getPaymentByPaymentNo(convertedNumber);
+                payment.setPaymentType(type);
+                payment.setPaymentNumber(number);
                 paymentManager.updatePayment(convertedNumber, type, number);
+                session.setAttribute("payment", payment);
                 session.setAttribute("paymentList", paymentManager.getPaymentByUsername(username));
                 session.setAttribute("successInfo", "The payment updated successfully");
                 //update relevant order with previous payment record

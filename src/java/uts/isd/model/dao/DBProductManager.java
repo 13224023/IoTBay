@@ -156,7 +156,6 @@ public class DBProductManager {
         Product newProduct = null;
         
         while(resultSet.next()) {
-            System.out.println("pass here");
             newProduct = new Product(
                 resultSet.getInt("NUMBER"),
                 resultSet.getString("NAME"),
@@ -169,7 +168,7 @@ public class DBProductManager {
         return newProduct;   
     }
     
-    
+        
     
     public ProductList getProductByKeyword(String keyword) throws SQLException {
         

@@ -68,7 +68,13 @@ public class LoginServlet extends HttpServlet {
                         session.setAttribute("cartProductList", cartManager.getCartProductByUsername(username));
                         session.setAttribute("paymentList", paymentManager.findPaymentByUsername(username));
                         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
-                        OrderList orderList = orderManager.getOrdersByUsername(username);
+                        OrderList orderList = null;
+                        if(user.getUsertype().equals("2")) {
+                            orderList = orderManager.getOrdersByUsername(username);
+                        }else if(user.getUsertype().equals("1")) {
+                            orderList = orderManager.getAllOrders();
+                        }
+                           
                         if(orderList == null) session.setAttribute("orderList", new OrderList());
                         session.setAttribute("orderList", orderList);
                         //store log into database

@@ -60,7 +60,7 @@ public class SaveOrderServlet extends HttpServlet {
                     String productName = cartProductList.getProductByIndex(i).getName();
                     int price = cartProductList.getProductByIndex(i).getPrice();
                     int quantity = cartProductList.getProductByIndex(i).getStock();
-                    orderlineManager.addProductOrderline(orderNumber,productNo, productType, productName, price, quantity );
+                    orderlineManager.addProductOrderline(orderNumber,productNo, productType, productName, price, quantity);
                 }
                 request.getRequestDispatcher("welcome.jsp").include(request, response);
             }

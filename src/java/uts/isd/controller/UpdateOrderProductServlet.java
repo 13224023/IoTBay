@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import uts.isd.model.Order;
 import uts.isd.model.ProductList;
 import uts.isd.model.User;
 import uts.isd.model.dao.DBOrderManager;
@@ -52,6 +53,7 @@ public class UpdateOrderProductServlet extends HttpServlet {
         DBOrderlineManager orderlineManager = (DBOrderlineManager) session.getAttribute("orderlineManager");
         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
         DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
+        
         if(isUpdateButtonClicked) {
             if(!validator.validateProductNumber(quantity)) {
                 session.setAttribute("productStockErr", "Error: Order number format incorrect");
@@ -64,8 +66,9 @@ public class UpdateOrderProductServlet extends HttpServlet {
                     int remainNumber = maxOrderNumber - orderNumber;
                     try {
                         productManager.updateProductByNumber(productNo, remainNumber);
+                        Order order = orderManager.getOrderByOrderID(convertedOrderID);
                         orderlineManager.updateOrderlineProduct(convertedOrderID, productNo, orderNumber);
-                        ProductList orderList = orderlineManager.getProductsByOrderID(convertedOrderID);
+                        ProductList orderList = orderlineManager.getProductsByOrderID(convertedOrderID, order.getStatus());
                         orderManager.updateOrderAmount(convertedOrderID, orderList.getAmount());
                         session.setAttribute("availableProductList", productManager.getAllProducts());
                         session.setAttribute("orderProductList", orderList);
@@ -81,12 +84,16 @@ public class UpdateOrderProductServlet extends HttpServlet {
             productNo = Integer.parseInt(delete);
             try {
                 productManager.updateProductByNumber(productNo, maxOrderNumber);
-                orderlineManager.deleteProduct(convertedOrderID, productNo);
-                ProductList orderList = orderlineManager.getProductsByOrderID(convertedOrderID);
-                if(orderlineManager.getProductsByOrderID(convertedOrderID).listSize() == 0) {
+                orderlineManager.updateProductStatus(convertedOrderID, productNo);
+                Order order = orderManager.getOrderByOrderID(convertedOrderID);
+                ProductList orderList = orderlineManager.getProductsByOrderID(convertedOrderID, order.getStatus());
+                if(orderList.listSize() == 0) {
                     orderManager.updateOrderStatus(convertedOrderID, -1);
+                    ProductList cancelledProductList = orderlineManager.getProductsByOrderID(convertedOrderID, -1);
+                    orderManager.updateOrderAmount(convertedOrderID, cancelledProductList.getAmount());
+                }else {
+                    orderManager.updateOrderAmount(convertedOrderID, orderList.getAmount());
                 }
-                orderManager.updateOrderAmount(convertedOrderID, orderList.getAmount());
                 session.setAttribute("availableProductList", productManager.getAllProducts());
                 session.setAttribute("orderProductList", orderList);
                 session.setAttribute("successInfo", "Product is deleted");

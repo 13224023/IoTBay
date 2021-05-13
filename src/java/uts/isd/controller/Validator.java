@@ -17,7 +17,7 @@ public class Validator implements Serializable{
     private final String productTypePattern = "[A-Za-z0-9\\s]{3,20}";
     private final String productNumberPattern = "[0-9]{1,}";
     private final String paymentTypePattern = "[A-Za-z\\s]{4,20}";
-    private final String paymentNumberPattern = "[0-9]{6,}";
+    private final String paymentNumberPattern = "[0-9]{6,20}";
     public Validator(){}       
 
 

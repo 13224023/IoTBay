@@ -62,9 +62,10 @@ public class DBOrderManager {
     
     public OrderList getOrdersByUsername(String username) throws SQLException {
         String fetch = "SELECT * FROM ROOT.ORDERS " +
-            "WHERE USERNAME = ?";
+            "WHERE USERNAME = ? AND STATUS >= ?";
         this.preparedStmt = connection.prepareStatement(fetch);
         this.preparedStmt.setString(1, username);
+        this.preparedStmt.setInt(2, -1);
         resultSet = preparedStmt.executeQuery();
         OrderList orderList = new OrderList();
         
@@ -249,6 +250,30 @@ public class DBOrderManager {
         }
         return orderList;
     }
+    
+    
+    public Order getOrderByOrderID(int order) throws SQLException {
+        String fetch = "SELECT * FROM ROOT.ORDERS WHERE ORDERID = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setInt(1, order);
+        resultSet = preparedStmt.executeQuery();
+        
+        while(resultSet.next()) {
+            int orderID = resultSet.getInt("ORDERID");
+            String username = resultSet.getString("USERNAME");
+            Date date = resultSet.getDate("DATE");
+            int status = resultSet.getInt("STATUS");
+            String paymentType = resultSet.getString("PAYMENTTYPE");
+            String paymentNumber = resultSet.getString("PAYMENTNUMBER");
+            Date paymentDate = resultSet.getDate("PAYMENTDATE");
+            int amount = resultSet.getInt("AMOUNT");
+            return new Order(orderID, username, date, status,
+                    paymentType, paymentNumber, paymentDate, amount);
+        }
+        return new Order();
+    }
+    
+    
     
     public OrderList getAllOrders() throws SQLException {
         String fetch = "SELECT * FROM ROOT.ORDERS";

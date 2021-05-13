@@ -416,7 +416,7 @@ a:hover {
 }
 
 .motherboard {
-    background-color:#3FB0AC;
+    background-color:steelblue;
     color: white;
 }
 
@@ -445,11 +445,7 @@ a:hover {
     color: white;
 }
 
-.order {
-    background-color:#3FB0AC;
-    color: white;
-    
-}
+
 
 
 .successinfo {
@@ -472,4 +468,27 @@ a:hover {
 
 .total_right {
     text-align: right;
+}
+
+.paid {
+    background-color:#3FB0AC;
+    color: white;
+    
+}
+
+.unpaid {
+    background-color:darkkhaki;
+    color: white;
+    
+}
+
+.cancelled {
+    background-color:sienna;
+    color: white;
+    
+}
+
+.inline_block {
+    display: inline-block;
+    font-size: 30px;
 }

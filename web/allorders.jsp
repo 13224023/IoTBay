@@ -1,6 +1,6 @@
 <%-- 
-    Document   : order
-    Created on : 10/05/2021, 12:30:01 PM
+    Document   : allorders
+    Created on : 12/05/2021, 4:37:07 PM
     Author     : Administrator
 --%>
 
@@ -15,9 +15,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="CSS/order.css">
+        <link rel="stylesheet" href="CSS/allorders.css">
         <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-        <title>My Order</title>
+        <title>Customer Order</title>
     </head>
     <body>
         <%  
@@ -27,12 +27,12 @@
             DBOrderlineManager orderlineManager = (DBOrderlineManager)session.getAttribute("orderlineManager");
             OrderList orderList = (OrderList) session.getAttribute("orderList");
         %>
-        <nav class="customer">
+        <nav class="staff">
             <input type="checkbox" id="check">
             <label for="check" class="checkbtn">
                 <i class="fas fa-bars"></i>
             </label>
-            <label class="logo">My Order</label>
+            <label class="logo">Customer Order</label>
             <ul>
                 <li><a href="WelcomeController">Back</a></li>
             </ul>
@@ -49,7 +49,7 @@
                 <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
             </div>
             
-            <%if(orderList.availableOrder() == 0) {%>
+            <%if(orderList.listSize() == 0) {%>
                 <div>
                     <h1>No Order</h1>
                 </div>
@@ -60,14 +60,16 @@
                     int status = orderList.getOrderByIndex(i).getStatus();
                     int amount = orderList.getOrderByIndex(i).getAmount();
                     Date date = orderList.getOrderByIndex(i).getOrderDate();
+                    String username = orderList.getOrderByIndex(i).getUsername();
                     ProductList productList = orderlineManager.getProductsByOrderID(orderID, status);
                     String orderStatus = status == -1? "cancelled": status == 0? "unpaid": "paid";
+                    
                 %>
                     
                         <div>
                             <div class="<%=orderStatus%>">
-                                <h1 class="title_left">Order Number <%=formatter.format(orderID)%></h1>
-                                <h1 class="title_right">Order Date: <%=date%> Total: $<%=amount%></h1>
+                                <h1 class="title_left">Order Number:<%="" + formatter.format(orderID) + "   Username: " + username%></h1>
+                                <h1 class="title_right">Date: <%=date%> Total: $<%=amount%></h1>
                             </div>
                             <div class="<%=orderStatus%>">
                                 <h1>Product Details</h1>
@@ -85,25 +87,11 @@
                                 </div>
                                 <%}%>
                             </div>
-                            <%if(orderList.getOrderByIndex(i).getStatus() == 0) {%>
-                                <div class="<%=orderStatus%>">
-                                    <form method="post" action="UpdateOrderController">
-                                        <button class="actived inline" type="submit" name="pay" value="<%=orderID%>">Pay Order</button>
-                                        <button class="edit inline" type="submit" name="update" value="<%=orderID%>">Update</button>
-                                        <button class="delete inline" type="submit" name="delete" value="<%=orderID%>">Cancel</button>
-                                    </form>
-                                </div>
-                            <%}else if(orderList.getOrderByIndex(i).getStatus() == 1) {%>
-                                <div class="<%=orderStatus%>">
-                                    <h1 class="title_right">Payment Date: <%=orderList.getOrderByIndex(i).getPaymentDate()%></h1>
-                                    <h1>Status: Paid</h1>
-                                </div>
-                            <%}else {%>
-                                <div class="<%=orderStatus%>">
-                                    <h1>Status: Canceled</h1>
-                                </div>
-                            <%}%>
+                            <div class="<%=orderStatus%>">
+                                <h1>Status: <%=status == 0? "Unpaid": status==1?"Paid":"Cancelled"%></h1>
+                            </div>
                         </div>
+                    
                 <%}%>
             <%}%>
         </section>

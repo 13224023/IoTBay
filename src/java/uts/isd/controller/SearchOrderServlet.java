@@ -33,7 +33,7 @@ public class SearchOrderServlet extends HttpServlet {
         //Get data from the form
         String month = request.getParameter("month");
         String day = request.getParameter("days");
-        
+        String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
         
         OrderList orderList = new OrderList();
         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
@@ -47,11 +47,17 @@ public class SearchOrderServlet extends HttpServlet {
             try {
                 if(usertype.equals("2")) {
                     orderList = orderManager.getOrdersByUsername(user.getUsername()).getListByDate(month, day);
-                }else {
-                    orderList = orderManager.getAllOrders();
+                    session.setAttribute("orderList", orderList);
+                    request.getRequestDispatcher("order.jsp").include(request, response);
+                }else if(usertype.equals("1")) {
+                    orderList = orderManager.getAllOrders().getListByDate(month, day);
+                    session.setAttribute("orderList", orderList);
+                    request.getRequestDispatcher("allorders.jsp").include(request, response);
                 }
-                session.setAttribute("orderList", orderList);
-                request.getRequestDispatcher("order.jsp").include(request, response);
+                else {
+                    response.sendRedirect(redirectURL);
+                }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(SearchOrderServlet.class.getName()).log(Level.SEVERE, null, ex);
             }

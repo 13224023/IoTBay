@@ -45,8 +45,8 @@ public class DBOrderlineManager {
         resultSet.close();
                 
         String query = "INSERT INTO ROOT.ORDERLINE " + 
-            "(NUMBER,ORDERID,PRODUCTNO,NAME,TYPE,PRICE,QUANTITY) " +
-            " VALUES(?,?,?,?,?,?,?)";
+            "(NUMBER,ORDERID,PRODUCTNO,NAME,TYPE,PRICE,QUANTITY,STATUS) " +
+            " VALUES(?,?,?,?,?,?,?,?)";
         this.preparedStmt = connection.prepareStatement(query);
         this.preparedStmt.setInt(1, getInt);
         this.preparedStmt.setInt(2, orderID);
@@ -55,6 +55,7 @@ public class DBOrderlineManager {
         this.preparedStmt.setString(5, type.toLowerCase());
         this.preparedStmt.setInt(6, price);
         this.preparedStmt.setInt(7, quantity);
+        this.preparedStmt.setInt(8, 0);
                 
         //Execute the query, then return a value for storing successfully
         int row = preparedStmt.executeUpdate();
@@ -62,11 +63,12 @@ public class DBOrderlineManager {
         
     }
     
-    public ProductList getProductsByOrderID(int orderID) throws SQLException {
+    public ProductList getProductsByOrderID(int orderID, int status) throws SQLException {
         String fetch = "SELECT PRODUCTNO,NAME,TYPE,PRICE,QUANTITY FROM ROOT.ORDERLINE " +
-            "WHERE ORDERID = ?";
+            "WHERE ORDERID = ? AND STATUS = ?";
         this.preparedStmt = connection.prepareStatement(fetch);
         this.preparedStmt.setInt(1, orderID);
+        this.preparedStmt.setInt(2, status);
         resultSet = preparedStmt.executeQuery();
         ProductList productList = new ProductList();
         
@@ -117,6 +119,42 @@ public class DBOrderlineManager {
         } 
     }
     
+    public void updateProductStatus(int orderID, int productNo) throws SQLException {
+        String query = "UPDATE ROOT.ORDERLINE SET " + 
+            "STATUS = ?" + 
+            "WHERE ORDERID = ? AND PRODUCTNO = ?";
+        //Store values into each column
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, -1);
+            preparedStmt.setInt(2, orderID);
+            preparedStmt.setInt(3, productNo);
+            //Execute the query and get a reponse from database
+            preparedStmt.executeUpdate();
+        }catch(SQLException ex) {
+            resultSet.close();         
+        } 
+    }
+    
+     public void updateAllProductStatus(int orderID, int status) throws SQLException {
+        String query = "UPDATE ROOT.ORDERLINE SET " + 
+            "STATUS = ?" + 
+            "WHERE ORDERID = ?";
+        //Store values into each column
+        try {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setInt(1, status);
+            preparedStmt.setInt(2, orderID);
+            //Execute the query and get a reponse from database
+            preparedStmt.executeUpdate();
+        }catch(SQLException ex) {
+            resultSet.close();         
+        } 
+    }
+    
+    
+    
+    
     
     public void deleteProduct(int orderID, int productNo) throws SQLException {
         String query = "DELETE FROM ROOT.ORDERLINE WHERE ORDERID = ? AND PRODUCTNO = ?";
@@ -129,18 +167,19 @@ public class DBOrderlineManager {
         }
     }
     
-    public ProductList getProductByKeyword(int orderID, String keyword) throws SQLException {
+    public ProductList getProductByKeyword(int orderID, int orderIDStatus, String keyword) throws SQLException {
         
         if(keyword.equals("")) {
-            return getProductsByOrderID(orderID);
+            return getProductsByOrderID(orderID, orderIDStatus);
         }
         ProductList productList = new ProductList();
         String fetch = "SELECT PRODUCTNO,NAME,TYPE,PRICE,QUANTITY FROM ROOT.ORDERLINE " + 
-                "WHERE ORDERID=? AND (NAME=? OR TYPE=?)";
+                "WHERE ORDERID=? AND STATUS=? AND (NAME=? OR TYPE=?)";
         this.preparedStmt = connection.prepareStatement(fetch);
         this.preparedStmt.setInt(1, orderID);
-        this.preparedStmt.setString(2, keyword.toLowerCase());
+        this.preparedStmt.setInt(2, orderIDStatus);
         this.preparedStmt.setString(3, keyword.toLowerCase());
+        this.preparedStmt.setString(4, keyword.toLowerCase());
         resultSet = preparedStmt.executeQuery();
         
         
