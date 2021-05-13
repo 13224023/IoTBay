@@ -85,6 +85,10 @@ public class Product {
         this.stock = this.stock + number;
     }
     
+    public void updateStockByReturnNumber(int number) {
+        this.stock = this.stock + number;
+    }
+    
     
     public boolean isOutOfStock() {
         return this.stock == 0;

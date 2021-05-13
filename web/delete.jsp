@@ -16,32 +16,8 @@
         <title>Delete Page</title>
     </head>
     <body>
-        <%
-            User user = (User)session.getAttribute("user");
-            
-            boolean isUserNull = user == null? true: false;
-            boolean isIllegalUser = false;
-            String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
-            
-                    
-            
-            if(!isUserNull && user.getUsertype().equals("2")) {
-                String username = user.getUsername();
-                DBConnector connector = new DBConnector();
-                DBManager dbManager = new DBManager(connector.getConnection());
-                dbManager.deleteUser(username);
-                connector.closeConnection();
-                session.invalidate();
-            }else {
-                isIllegalUser = true;
-            }
-            
-            if(isUserNull || isIllegalUser) {
-                response.sendRedirect(redirectURL);
-            }else {%>
-                <h1>Delete Page</h1>
-                <h2>Your account has been deleted. </h2>
-                <button onclick="location.href='http://localhost:8080/IOTBay/'" class="button">Back to homepage</button>
-        <%}%>
+        <h1>Delete Page</h1>
+        <h2>Your account has been deleted. </h2>
+        <button onclick="location.href='http://localhost:8080/IOTBay/'" class="button">Back to homepage</button>
     </body>
 </html>

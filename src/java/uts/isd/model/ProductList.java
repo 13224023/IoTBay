@@ -6,6 +6,7 @@
 package uts.isd.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  *
@@ -15,7 +16,7 @@ public class ProductList {
     ArrayList<Product> productList;
     
     public ProductList() {
-        productList = new ArrayList<>();
+        productList = new ArrayList<Product>();
     }
     
     public int listSize() {
@@ -25,7 +26,7 @@ public class ProductList {
     public void addProduct(Product product) {
         productList.add(product);
     }
-    
+        
     public void setRemainStock(int productNo, int number) {
         for(Product each: productList) {
             if(each.getProductNo() == productNo) {
@@ -64,9 +65,7 @@ public class ProductList {
         return 0;
     
     }
-    
-    
-    
+        
     public Product getProductByIndex(int index) {
         return productList.get(index);
     }

@@ -82,6 +82,30 @@ public class DBOrderManager {
         }
         return orderList;   
     }
+    
+    public OrderList getOrdersByUsernameAndStatus(String username, int givenStatus) throws SQLException {
+        String fetch = "SELECT * FROM ROOT.ORDERS " +
+            "WHERE USERNAME = ? AND STATUS = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, username);
+        this.preparedStmt.setInt(2, givenStatus);
+        resultSet = preparedStmt.executeQuery();
+        OrderList orderList = new OrderList();
+        
+        while(resultSet.next()) {
+            int orderID = resultSet.getInt("ORDERID");
+            Date date = resultSet.getDate("DATE");
+            int status = resultSet.getInt("STATUS");
+            String type = resultSet.getString("PAYMENTTYPE");
+            String paymentNumber = resultSet.getString("PAYMENTNUMBER");
+            Date paymentDate = resultSet.getDate("PAYMENTDATE");
+            int amount = resultSet.getInt("AMOUNT");
+            orderList.addOrder(new Order(orderID, username, date, status,
+                    type, paymentNumber, paymentDate, amount));
+        }
+        return orderList;   
+    }
+      
     public boolean findOrderByOrderID(int orderID) throws SQLException {
         String fetch = "SELECT ORDERID FROM ROOT.ORDERS " +
             "WHERE ORDERID = ?";
@@ -171,12 +195,6 @@ public class DBOrderManager {
             resultSet.close();         
         } 
     }
-    
-    
-    
-    
-    
-    
     
     public void deleteOrder(int orderID) throws SQLException {
         String query = "DELETE FROM ROOT.ORDERS WHERE ORDERID = ?";

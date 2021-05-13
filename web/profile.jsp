@@ -34,7 +34,7 @@
                     
                 <li><a href="ChangePasswordController">Change Password</a></li>
                 <%if(type.equals("2")) {%>
-                    <li><a href="delete.jsp">Delete Account</a></li>
+                    <li><a href="DeleteUserController">Delete Account</a></li>
                 <%}%>
                 <li><a href="WelcomeController">Back</a></li>
             </ul>

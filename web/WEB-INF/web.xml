@@ -30,7 +30,6 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
-    
     <!-- EditServlet-->
     <servlet>
         <servlet-name>EditServlet</servlet-name>
@@ -71,7 +70,6 @@
         <servlet-name>SearchUserServlet</servlet-name>
         <url-pattern>/SearchUserServlet</url-pattern>
     </servlet-mapping>
-    
     <!--UpdateServlet-->
     <servlet>
         <servlet-name>UpdateServlet</servlet-name>
@@ -92,8 +90,6 @@
         <servlet-name>UpdateCartProductServlet</servlet-name>
         <url-pattern>/UpdateCartProductServlet</url-pattern>
     </servlet-mapping>
-    
-    
     <!--DeleteServlet-->
     <servlet>
         <servlet-name>DeleteServlet</servlet-name>
@@ -104,7 +100,6 @@
         <servlet-name>DeleteServlet</servlet-name>
         <url-pattern>/DeleteServlet</url-pattern>
     </servlet-mapping>
-    
     <!--StatusServlet-->
     <servlet>
         <servlet-name>StatusServlet</servlet-name>
@@ -115,7 +110,6 @@
         <servlet-name>StatusServlet</servlet-name>
         <url-pattern>/StatusServlet</url-pattern>
     </servlet-mapping>
-    
     <!--AddUserServlet-->
     <servlet>
         <servlet-name>AddUserServlet</servlet-name>
@@ -126,7 +120,6 @@
         <servlet-name>AddUserServlet</servlet-name>
         <url-pattern>/AddUserServlet</url-pattern>
     </servlet-mapping>
-    
     <!--AddProductServlet-->
     <servlet>
         <servlet-name>AddProductServlet</servlet-name>
@@ -217,7 +210,6 @@
         <servlet-name>ProductCartServlet</servlet-name>
         <url-pattern>/ProductCartServlet</url-pattern>
     </servlet-mapping>
-    
     <!--UpdateOrderProductServlet-->
     <servlet>
         <servlet-name>UpdateOrderProductServlet</servlet-name>
@@ -248,7 +240,6 @@
         <servlet-name>AddPaymentServlet</servlet-name>
         <url-pattern>/AddPaymentServlet</url-pattern>
     </servlet-mapping>
-    
     <!--EditPaymentServlet-->
     <servlet>
         <servlet-name>EditPaymentServlet</servlet-name>
@@ -269,7 +260,6 @@
         <servlet-name>DeletePaymentServlet</servlet-name>
         <url-pattern>/DeletePaymentServlet</url-pattern>
     </servlet-mapping>
-    
     <!--SearchPaymentServlet-->
     <servlet>
         <servlet-name>SearchPaymentServlet</servlet-name>
@@ -300,10 +290,7 @@
         <servlet-name>SearchRecordServlet</servlet-name>
         <url-pattern>/SearchRecordServlet</url-pattern>
     </servlet-mapping>
-    
     <!--Controller below -->
-    
-    
     <!-- ProfileController-->
     <servlet>
         <servlet-name>ProfileController</servlet-name>
@@ -394,7 +381,6 @@
         <servlet-name>AddUserController</servlet-name>
         <url-pattern>/AddUserController</url-pattern>
     </servlet-mapping>
-    
     <!-- UnAuthorisedController-->
     <servlet>
         <servlet-name>UnAuthorisedController</servlet-name>
@@ -405,7 +391,6 @@
         <servlet-name>UnAuthorisedController</servlet-name>
         <url-pattern>/UnAuthorisedController</url-pattern>
     </servlet-mapping>
-    
     <!-- ProductListController-->
     <servlet>
         <servlet-name>ProductListController</servlet-name>
@@ -416,7 +401,6 @@
         <servlet-name>ProductListController</servlet-name>
         <url-pattern>/ProductListController</url-pattern>
     </servlet-mapping>
-    
     <!-- AddProductController-->
     <servlet>
         <servlet-name>AddProductController</servlet-name>
@@ -427,7 +411,6 @@
         <servlet-name>AddProductController</servlet-name>
         <url-pattern>/AddProductController</url-pattern>
     </servlet-mapping>
-    
     <!--UpdateProductController-->
     <servlet>
         <servlet-name>UpdateProductController</servlet-name>
@@ -458,7 +441,6 @@
         <servlet-name>OrderController</servlet-name>
         <url-pattern>/OrderController</url-pattern>
     </servlet-mapping>
-    
     <!--UpdateOrderController-->
     <servlet>
         <servlet-name>UpdateOrderController</servlet-name>
@@ -489,7 +471,6 @@
         <servlet-name>AddPaymentController</servlet-name>
         <url-pattern>/AddPaymentController</url-pattern>
     </servlet-mapping>
-    
     <!--EditPaymentController-->
     <servlet>
         <servlet-name>EditPaymentController</servlet-name>
@@ -511,6 +492,16 @@
         <url-pattern>/PaymentRecordController</url-pattern>
     </servlet-mapping>
     
+    <!--DeleteUserController-->
+    <servlet>
+        <servlet-name>DeleteUserController</servlet-name>
+        <servlet-class>uts.isd.controller.DeleteUserController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteUserController</servlet-name>
+        <url-pattern>/DeleteUserController</url-pattern>
+    </servlet-mapping>
     
     <session-config>
         <session-timeout>
