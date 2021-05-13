@@ -47,7 +47,7 @@
             <div>
                 <div class="paid">
                     <h1 class="title_left font_size">Order Number <%=formatter.format(order.getOrderID())%></h1>
-                    <h1 class="title_right font_size">Date: <%=order.getOrderDate()%> Total: $<%=order.getAmount()%></h1>
+                    <h1 class="title_right font_size">Order Date: <%=order.getOrderDate()%> Total: $<%=order.getAmount()%></h1>
                 </div>
             </div>
             <div>
@@ -66,6 +66,7 @@
                 <%}%>
             </div>
             <div>
+                <div class="paid font_size_smaller"><h1>Payment Selection</h1></div>
                 <form method="post" action="SubmitOrderServlet" id="submitorder">
                     <%for(int i = 0; i < paymentList.listSize(); i++) {
                         Payment each = paymentList.getPaymentByIndex(i);

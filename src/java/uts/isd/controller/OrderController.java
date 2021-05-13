@@ -30,7 +30,6 @@ public class OrderController extends HttpServlet {
         //initialise the error message
         validator.clean(session);
         
-        System.out.println(user.getUsertype());
         if(user.getUsertype().equals("2")) {
             request.getRequestDispatcher("order.jsp").include(request, response);
         }else if(user.getUsertype().equals("1")) {

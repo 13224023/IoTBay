@@ -290,6 +290,17 @@
         <servlet-name>SubmitOrderServlet</servlet-name>
         <url-pattern>/SubmitOrderServlet</url-pattern>
     </servlet-mapping>
+    <!--SearchRecordServlet-->
+    <servlet>
+        <servlet-name>SearchRecordServlet</servlet-name>
+        <servlet-class>uts.isd.controller.SearchRecordServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchRecordServlet</servlet-name>
+        <url-pattern>/SearchRecordServlet</url-pattern>
+    </servlet-mapping>
+    
     <!--Controller below -->
     
     
@@ -489,6 +500,17 @@
         <servlet-name>EditPaymentController</servlet-name>
         <url-pattern>/EditPaymentController</url-pattern>
     </servlet-mapping>
+    <!--PaymentRecordController-->
+    <servlet>
+        <servlet-name>PaymentRecordController</servlet-name>
+        <servlet-class>uts.isd.controller.PaymentRecordController</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaymentRecordController</servlet-name>
+        <url-pattern>/PaymentRecordController</url-pattern>
+    </servlet-mapping>
+    
     
     <session-config>
         <session-timeout>

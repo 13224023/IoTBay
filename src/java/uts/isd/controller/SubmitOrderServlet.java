@@ -43,12 +43,10 @@ public class SubmitOrderServlet extends HttpServlet {
         DBOrderlineManager orderlineManager = (DBOrderlineManager) session.getAttribute("orderlineManager");
         DBPaymentManager paymentManager = (DBPaymentManager) session.getAttribute("paymentManager");
         
-        boolean isInputExistUserPaymentList = false;
+       
         String payment = request.getParameter("payment");
-        System.out.println(payment);
+        boolean isInputExistUserPaymentList = false;
         boolean isOtherPaymentSelected = payment.equals("other")? true: false;
-        
-        
         
         String type;
         String number;

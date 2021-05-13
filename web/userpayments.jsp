@@ -62,7 +62,7 @@
                             <h1>Number: <%=String.format("%20s",number).replace(' ', '0')%></h1>
                         </div>
                         <div class="customer">
-                            <form class="inline" method="post" action="">
+                            <form class="inline" method="post" action="PaymentRecordController">
                                 <button type="submit" class="actived" name="record" value="<%=paymentNo%>">Payment records</button>
                             </form>
                             <form class="inline" method="post" action="EditPaymentController">

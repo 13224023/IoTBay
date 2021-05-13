@@ -80,6 +80,7 @@ public class TestDB {
         
         try {
             dbManager.addUser(username, password, usertype, email, status);
+            System.out.println("The new user is added successfully.");
         }catch(SQLException ex) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);
         }
