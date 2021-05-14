@@ -33,34 +33,92 @@ public class SearchOrderServlet extends HttpServlet {
         //Get data from the form
         String month = request.getParameter("month");
         String day = request.getParameter("days");
+        String order = request.getParameter("orderID");
+        
+        boolean isMonthNull = month.equals("") ;
+        boolean isDayNull = day.equals("");
+        boolean isOrderNull = order.equals("");
+               
+        /*orderID*/
+        
         String redirectURL = "http://localhost:8080/IOTBay/unauthorised.jsp";
         
         OrderList orderList = new OrderList();
         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
+        
         Validator validator = new Validator();
         validator.clean(session);
         
-        if(!validator.validateDate(month, day)) {
-            session.setAttribute("dateFormErr", "Error: Date format incorrect");
-            request.getRequestDispatcher("order.jsp").include(request, response);
-        }else {
-            try {
-                if(usertype.equals("2")) {
-                    orderList = orderManager.getOrdersByUsername(user.getUsername()).getListByDate(month, day);
-                    session.setAttribute("orderList", orderList);
-                    request.getRequestDispatcher("order.jsp").include(request, response);
-                }else if(usertype.equals("1")) {
-                    orderList = orderManager.getAllOrders().getListByDate(month, day);
-                    session.setAttribute("orderList", orderList);
-                    request.getRequestDispatcher("allorders.jsp").include(request, response);
-                }
-                else {
-                    response.sendRedirect(redirectURL);
-                }
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(SearchOrderServlet.class.getName()).log(Level.SEVERE, null, ex);
+        if(!user.getUsertype().equals("2") && !user.getUsertype().equals("1")) {
+            response.sendRedirect(redirectURL);
+        }else if(!isOrderNull && !validator.validateProductNumber(order)) {
+            session.setAttribute("dateFormErr", "Error: Character numbers(0-9) for order number format ");
+            if(usertype.equals("2")) {
+                request.getRequestDispatcher("order.jsp").include(request, response);
+            }else {
+                request.getRequestDispatcher("allorders.jsp").include(request, response);
             }
+        }else if((!isMonthNull && !isDayNull) && !validator.validateDate(month, day)) {
+            session.setAttribute("dateFormErr", "Error: Character numbers(0-9) for date format ");
+            if(usertype.equals("2")) {
+                request.getRequestDispatcher("order.jsp").include(request, response);
+            }else {
+                request.getRequestDispatcher("allorders.jsp").include(request, response);
+            }
+        }else {
+            if(!isOrderNull) {
+                try {
+                    if(usertype.equals("2")) {
+                        orderList = orderManager.getOrdersByUsername(user.getUsername()).getListByOrderID(Integer.parseInt(order));
+                        session.setAttribute("orderList", orderList);
+                        request.getRequestDispatcher("order.jsp").include(request, response);
+                    }else {
+                        orderList = orderManager.getAllOrders().getListByOrderID(Integer.parseInt(order));
+                        session.setAttribute("orderList", orderList);
+                        request.getRequestDispatcher("allorders.jsp").include(request, response);
+                    }
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(SearchOrderServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            }else if(!isMonthNull && !isDayNull){
+                try {
+                    if(usertype.equals("2")) {
+                        orderList = orderManager.getOrdersByUsername(user.getUsername()).getListByDate(month, day);
+                        session.setAttribute("orderList", orderList);
+                        request.getRequestDispatcher("order.jsp").include(request, response);
+                    }else if(usertype.equals("1")) {
+                        orderList = orderManager.getAllOrders().getListByDate(month, day);
+                        session.setAttribute("orderList", orderList);
+                        request.getRequestDispatcher("allorders.jsp").include(request, response);
+                    }
+                    else {
+                        response.sendRedirect(redirectURL);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SearchOrderServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else {
+                try {
+                    if(usertype.equals("2")) {
+                        orderList = orderManager.getOrdersByUsername(user.getUsername());
+                        session.setAttribute("orderList", orderList);
+                        request.getRequestDispatcher("order.jsp").include(request, response);
+                    }else if(usertype.equals("1")) {
+                        orderList = orderManager.getAllOrders();
+                        session.setAttribute("orderList", orderList);
+                        request.getRequestDispatcher("allorders.jsp").include(request, response);
+                    }
+                    else {
+                        response.sendRedirect(redirectURL);
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SearchOrderServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            }
+            
         }
         
         

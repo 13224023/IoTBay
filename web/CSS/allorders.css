@@ -71,7 +71,10 @@ span {
     background: #5A7670;
     
 }
-
+.keyword input[type = "text"] {
+    width: 20%;
+    
+}
 .staff {
     background: #B89F5D;
     

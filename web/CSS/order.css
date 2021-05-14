@@ -348,6 +348,11 @@ a:hover {
     margin: auto;
 }
 
+.keyword input[type = "text"] {
+    width: 20%;
+    
+}
+
 .keyword input[type = "text"]:focus {
     border-color: #3498db;
     

@@ -40,6 +40,7 @@
         <section>
             <div>
                 <form class="keyword" method="post" action="SearchOrderServlet" id="search">
+                        <input type="text" class="search" name="orderID" autocomplete="off" placeholder="Order number">
                         <input type="text" class="search" name="month" autocomplete="off" placeholder="Month">
                         <input type="text" class="search" name="days" autocomplete="off" placeholder="Days">
                         <button type="submit" class="submit" form="search">Search</button>

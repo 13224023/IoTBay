@@ -40,6 +40,7 @@
         <section>
             <div>
                 <form class="keyword" method="post" action="SearchOrderServlet" id="search">
+                        <input type="text" class="search" name="orderID" autocomplete="off" placeholder="Order number">
                         <input type="text" class="search" name="month" autocomplete="off" placeholder="Month">
                         <input type="text" class="search" name="days" autocomplete="off" placeholder="Days">
                         <button type="submit" class="submit" form="search">Search</button>
@@ -68,12 +69,14 @@
                     
                         <div>
                             <div class="<%=orderStatus%>">
-                                <h1 class="title_left">Order Number:<%="" + formatter.format(orderID) + "   Username: " + username%></h1>
-                                <h1 class="title_right">Date: <%=date%> Total: $<%=amount%></h1>
+                                <h1 class="title_left">Order Number:<%="" + formatter.format(orderID)%></h1>
+                                <h1 class="title_right">Date: <%=date%></h1>
+                            </div>
+                            <div class="<%=orderStatus%>">
+                                <h1>Username: <%=username%></h1>
                             </div>
                             <div class="<%=orderStatus%>">
                                 <h1>Product Details</h1>
-                            
                                 <%for(int j = 0; j < productList.listSize(); j++) { 
                                     String productName = productList.getProductByIndex(j).getName();
                                     String productType = productList.getProductByIndex(j).getType().toUpperCase();
@@ -86,8 +89,13 @@
                                     <h2><%= productName.toUpperCase()%></h2>
                                 </div>
                                 <%}%>
+                                <div>
+                                    <h1 class="title_right">$<%=amount%></h1>
+                                    <h1>Total: </h1>
+                                </div>
                             </div>
                             <div class="<%=orderStatus%>">
+                                <h1 class="title_right"><%=orderList.getOrderByIndex(i).getPaymentDate()!=null?"Payment Date: " +orderList.getOrderByIndex(i).getPaymentDate(): ""%></h1>
                                 <h1>Status: <%=status == 0? "Unpaid": status==1?"Paid":"Cancelled"%></h1>
                             </div>
                         </div>

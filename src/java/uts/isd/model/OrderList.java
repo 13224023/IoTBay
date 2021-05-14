@@ -54,7 +54,16 @@ public class OrderList {
         }
         return filterList;
     }
-    
+    public OrderList getListByOrderID(int orderID) {
+        OrderList filterList = new OrderList();
+        
+        for(int i = 0; i < listSize(); i++) {
+            if(getOrderByIndex(i).getOrderID() == orderID) {
+                filterList.addOrder(getOrderByIndex(i));
+            }
+        }
+        return filterList;
+    }
     
     
     public void displayOrders() {
