@@ -37,10 +37,10 @@ public class ProductList {
     
     }
     
-    public void updateSoldNumber(int productNo, int orderNumber) {
+    public void updateProductRemainNumber(int productNo, int orderNumber) {
         for(Product each: this.productList) {
             if(each.getProductNo() == productNo) {
-                each.updateSoldNumber(orderNumber);
+                each.updateRemainStock(orderNumber);
             }
         }
         

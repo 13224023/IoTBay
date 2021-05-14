@@ -163,7 +163,7 @@ public class TestDB {
     //test DBManager.getAllUsers()
     private void showAll() {
         try {
-            UserAccount accountList = dbManager.getAllUsersWithoutRoot();
+            UserAccount accountList = dbManager.getAllUsers();
             accountList.showAllUsers();
         }catch(SQLException ex) {
             Logger.getLogger(TestDB.class.getName()).log(Level.SEVERE, null, ex);

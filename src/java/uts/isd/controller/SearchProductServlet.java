@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import uts.isd.model.ProductList;
 import uts.isd.model.UserAccount;
 import uts.isd.model.dao.DBManager;
 import uts.isd.model.dao.DBProductManager;
@@ -33,6 +34,7 @@ public class SearchProductServlet extends HttpServlet {
         DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
         Validator validator = new Validator();
         validator.clean(session);
+        
         try {
             session.setAttribute("productList", productManager.getProductByKeyword(keyword));
             request.getRequestDispatcher("productlist.jsp").include(request, response);

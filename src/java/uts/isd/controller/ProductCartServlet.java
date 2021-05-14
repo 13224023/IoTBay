@@ -54,10 +54,9 @@ public class ProductCartServlet extends HttpServlet {
             session.setAttribute("productStockErr", "Error: Order number format incorrect");
         }else {
             orderNumber = Integer.parseInt(number);
-            if(orderNumber < 0 || orderNumber > selectedProduct.getStock()) {
+            if(orderNumber <= 0 || orderNumber > selectedProduct.getStock()) {
                 //set incorrect password different error to the session
-                session.setAttribute("productStockErr", "Error: Order number out of stock");
-                
+                session.setAttribute("productStockErr", "Error: Order number should be " + "1 to " + selectedProduct.getStock());
             }else {
                 //System.out.println("index: " + index);
                 String username = user.getUsername();
@@ -67,9 +66,7 @@ public class ProductCartServlet extends HttpServlet {
                 int price = selectedProduct.getPrice();
                 int quantity = Integer.parseInt(number);
                 int remainStock = selectedProduct.getStock() - quantity;
-                
-                
-                
+                               
 
                 if(!cartProductList.isProductInList(productNo)) {
                     try {
@@ -92,7 +89,10 @@ public class ProductCartServlet extends HttpServlet {
                 //store information into session
                 session.setAttribute("successInfo", "Product is added into cart");
                 try {
-                    session.setAttribute("availableProductList", productManager.getAllProducts());
+                    ProductList productList = (ProductList) session.getAttribute("availableProductList");
+                    productList.updateProductRemainNumber(productNo, quantity);
+                    session.setAttribute("availableProductList", productList);
+                    //session.setAttribute("availableProductList", productManager.getAllProducts());
                     session.setAttribute("cartProductList", cartManager.getCartProductByUsername(username));
                 } catch (SQLException ex) {
                     Logger.getLogger(ProductCartServlet.class.getName()).log(Level.SEVERE, null, ex);

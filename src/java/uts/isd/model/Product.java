@@ -81,8 +81,8 @@ public class Product {
         return addition;
     }
     
-    public void updateSoldNumber(int number) {
-        this.stock = this.stock + number;
+    public void updateRemainStock(int number) {
+        this.stock = this.stock - number;
     }
     
     public void updateStockByReturnNumber(int number) {
