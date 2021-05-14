@@ -19,6 +19,7 @@ import uts.isd.model.OrderList;
 import uts.isd.model.Product;
 import uts.isd.model.ProductList;
 import uts.isd.model.User;
+import uts.isd.model.dao.DBCartManager;
 import uts.isd.model.dao.DBManager;
 import uts.isd.model.dao.DBOrderManager;
 import uts.isd.model.dao.DBOrderlineManager;
@@ -41,10 +42,23 @@ public class DeleteUserController extends HttpServlet{
         DBOrderManager orderManager = (DBOrderManager) session.getAttribute("orderManager");
         DBOrderlineManager orderlineManager = (DBOrderlineManager) session.getAttribute("orderlineManager");
         DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
+        DBCartManager cartManager = (DBCartManager) session.getAttribute("cartManager");
         OrderList unPaidOrderList = new OrderList();
         ProductList allReturnProducts = new ProductList();
+        //Get all available products in database
+        ProductList availableProductList = new ProductList();
+        
+        
+        try {
+            availableProductList = productManager.getAllProducts();
+        } catch (SQLException ex) {
+            Logger.getLogger(DeleteUserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
         try {
             unPaidOrderList = orderManager.getOrdersByUsernameAndStatus(user.getUsername(), 0);
+            
+            
             for(int i = 0; i < unPaidOrderList.listSize(); i++) {
                 //Get each order
                 Order getOrder = unPaidOrderList.getOrderByIndex(i);
@@ -56,11 +70,10 @@ public class DeleteUserController extends HttpServlet{
                 for(int j = 0; j < returnProducts.listSize(); j++) {
                     allReturnProducts.addProduct(returnProducts.getProductByIndex(j));
                 }
-                //3 update orderline return product status to -1
+                    //3 update orderline return product status to -1
                 orderlineManager.updateAllProductStatus(orderID, -1);
             }
-            //Get all available products in database
-            ProductList availableProductList = productManager.getAllProducts();
+                
             for(int i = 0; i < availableProductList.listSize(); i++) {
                 Product eachStockProduct = availableProductList.getProductByIndex(i);
                 for(int j = 0; j < allReturnProducts.listSize(); j++) {
@@ -68,10 +81,30 @@ public class DeleteUserController extends HttpServlet{
                     if(eachStockProduct.getProductNo() == eachReturnProduct.getProductNo()) {
                         eachStockProduct.updateStockByReturnNumber(eachReturnProduct.getStock());
                     }
-                
+
                 }
             }
             
+            
+            //Get cart products in database
+            ProductList cartProductList = new ProductList();
+            cartProductList = cartManager.getCartProductByUsername(user.getUsername());
+            
+            if(cartProductList.listSize() != 0) {
+                for(int i = 0; i < availableProductList.listSize(); i++) {
+                    Product eachProduct = availableProductList.getProductByIndex(i);
+                    for(int j = 0; j < cartProductList.listSize(); j++) {
+                        Product returnProduct = cartProductList.getProductByIndex(j);
+                        if(eachProduct.getProductNo() == returnProduct.getProductNo()) {
+                            eachProduct.updateStockByReturnNumber(returnProduct.getStock());
+                        }
+                    }
+                }
+            }
+            
+            cartManager.deleteProduct(user.getUsername());
+            
+                        
             //update each product stock in the database
             for(int i = 0; i < availableProductList.listSize(); i++) {
                 int productNo = availableProductList.getProductByIndex(i).getProductNo();
@@ -80,9 +113,10 @@ public class DeleteUserController extends HttpServlet{
             }
             //delete the account
             manager.deleteUser(user.getUsername());
-  
+            
             //stop the session
             session.invalidate();
+            
             request.getRequestDispatcher("delete.jsp").include(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(DeleteUserController.class.getName()).log(Level.SEVERE, null, ex);
