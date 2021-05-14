@@ -413,7 +413,7 @@ a:hover {
 }
 
 .graphic {
-    background-color:coral;
+    background-color:#778899;
     color: white;
 }
 
@@ -423,15 +423,14 @@ a:hover {
 }
 
 .storage {
-    background-color:currentColor;
     color: white;
+    background-color:chocolate;
 }
 
 .case {
-    background-color:#1b9bff;
     color: white;
+    background-color:yellowgreen;
 }
-
 
 
 

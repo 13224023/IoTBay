@@ -29,7 +29,8 @@ public class CustomerSearchProductServlet extends HttpServlet {
         String keyword;
         keyword = request.getParameter("keyword");
         DBProductManager productManager = (DBProductManager) session.getAttribute("productManager");
-        
+        Validator validator = new Validator();
+        validator.clean(session);
         try {
             session.setAttribute("availableProductList", productManager.getProductByKeyword(keyword));
             request.getRequestDispatcher("welcome.jsp").include(request, response);

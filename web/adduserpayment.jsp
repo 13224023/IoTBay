@@ -42,7 +42,6 @@
             <p class="errorinfo"><%=TypeErr != null? TypeErr: ""%></p>
             <p class="errorinfo"><%=NumberErr != null? NumberErr: ""%></p>
             <p class="errorinfo"><%=existErr != null? existErr: ""%></p>
-            <p class="errorinfo"><%=existErr != null? existErr: ""%></p>
             <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
         </form>
     </body>

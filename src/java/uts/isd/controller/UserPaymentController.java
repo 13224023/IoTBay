@@ -31,6 +31,8 @@ public class UserPaymentController extends HttpServlet{
         if(user == null || !user.getUsertype().equals("2")) {
             response.sendRedirect(redirectURL);
         }
+        Validator validator = new Validator();
+        validator.clean(session);
         DBPaymentManager paymentManager = (DBPaymentManager) session.getAttribute("paymentManager");
         try {
             PaymentList paymentList = paymentManager.getPaymentByUsername(user.getUsername());

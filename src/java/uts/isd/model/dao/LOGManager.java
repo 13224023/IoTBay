@@ -78,6 +78,27 @@ public class LOGManager {
             
     }
     
+    public boolean findLogByUsername(String username) throws SQLException {
+        String fetch = "SELECT * FROM ROOT.LOGS " +
+            "WHERE USERNAME = ?";
+        this.preparedStmt = connection.prepareStatement(fetch);
+        this.preparedStmt.setString(1, username);
+        resultSet = preparedStmt.executeQuery();
+        try {
+            if(resultSet.next()) {
+                resultSet.close();
+                return true;
+            }
+        }catch(SQLException ex) {
+            resultSet.close(); 
+            
+        } 
+        return false;   
+            
+    }
+    
+    
+    
     public void updateLog(int number, String username,
             String type, Date date, Time time) throws SQLException {
         String query = "UPDATE ROOT.LOGS SET " + 
@@ -110,6 +131,20 @@ public class LOGManager {
             preparedStmt.close();
         }
     }
+    
+    
+    public void deleteLog(String username) throws SQLException {
+        String query = "DELETE FROM ROOT.LOGS WHERE USERNAME = ?";
+        if(findLogByUsername(username)) {
+            preparedStmt = connection.prepareStatement(query);
+            preparedStmt.setString(1, username);
+            preparedStmt.executeUpdate();
+            preparedStmt.close();
+        }
+    }
+    
+    
+    
     
     
     public LogList getLogsByUsername(String username) throws SQLException {

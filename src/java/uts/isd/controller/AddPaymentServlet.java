@@ -47,7 +47,7 @@ public class AddPaymentServlet extends HttpServlet{
         }else {
             try {
                 if(paymentManager.findPaymentByTypeAndNumber(username, type, number)){
-                    session.setAttribute("existErr","Payment already exists");
+                    session.setAttribute("existErr","Error: Payment already exists");
                 
                 }else {
                     paymentManager.addPayment(username, type, number);

@@ -131,6 +131,25 @@ public class TestLog {
     
     }
     
+    private void testDeleteUserLog() {
+        System.out.print("Username: ");
+        String username = in.nextLine();
+        try {
+            if(logManager.findLogByUsername(username)) {
+                //test update user profile
+                logManager.deleteLog(username);
+                System.out.println("Username: " + username + "'s logs are removed from database.");
+            }else {
+                System.out.println("Username: " + username + "'s logs do not exist in database.");
+            }
+        }catch(SQLException ex) {
+            Logger.getLogger(TestLog.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    
+    
+    
     private void showAll() {
         try {
             LogList logList = logManager.getAllLogs();
@@ -157,6 +176,7 @@ public class TestLog {
                     break;
                 case 'D':
                     testDelete();
+                    testDeleteUserLog();
                     break;
                 case 'F':
                     testFilter();
