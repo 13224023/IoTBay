@@ -10,10 +10,12 @@ public class Validator implements Serializable{
 
  
     private final String emailPattern = "([a-zA-Z0-9]+)(([._-])([a-zA-Z0-9]+))*(@)([a-z]+)(.)([a-z]{3})((([.])[a-z]{0,2})*)";
-    private final String namePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";       
-    private final String passwordPattern = "[a-z0-9]{4,}";
-    private final String usernamePattern = "[a-z0-9]{4,15}";
-    private final String productNamePattern = "[A-Za-z0-9\\s]{4,20}";
+    private final String namePattern = "([A-Z][a-z]+[\\s])+[A-Z][a-z]*";
+    private final String firstLastNamePattern = "[A-Za-z\\s]{1,20}";
+    private final String passwordPattern = "[A-za-z0-9]{4,15}";
+    private final String usernamePattern = "[A-Za-z0-9]{4,15}";
+    private final String phonePattern = "[0-9]{8,13}";
+    private final String productNamePattern = "[A-Za-z0-9\\s]{3,20}";
     private final String productTypePattern = "[A-Za-z0-9\\s]{3,20}";
     private final String productNumberPattern = "[0-9]{1,}";
     private final String paymentTypePattern = "[A-Za-z\\s]{4,20}";
@@ -36,6 +38,9 @@ public class Validator implements Serializable{
        return validate(emailPattern,email);   
     }
 
+    public boolean validateFirstOrLastName(String name){
+       return validate(firstLastNamePattern,name); 
+    }  
        
     public boolean validateName(String name){
        return validate(namePattern,name); 
@@ -77,6 +82,11 @@ public class Validator implements Serializable{
        return validate(paymentNumberPattern,number); 
     }
     
+    public boolean validatePhoneNumber(String number){
+       return validate(phonePattern,number); 
+    }
+    
+    
     public boolean validateDate(String month, String days) {
         if(validateProductNumber(month) && validateProductNumber(days)){
             int intMonth = Integer.parseInt(month);
@@ -113,9 +123,12 @@ public class Validator implements Serializable{
         session.setAttribute("emailErr", "");
         session.setAttribute("passErr", "");
         session.setAttribute("nameErr", "");
+        session.setAttribute("firstnameErr", "");
+        session.setAttribute("lastnameErr", "");
         session.setAttribute("existErr", "");
         session.setAttribute("usernameErr", "");
         session.setAttribute("passDiffErr", "");
+        session.setAttribute("phoneNumberErr", "");
         session.setAttribute("profileUpdate", "");
         session.setAttribute("userLock", "");
         session.setAttribute("productNameErr","");

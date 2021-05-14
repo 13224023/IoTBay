@@ -21,6 +21,9 @@
             User user = (User) session.getAttribute("user");
             String emailErr = (String) session.getAttribute("emailErr");
             String profileUpdate = (String) session.getAttribute("profileUpdate");
+            String firstnameErr = (String) session.getAttribute("firstnameErr");
+            String lastnameErr = (String) session.getAttribute("lastnameErr");
+            String phoneNumberErr = (String) session.getAttribute("phoneNumberErr");
         %>  
         <form class="box" action="EditServlet" method="post" id="update">
             <h1>Edit Profile</h1>
@@ -31,7 +34,10 @@
             <input type="tel" id="phone" name="phone" autocomplete="off" placeholder="Phone Number" value="<%=user.getPhone()%>">
             <input type="submit" form="update" name="updated" value="Update">
             <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/ProfileController'">
+            <p class="errorinfo"><%=firstnameErr != null? firstnameErr: ""%></p>
+            <p class="errorinfo"><%=lastnameErr != null? lastnameErr: ""%></p>
             <p class="errorinfo"><%=emailErr != null? emailErr: ""%></p>
+            <p class="errorinfo"><%=phoneNumberErr != null? phoneNumberErr: ""%></p>
             <p class="successinfo"><%=profileUpdate != null? profileUpdate: ""%></p>
         </form>
     </body>

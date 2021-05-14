@@ -49,7 +49,7 @@
                 <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
             </div>
             
-            <%if(orderList.availableOrder() == 0) {%>
+            <%if(orderList.listSize() == 0) {%>
                 <div>
                     <h1>No Order</h1>
                 </div>
@@ -67,7 +67,7 @@
                         <div>
                             <div class="<%=orderStatus%>">
                                 <h1 class="title_left">Order Number <%=formatter.format(orderID)%></h1>
-                                <h1 class="title_right">Order Date: <%=date%> Total: $<%=amount%></h1>
+                                <h1 class="title_right">Order Date: <%=date%></h1>
                             </div>
                             <div class="<%=orderStatus%>">
                                 <h1>Product Details</h1>
@@ -84,6 +84,10 @@
                                     <h2><%= productName.toUpperCase()%></h2>
                                 </div>
                                 <%}%>
+                                <div>
+                                    <h1 class="title_right">$<%=amount%></h1>
+                                    <h1 class="title_left">Total: </h1>
+                                </div>
                             </div>
                             <%if(orderList.getOrderByIndex(i).getStatus() == 0) {%>
                                 <div class="<%=orderStatus%>">
@@ -97,6 +101,10 @@
                                 <div class="<%=orderStatus%>">
                                     <h1 class="title_right">Payment Date: <%=orderList.getOrderByIndex(i).getPaymentDate()%></h1>
                                     <h1>Status: Paid</h1>
+                                </div>
+                                <div class="<%=orderStatus%>">
+                                    <h1 class="title_right">Payment number: <%=orderList.getOrderByIndex(i).getPaymentNumber()%></h1>
+                                    <h1>Payment type: <%=orderList.getOrderByIndex(i).getPaymentType().toUpperCase()%></h1>
                                 </div>
                             <%}else {%>
                                 <div class="<%=orderStatus%>">

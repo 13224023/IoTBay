@@ -50,6 +50,7 @@
             <p class="errorinfo"><%=passDiffErr != null? passDiffErr: ""%></p>
             <p class="errorinfo"><%=emailErr != null? emailErr: ""%></p>
             <p class="errorinfo"><%=existErr != null? existErr: ""%></p>
+            
         </form>
         
     </body>

@@ -47,12 +47,12 @@ public class AddUserServlet extends HttpServlet{
         
         if (!validator.validateUsername(username)) {           
             //set incorrect email error to the session
-            session.setAttribute("usernameErr", "Error: Username format incorrect");
+            session.setAttribute("usernameErr", "Error: 4 to 15 character(A-Z,a-z,0-9) for username format");
             //redirect user back to the register.jsp
             request.getRequestDispatcher("adduser.jsp").include(request, response);
         } else if (!validator.validatePassword(uPassword) || !validator.validatePassword(cPassword)) {                  
             //set incorrect password error to the session
-            session.setAttribute("passErr", "Error: Password format incorrect");
+            session.setAttribute("passErr", "Error: 4 to 15 character(A-Z,a-z,0-9) for password format");
             //redirect user back to the register.jsp
             request.getRequestDispatcher("adduser.jsp").include(request, response);
         } else if(!validator.isValidatePassword(uPassword, cPassword)) {
@@ -66,7 +66,7 @@ public class AddUserServlet extends HttpServlet{
                 user = manager.findUserByUserName(username);
                 if(user != null) {
                     //set information of that the user already exists
-                    session.setAttribute("existErr", "Error: User already exists");
+                    session.setAttribute("existErr", "Error: Username already exists");
                     //redirect user to the welcom.jsp
                     request.getRequestDispatcher("adduser.jsp").include(request, response);
                 }else {

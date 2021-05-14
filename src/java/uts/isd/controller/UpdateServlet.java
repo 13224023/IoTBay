@@ -51,9 +51,21 @@ public class UpdateServlet extends HttpServlet{
         //5- retrieve the manager instance from session
         DBManager manager = (DBManager) session.getAttribute("manager");
         
-        if(!validator.validateEmail(email)) {
+        if(!validator.validateFirstOrLastName(firstname)) {
+            session.setAttribute("firstnameErr", "Error: 1 - 20 characters(A-Z,a-z,space) for first name format");
+            //redirect user back to the register.jsp
+            request.getRequestDispatcher("update.jsp").include(request, response);
+        }else if(!validator.validateFirstOrLastName(lastname)) {
+            session.setAttribute("lastnameErr", "Error: 1 - 20 characters(A-Z,a-z,space) for last name format");
+            //redirect user back to the register.jsp
+            request.getRequestDispatcher("update.jsp").include(request, response);
+        }else if(!validator.validateEmail(email)) {
             //set incorrect email error to the session
-            session.setAttribute("emailErr", "Error: Email format incorrect");
+            session.setAttribute("emailErr", "Error: Email format xxx.xxx@xxx.xxx.xxx");
+            //redirect user back to the register.jsp
+            request.getRequestDispatcher("update.jsp").include(request, response);
+        }else if(!validator.validatePhoneNumber(phone)) {
+            session.setAttribute("phoneNumberErr", "Error: 8 - 13 digital characters(0-9) for phone format");
             //redirect user back to the register.jsp
             request.getRequestDispatcher("update.jsp").include(request, response);
         }else {

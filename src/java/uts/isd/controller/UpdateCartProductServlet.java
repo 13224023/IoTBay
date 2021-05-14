@@ -55,7 +55,7 @@ public class UpdateCartProductServlet extends HttpServlet{
                 orderNumber = Integer.parseInt(quantity);
                 if(orderNumber <= 0 || orderNumber > maxOrderNumber) {
                     //set incorrect password different error to the session
-                    session.setAttribute("productStockErr", "Error: Order number out of stock");
+                    session.setAttribute("productStockErr", "Error: Order number should be " + "1 to " + maxOrderNumber);
                 }else {
                     productNo = Integer.parseInt(update);
                     int remainNumber = maxOrderNumber - orderNumber;

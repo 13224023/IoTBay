@@ -51,7 +51,7 @@ public class SearchRecordServlet extends HttpServlet {
                 session.setAttribute("paymentRecord", filterRecord);
             }
             else {
-                session.setAttribute("dateFormErr", "No result");
+                session.setAttribute("dateFormErr", "No matches, display all records");
             }    
             request.getRequestDispatcher("paymentrecord.jsp").include(request, response);
         }

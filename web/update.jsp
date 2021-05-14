@@ -24,6 +24,9 @@
             User specificUser = (User) session.getAttribute("specificUser");
             String emailErr = (String) session.getAttribute("emailErr");
             String profileUpdate = (String) session.getAttribute("profileUpdate");
+            String firstnameErr = (String) session.getAttribute("firstnameErr");
+            String lastnameErr = (String) session.getAttribute("lastnameErr");
+            String phoneNumberErr = (String) session.getAttribute("phoneNumberErr");
         %>   
                 
         <form class="box" action="UpdateServlet" method="post" id="update">
@@ -37,7 +40,10 @@
             <input type="button" value="Back" onclick="location.href='http://localhost:8080/IOTBay/accountlist.jsp'">
             <input type="hidden" name="keypassword" value="<%=specificUser.getPassword()%>">
             <input type="hidden" name="keyuser" value="<%=specificUser.getUsername()%>">
+            <p class="errorinfo"><%=firstnameErr != null? firstnameErr: ""%></p>
+            <p class="errorinfo"><%=lastnameErr != null? lastnameErr: ""%></p>
             <p class="errorinfo"><%=emailErr != null? emailErr: ""%></p>
+            <p class="errorinfo"><%=phoneNumberErr != null? phoneNumberErr: ""%></p>
             <p class="successinfo"><%=profileUpdate != null? profileUpdate: ""%></p>
         </form>
     </body>

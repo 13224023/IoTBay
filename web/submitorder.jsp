@@ -47,10 +47,14 @@
             <div>
                 <div class="paid">
                     <h1 class="title_left font_size">Order Number <%=formatter.format(order.getOrderID())%></h1>
-                    <h1 class="title_right font_size">Order Date: <%=order.getOrderDate()%> Total: $<%=order.getAmount()%></h1>
+                    <h1 class="title_right font_size">Order Date: <%=order.getOrderDate()%></h1>
                 </div>
             </div>
+            
             <div>
+                
+            
+            <div class="paid">
                 <div class="paid font_size_smaller"><h1>Product Details</h1></div>
                 <%for(int j = 0; j < productList.listSize(); j++) { 
                     String productName = productList.getProductByIndex(j).getName();
@@ -64,6 +68,11 @@
                     <h1><%= productName.toUpperCase()%></h1>
                 </div>
                 <%}%>
+                <div>
+                    <h1 class="title_right">$<%=order.getAmount()%></h1>
+                    <h1>Total: </h1>
+                </div>
+            </div>
             </div>
             <div>
                 <div class="paid font_size_smaller"><h1>Payment Selection</h1></div>

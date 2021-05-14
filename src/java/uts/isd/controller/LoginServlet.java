@@ -47,12 +47,12 @@ public class LoginServlet extends HttpServlet {
         
         if (!validator.validateUsername(username)) {           
             //set incorrect email error to the session
-            session.setAttribute("usernameErr", "Error: Username format incorrect");
+            session.setAttribute("usernameErr", "Error: 4 to 15 character(A-Z,a-z,0-9) for username format");
             //redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);
         } else if (!validator.validatePassword(password)) {                  
             //set incorrect password error to the session
-            session.setAttribute("passErr", "Error: Password format incorrect");
+            session.setAttribute("passErr", "Error: 4 to 15 character(A-Z,a-z,0-9) for password format");
 
             //redirect user back to the login.jsp
             request.getRequestDispatcher("login.jsp").include(request, response);

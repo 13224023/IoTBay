@@ -51,7 +51,7 @@ public class ChangePasswordServlet extends HttpServlet {
                 !validator.validatePassword(nPassword) ||
                 !validator.validatePassword(cPassword)) {                  
             //set incorrect password error to the session
-            session.setAttribute("passErr", "Error: Password format incorrect");
+            session.setAttribute("passErr", "Error: 4 to 15 character(A-Z,a-z,0-9) for password format");
             //redirect user back to the register.jsp
             request.getRequestDispatcher("changepassword.jsp").include(request, response);
         } else if(!validator.isValidatePassword(nPassword, cPassword)) {
