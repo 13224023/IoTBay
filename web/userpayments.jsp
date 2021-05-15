@@ -25,6 +25,7 @@
     <body>
         <%
             PaymentList paymentList = (PaymentList) session.getAttribute("paymentList");
+            String successInfo = (String)session.getAttribute("successInfo");
         %>
         <nav class="customer">
             <input type="checkbox" id="check">
@@ -43,6 +44,7 @@
                     <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Type, Payment number">
                     <button type="submit" class="submit" name="filter1" value="search">Search</button>
                 </form>
+                <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
             </div>
             <%if(paymentList.listSize() == 0) {%>
                 <h1>No payment</h1>

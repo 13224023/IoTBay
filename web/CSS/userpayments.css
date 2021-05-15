@@ -385,3 +385,7 @@ a:hover {
     color: white;
     background-color: grey;
 }
+
+.successinfo {
+    color: green;
+}

@@ -34,6 +34,7 @@ public class DeletePaymentServlet extends HttpServlet {
         DBPaymentManager paymentManager = (DBPaymentManager)session.getAttribute("paymentManager");
         try {
             paymentManager.deletePayment(convertedNumber);
+            session.setAttribute("successInfo","Your payment method is deleted successfully");
             session.setAttribute("paymentList", paymentManager.getPaymentByUsername(username));
         } catch (SQLException ex) {
             Logger.getLogger(DeletePaymentServlet.class.getName()).log(Level.SEVERE, null, ex);
