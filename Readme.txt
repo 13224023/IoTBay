@@ -38,4 +38,10 @@ functionalities
    6.3 The system displays the information of "Your account has been logged out."
    6.4 Click the button of "Back to homepage and The page jump back to the homepage.
    
-    
+Create database guidance
+
+1 Create database called ISD with root for both account and password
+
+2 In database table folder, right click and choose restructure for importing all database.grab file into table folder
+
+3 For instance addition, right click each table, choose execute command, and then copy and paste instance instruction from each database text file 
