@@ -42,8 +42,10 @@
                 <p class="errorinfo"><%=productStockErr != null? productStockErr: ""%></p>
                 <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
             </div>
-            
-            <%for (int i = 0; i < orderProductList.listSize(); i++) {
+            <%if(orderProductList.listSize() == 0) {%>
+                <h1>No matched products</h1>
+            <%}else {%>
+                <%for (int i = 0; i < orderProductList.listSize(); i++) {
                 int productNo = orderProductList.getProductByIndex(i).getProductNo();
                 String name = orderProductList.getProductByIndex(i).getName();
                 String type = orderProductList.getProductByIndex(i).getType();
@@ -77,6 +79,9 @@
             <div>
                 <h1 class="total_right">Total: $<%=total%></h1>
             </div>
+            
+            <%}%>
+            
                 
            
         </section>
