@@ -83,34 +83,38 @@
                     <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
                 </form>
             </div>
-            <%for (int i = 0; i < availableProductList.listSize(); i++) {
+            <%if(availableProductList.listSize() == 0) {%>
+                <h1>No available products</h1>
+            <%}else {%>
+                <%for (int i = 0; i < availableProductList.listSize(); i++) {
                 int productNo = availableProductList.getProductByIndex(i).getProductNo();
                 String name = availableProductList.getProductByIndex(i).getName();
                 String type = availableProductList.getProductByIndex(i).getType();
                 int price = availableProductList.getProductByIndex(i).getPrice();
                 int stock = availableProductList.getProductByIndex(i).getStock();
             %>
-            <div>
-                <div class="<%=type.toLowerCase()%>">
-                    <h1><%=type.toUpperCase()%></h1>
+                <div>
+                    <div class="<%=type.toLowerCase()%>">
+                        <h1><%=type.toUpperCase()%></h1>
+                    </div>
+                    <div class="<%=type.toLowerCase()%>">
+                        <h3>Product Name: <%=name%></h3>
+                        <h3>Product Price: <%=price%></h3>
+                        <h3>Available stock: <%=stock%></h3>
+                    </div>
+                    <div class="<%=type.toLowerCase()%>">
+                        <%if(stock != 0) {%>
+                            <form method="post" action="ProductCartServlet">
+                                <label class="inline" for="<%=productNo%>"><h3>Quantity: </h3></label>
+                                <input class="inline" type="text" id="<%=productNo%>" name="quantity" placeholder="Number">
+                                <button class="edit inline" type="submit" name="add" value="<%=i%>">Add to cart</button>
+                            </form>
+                        <%}else {%>
+                        <h3>Quantity: <span>Sold out</span></h3>
+                        <%}%>
+                    </div>
                 </div>
-                <div class="<%=type.toLowerCase()%>">
-                    <h3>Product Name: <%=name%></h3>
-                    <h3>Product Price: <%=price%></h3>
-                    <h3>Available stock: <%=stock%></h3>
-                </div>
-                <div class="<%=type.toLowerCase()%>">
-                    <%if(stock != 0) {%>
-                        <form method="post" action="ProductCartServlet">
-                            <label class="inline" for="<%=productNo%>"><h3>Quantity: </h3></label>
-                            <input class="inline" type="text" id="<%=productNo%>" name="quantity" placeholder="Number">
-                            <button class="edit inline" type="submit" name="add" value="<%=i%>">Add to cart</button>
-                        </form>
-                    <%}else {%>
-                    <h3>Quantity: <span>Sold out</span></h3>
-                    <%}%>
-                </div>
-            </div>
+                <%}%>
             <%}%>
         <%}%>
         </section>
