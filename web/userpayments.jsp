@@ -41,7 +41,7 @@
         <section>
             <div>
                 <form class="keyword" method="post" action="SearchPaymentServlet">
-                    <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Type, Payment number">
+                    <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Type or Card number">
                     <button type="submit" class="submit" name="filter1" value="search">Search</button>
                 </form>
                 <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
