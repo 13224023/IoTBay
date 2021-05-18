@@ -43,6 +43,7 @@ public class DeleteProductServlet extends HttpServlet {
         try {
                 if(productManager.findProduct(number)) productManager.deleteProduct(number);
                 session.setAttribute("productList", productManager.getAllProducts());
+                session.setAttribute("successInfo", "The product is deleted successfully");
                 request.getRequestDispatcher("productlist.jsp").include(request, response);
         } catch (SQLException ex) {           
                 Logger.getLogger(DeleteProductServlet.class.getName()).log(Level.SEVERE, null, ex);       

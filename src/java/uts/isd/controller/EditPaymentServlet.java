@@ -40,9 +40,9 @@ public class EditPaymentServlet extends HttpServlet {
         
         
         if(!validator.validatePaymentType(type)) {
-            session.setAttribute("paymentTypeErr", "Error: Payment type format incorrect");
+            session.setAttribute("paymentTypeErr", "Error: Payment type must consist of 4 to 20 characters");
         }else if(!validator.validatePaymentNumber(number)) {
-            session.setAttribute("paymentNumberErr", "Error: Number format incorrect");
+            session.setAttribute("paymentNumberErr", "Error: Payment number must consist of 6 to 20 digital characters(0-9)");
         }else {
             try {
                 Payment payment = paymentManager.getPaymentByPaymentNo(convertedNumber);

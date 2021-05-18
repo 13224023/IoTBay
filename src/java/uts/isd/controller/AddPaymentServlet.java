@@ -41,9 +41,9 @@ public class AddPaymentServlet extends HttpServlet{
         
         
         if (!validator.validatePaymentType(type)) {
-            session.setAttribute("paymentTypeErr","Error: Payment type incorrect");
+            session.setAttribute("paymentTypeErr","Error: Payment type must consist of 4 to 20 characters");
         }else if(!validator.validatePaymentNumber(number)) {
-            session.setAttribute("paymentNumberErr","Error: Payment number incorrect");
+            session.setAttribute("paymentNumberErr","Error: Payment number must consist of 6 to 20 digital characters(0-9)");
         }else {
             try {
                 if(paymentManager.findPaymentByTypeAndNumber(username, type, number)){

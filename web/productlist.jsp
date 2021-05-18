@@ -18,6 +18,7 @@
     <body>
         <%
             ProductList productList = (ProductList)session.getAttribute("productList");
+            String successInfo = (String)session.getAttribute("successInfo");
         %>
         <nav class="staff">
             <input type="checkbox" id="check">
@@ -35,6 +36,7 @@
                 <form class="keyword" method="post" action="SearchProductServlet">
                     <input type="text" class="search" name="keyword" autocomplete="off" placeholder="Product name or type">
                     <button type="submit" class="submit" name="filter" value="search">Search</button>
+                    <p class="successinfo"><%=successInfo != null? successInfo: ""%></p>
                 </form>
             </div>
             <%for (int i = 0; i < productList.listSize(); i++) {

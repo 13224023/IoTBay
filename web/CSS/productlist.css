@@ -413,3 +413,8 @@ a:hover {
 .case {
     background-color:yellowgreen;
 }
+
+.successinfo {
+    margin: 5px;
+    color: green;
+}
